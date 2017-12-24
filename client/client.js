@@ -1164,7 +1164,7 @@ setInterval(function() {
 		drawScoreboard();
 	} else {
 		// SHOW TEXT INPUT
-		textInput.style.display = "";
+		textInput.style.display = "initial";
 
 		// TITLE SCREEN IMAGE
 		ctx.drawImage(bgImage, canvas.width / 2 - bgImage.width / 2, canvas.height / 2 - bgImage.height / 2);
