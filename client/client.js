@@ -1060,61 +1060,65 @@ setInterval(function() {
 	width = window.innerWidth;
 	height = window.innerHeight;
 
-	if (Player.list[selfId]) {
-		scoreboard_content.style.opacity = 0;
-		chatForm.style.opacity = 1;
-		chatInput.style.opacity = 1;
-		chatText.style.opacity = 1;
+	if (inGame) {
+		if (Player.list[selfId]) {
+			scoreboard_content.style.opacity = 0;
+			chatForm.style.opacity = 1;
+			chatInput.style.opacity = 1;
+			chatText.style.opacity = 1;
 
-		if (Player.list[selfId].score > 20 && Player.list[selfId].hasUpgraded == false) {
-			Player.list[selfId].canUpgrade = true;
-			document.getElementsByClassName('upgradedetect')[0].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[1].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[2].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[3].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[4].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[5].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[6].style.display = 'inline';
-			document.getElementsByClassName('upgradedetect')[7].style.display = 'inline';
+			if (Player.list[selfId].score > 20 && Player.list[selfId].hasUpgraded == false) {
+				Player.list[selfId].canUpgrade = true;
+				document.getElementsByClassName('upgradedetect')[0].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[1].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[2].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[3].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[4].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[5].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[6].style.display = 'inline';
+				document.getElementsByClassName('upgradedetect')[7].style.display = 'inline';
+			}
 		}
-	}
-	if (spin_angle < 360) {
-		spin_angle += 0.25;
-	} else {
-		spin_angle = 0;
-	}
-	if (!selfId)
-		return;
-	/*if (!(pastx == Player.list[selfId].x) || !(pasty == Player.list[selfId].y)){
-	}*/
-	ctx.clearRect(0, 0, width, height);
-	ctx.fillStyle = '#b9b9b9';
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = '#cdcdcd';
-	drawGrid(width / 2 - Player.list[selfId].x, height / 2 - Player.list[selfId].y, 1500, 1500, 24, "#C6C6C6", 0, 0);
-	pastx = Player.list[selfId].x;
-	pasty = Player.list[selfId].y;
-
-	for (var i in Shape.list) {
-		Shape.list[i].draw();
-	}
-	for (var i in Bullet.list) {
-		Bullet.list[i].draw();
-	}
-	for (var i in Player.list) {
-		if (Player.list[i].id == selfId) {
-			Player.list[i].draw(angle, true);
+		if (spin_angle < 360) {
+			spin_angle += 0.25;
 		} else {
-			Player.list[i].draw(angle, false);
+			spin_angle = 0;
 		}
-		Player.list[i].notif_timer += 1;
-	}
+		if (!selfId)
+			return;
+		/*if (!(pastx == Player.list[selfId].x) || !(pasty == Player.list[selfId].y)){
+		}*/
+		ctx.clearRect(0, 0, width, height);
+		ctx.fillStyle = '#b9b9b9';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = '#cdcdcd';
+		drawGrid(width / 2 - Player.list[selfId].x, height / 2 - Player.list[selfId].y, 1500, 1500, 24, "#C6C6C6", 0, 0);
+		pastx = Player.list[selfId].x;
+		pasty = Player.list[selfId].y;
 
-	drawUpgrades();
-	drawHotbar();
-	drawKills();
-	drawPlayerCount();
-	drawScoreboard();
+		for (var i in Shape.list) {
+			Shape.list[i].draw();
+		}
+		for (var i in Bullet.list) {
+			Bullet.list[i].draw();
+		}
+		for (var i in Player.list) {
+			if (Player.list[i].id == selfId) {
+				Player.list[i].draw(angle, true);
+			} else {
+				Player.list[i].draw(angle, false);
+			}
+			Player.list[i].notif_timer += 1;
+		}
+
+		drawUpgrades();
+		drawHotbar();
+		drawKills();
+		drawPlayerCount();
+		drawScoreboard();
+	} else {
+
+	}
 }, 10);
 
 // Replace this with drawStats soon.
