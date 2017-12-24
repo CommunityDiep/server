@@ -182,7 +182,7 @@ function drawTank(x, y, angle, radius, color, barrels, bodyType) {
 	ctx.scale(radius / 48, radius / 48);
 
 	ctx.lineJoin = "round";
-	ctx.strokeStyle = "#555555";
+	ctx.strokeStyle = softStroke ? shadeColor2("#999999", -0.25) : "#555555";
 	ctx.fillStyle = "#999999";
 	ctx.lineWidth = 4 / (radius / 48);
 
@@ -215,6 +215,7 @@ function drawTank(x, y, angle, radius, color, barrels, bodyType) {
 		ctx.beginPath();
 		ctx.arc(48 - 48, 48 - 48, 48, 0, 2 * Math.PI);
 		ctx.fillStyle = color;
+		ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 		ctx.fill();
 		ctx.stroke();
 		ctx.closePath();
@@ -242,6 +243,7 @@ function drawTank(x, y, angle, radius, color, barrels, bodyType) {
 		ctx.beginPath();
 		ctx.arc(48 - 48, 48 - 48, 48, 0, 2 * Math.PI);
 		ctx.fillStyle = color;
+		ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 		ctx.fill();
 		ctx.stroke();
 		ctx.closePath();
@@ -276,6 +278,7 @@ function drawTank(x, y, angle, radius, color, barrels, bodyType) {
 		ctx.beginPath();
 		ctx.arc(48 - 48, 48 - 48, 48, 0, 2 * Math.PI);
 		ctx.fillStyle = color;
+		ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 		ctx.fill();
 		ctx.stroke();
 		ctx.closePath();
@@ -473,7 +476,7 @@ function degToRad(deg) {
 function drawPolygon(x, y, angle, radius, color, sides) {
 	ctx.save();
 	ctx.fillStyle = color;
-	ctx.strokeStyle = softStroke ? shadeColor2(color, 30) : "#555555";
+	ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 	ctx.lineJoin = "round";
 	ctx.beginPath();
 	var step = ((Math.PI * 2) / sides);
