@@ -600,7 +600,7 @@ var Player = function(initPack) {
 			} else {
 				var color = tcolor[self.team];
 			};
-			drawTank(x + 28, y + 28, self.angle, size, color, tanktree[self.tank].barrels, tanktree[self.tank].body);
+			drawTank(x, y, self.angle, size, color, tanktree[self.tank].barrels, tanktree[self.tank].body);
 			/*if (self.tank === "destroyer"){
 			  drawTank(x+28, y+28, self.angle, size, color, , 0);
 			} else {
