@@ -26,7 +26,8 @@ var bgImage = new Image(window.innerWidth, window.innerHeight);
 bgImage.src = 'https://diep.io/title.png';
 
 // Prevent scrolling
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function(event) {
+	event.preventDefault();
 	window.scrollTo(0, 0);
 });
 
