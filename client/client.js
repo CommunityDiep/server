@@ -1219,8 +1219,6 @@ var drawScoreboard = function() {
 }
 
 document.onkeydown = function(event) {
-	event.preventDefault();
-
 	if (!(document.activeElement == document.getElementById('chat-input'))) {
 		if (event.keyCode == 69) //e
 			socket.emit('keyPress', {
@@ -1275,8 +1273,6 @@ document.onkeydown = function(event) {
 };
 
 document.onkeyup = function(event) {
-	event.preventDefault();
-
 	if (!(document.activeElement == document.getElementById('chat-input'))) {
 		if (event.keyCode == 68 || event.keyCode == 39) { //d or right
 			socket.emit('keyPress', {
