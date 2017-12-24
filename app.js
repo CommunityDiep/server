@@ -589,16 +589,10 @@ var Player = function(id) {
 	}
 
 	self.updateSpd = function() {
-		if (self.pressingRight && self.spdX < self.maxSpd) {
-
-			self.spdX++;
-		} else if (self.pressingLeft && self.spdX > -self.maxSpd)
-			self.spdX--;
-		if (self.pressingUp && self.spdY > -self.maxSpd)
-			self.spdY--;
-		else if (self.pressingDown && self.spdY < self.maxSpd)
-			self.spdY++
-
+		if (self.pressingRight && self.spdX < self.maxSpd) { self.spdX++; }
+		if (self.pressingLeft && self.spdX > -self.maxSpd) { self.spdX--; }
+		if (self.pressingUp && self.spdY > -self.maxSpd) { self.spdY--; }
+		if (self.pressingDown && self.spdY < self.maxSpd) { self.spdY++ }
 	}
 
 	self.getInitPack = function() {
@@ -935,7 +929,7 @@ setInterval(function() {
 	}
 
 	for (var i in Shape.list) {
-		Shape.list[i].angle += Math.random() * 1;
+		Shape.list[i].angle += Math.random() * 20;
 
 	}
 

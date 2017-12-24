@@ -476,14 +476,14 @@ var Shape = function(initPack) {
 		var x = self.x - Player.list[selfId].x + width / 2;
 		var y = self.y - Player.list[selfId].y + height / 2;
 		if (self.name === 'secret-shape1') {
-			drawPolygon(x + 28, y + 28, self.angle, 17, self.color, 10);
-			drawPolygon(x + 28, y + 28, self.angle, 15, self.color, 9);
-			drawPolygon(x + 28, y + 28, self.angle, 13, self.color, 8);
-			drawPolygon(x + 28, y + 28, self.angle, 11, self.color, 7);
-			drawPolygon(x + 28, y + 28, self.angle, 9, self.color, 6);
+			drawPolygon(x, y, self.angle, 17, self.color, 10);
+			drawPolygon(x, y, self.angle, 15, self.color, 9);
+			drawPolygon(x, y, self.angle, 13, self.color, 8);
+			drawPolygon(x, y, self.angle, 11, self.color, 7);
+			drawPolygon(x, y, self.angle, 9, self.color, 6);
 		} else {
 			if (self.name === 'triangle') {
-				drawPolygon(x + 28, y + 28, self.angle, 9, self.color, 3);
+				drawPolygon(x, y, self.angle, 9, self.color, 3);
 				/*ga('send', {hitType: 'event',
 				        eventCategory: 'Render',
 				        eventAction: 'polygon-render',
@@ -491,7 +491,7 @@ var Shape = function(initPack) {
 				      });*/
 			} else {
 				if (self.name === 'alphapentagon') {
-					drawPolygon(x + 28, y + 28, self.angle, 50, self.color, 5);
+					drawPolygon(x, y, self.angle, 50, self.color, 5);
 					/*ga('send', {hitType: 'event',
 					        eventCategory: 'Render',
 					        eventAction: 'polygon-render',
@@ -499,7 +499,7 @@ var Shape = function(initPack) {
 					      });*/
 				} else {
 					if (self.name === 'pentagon') {
-						drawPolygon(x + 28, y + 28, self.angle, 17, self.color, 5);
+						drawPolygon(x, y, self.angle, 17, self.color, 5);
 						/*ga('send', {hitType: 'event',
         eventCategory: 'Render',
         eventAction: 'polygon-render',
@@ -507,7 +507,7 @@ var Shape = function(initPack) {
       });*/
 					} else {
 						if (self.name === 'square') {
-							drawTank(x + 28, y + 28, self.angle, 18.5, self.color, [], 1);
+							drawTank(x, y, self.angle, 18.5, self.color, [], 1);
 
 							/*ga('send', {hitType: 'event',
 							  eventCategory: 'Render',
@@ -645,8 +645,8 @@ var Player = function(initPack) {
 
 			// DRAW HEALTH BAR
 			drawBar({
-				x: x + size + 2,
-				y: y + (2 * size) + 15,
+				x: x + size,
+				y: (y + size) + 15,
 				filled: self.hp / self.hpMax,
 				width: 38,
 				height: 7,
@@ -657,7 +657,7 @@ var Player = function(initPack) {
 			if (self.id !== selfId) {
 				drawText({
 					text: self.name,
-					x: x + size + 2,
+					x: x + (size / 2),
 					y: y - size + 16,
 					font: '17px Ubuntu'
 				});
@@ -881,19 +881,19 @@ var Bullet = function(initPack) {
 		var y = self.y - Player.list[selfId].y + height / 2;
 		if (self.parent_tank == 'destroyer' || self.parent_tank == 'destroyerflank' || self.parent_tank == 'Hybrid') {
 			ctx.fillStyle = color;
-			drawCircle(x + 28, y + 28, 20, self.type)
+			drawCircle(x, y, 20, self.type)
 		} else if (self.parent_tank == 'Arena Closer') {
 			ctx.fillStyle = color;
-			drawCircle(x + 28, y + 28, 19, self.type)
+			drawCircle(x, y, 19, self.type)
 
 		} else if (self.parent_tank == 'streamliner') {
 			ctx.fillStyle = color;
-			drawCircle(x + 28, y + 28, 8, self.type)
+			drawCircle(x, y, 8, self.type)
 			//ctx.drawImage(Img.bullet,self.x-5,self.y-5,15,15);
 
 		} else {
 			ctx.fillStyle = color;
-			drawCircle(x + 28, y + 28, 10, {
+			drawCircle(x, y, 10, {
 				"red": "F14E54"
 			}.team, self.type)
 			//ctx.drawImage(Img.bullet,self.x-5,self.y-5,20,20);
@@ -1175,8 +1175,8 @@ function drawHotbar() {
 // obj.filled: decimal representing how much of bar is filled
 // obj.renderOnFull: still render even if a full bar
 // obj.label: label inside of bar
-// obj.x: X position of bar
-// obj.y: Y position of bar
+// obj.x: X position of bar (centered)
+// obj.y: Y position of bar (centered)
 function drawBar(obj) {
 	// CREATE OBJECT IF NOT SPECIFIED
 	obj = obj == undefined ? {} : obj;
@@ -1189,8 +1189,8 @@ function drawBar(obj) {
 	obj.filled = obj.filled == undefined ? 0.5 : obj.filled;
 	obj.renderOnFull = obj.renderOnFull == undefined ? true : obj.renderOnFull;
 	obj.label = obj.label == undefined ? '' : obj.label;
-	obj.x = obj.x == undefined ? 30 : obj.x;
-	obj.y = obj.y == undefined ? 30 : obj.y;
+	obj.x = obj.x == undefined ? 30 : obj.x - (obj.width / 2);
+	obj.y = obj.y == undefined ? 30 : obj.y - (obj.height / 2);
 
 	if (obj.filled < 1 || obj.renderOnFull) {
 		ctx.lineJoin = 'round';
