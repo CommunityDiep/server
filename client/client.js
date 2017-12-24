@@ -85,7 +85,7 @@ document.getElementById('server').value = par;
 var servers = {
 	ffa: {
 		name: 'Free For All',
-		servers: ['http://b211086d.ngrok.io'] //['https://cdiep-serv-nylr.c9users.io/','https://cdiep-serv-nylr.c9users.io/']
+		servers: ['localhost:8080'] //['https://cdiep-serv-nylr.c9users.io/','https://cdiep-serv-nylr.c9users.io/']
 	},
 	tdm: {
 		name: '2 Teams Deathmatch'
