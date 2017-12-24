@@ -1167,7 +1167,11 @@ setInterval(function() {
 		textInput.style.display = "initial";
 
 		// TITLE SCREEN IMAGE
-		ctx.drawImage(bgImage, canvas.width / 2 - bgImage.width / 2, canvas.height / 2 - bgImage.height / 2);
+		if (canvas.width / canvas.height > bgImage.width / bgImage.height) {
+			ctx.drawImage(bgImage, canvas.width / 2 - bgImage.width / 2, 0, canvas.width, canvas.height);
+		} else {
+			ctx.drawImage(bgImage, 0, canvas.height / 2 - bgImage.height / 2, canvas.width, canvas.height);
+		}
 
 		// DARKEN THE IMAGE
 		/*ctx.fillColor = "black";
