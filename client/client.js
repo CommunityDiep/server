@@ -1127,9 +1127,10 @@ setInterval(function() {
 		ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
 		// DARKEN THE IMAGE
-		ctx.fillColor = "black";
+		/*ctx.fillColor = "black";
 		ctx.globalAlpha = 0.03;
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		ctx.fillRect(0, 0, canvas.width, canvas.height);*/
 	}
 }, 10);
 
