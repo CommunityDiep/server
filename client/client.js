@@ -1160,7 +1160,11 @@ setInterval(function() {
 			font: "bold 18px Ubuntu"
 		});
 
-		//ctx.fillRect();
+		ctx.fillStyle = "white";
+		ctx.fillRect((canvas.width / 2) - 160, (canvas.height / 2) - 20, 320, 40);
+
+		ctx.fillStyle = "black";
+		ctx.strokeRect((canvas.width / 2) - 160, (canvas.height / 2) - 20, 320, 40);
 
 		drawText({
 			text: '(press enter to spawn)',
