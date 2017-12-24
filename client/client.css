@@ -1,0 +1,52 @@
+#changelog {
+    cursor: pointer;
+    color: skyblue;
+    background-color: #4286f4;
+}
+img {
+    display: none;
+}
+#signDiv {
+    background: url('https://diep.io/title.png');
+    background-size: 100% auto;
+}
+#chat {
+    position: absolute;
+    display: inline-block;
+    margin-top: -160px;
+    width: 500px;
+    opacity: 0.8;
+}
+#chat-input {
+    height: 35px;
+    margin-top: -15;
+}
+.upgradedetect {
+    width: 128px;
+    height: 128px;
+    border: none;
+    color: black;
+    -o-text-overflow: ellipsis;
+    text-overflowd: ellipsis;
+    background: rgba(255, 255, 255, 0);
+    outline: 0;
+}
+.form-control {
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+#scoreboard-content {
+    background-color: rgba(210, 210, 210, 0.7);
+    position: absolute;
+    display: inline;
+    color: white;
+}
+#actual-leaders {
+    font-size: 20px;
+    font-family: 'Ubuntu';
+}
+h1 {
+    margin-top: 5%;
+    font-size: 47px;
+}
