@@ -1061,7 +1061,6 @@ setInterval(function() {
 	height = window.innerHeight;
 
 	if (Player.list[selfId]) {
-		canvas.style.opacity = 1;
 		scoreboard_content.style.opacity = 0;
 		chatForm.style.opacity = 1;
 		chatInput.style.opacity = 1;
