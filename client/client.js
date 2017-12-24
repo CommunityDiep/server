@@ -1123,7 +1123,13 @@ setInterval(function() {
 		drawPlayerCount();
 		drawScoreboard();
 	} else {
-		ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height)
+		// TITLE SCREEN IMAGE
+		ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+
+		// DARKEN THE IMAGE
+		ctx.fillColor = "black";
+		ctx.globalAlpha = 0.03;
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
 }, 10);
 
