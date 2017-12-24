@@ -439,7 +439,7 @@ chatText.style.opacity = 0;
  */
 function drawText(obj) {
 	ctx.globalOpacity = obj.opacity == undefined ? 1 : obj.opacity;
-	ctx.font = obj.font == undefined ? ctx.font : obj.font;
+	ctx.font = obj.font == undefined ? ctx.font == undefined ? "20px Ubuntu" : ctx.font : obj.font;
 	obj.maxSize = obj.maxSize == undefined ? 200 : obj.maxSize;
 	ctx.lineWidth = 4;
 	ctx.textAlign = "center";
@@ -1150,6 +1150,22 @@ setInterval(function() {
 		ctx.globalAlpha = 0.03;
 
 		ctx.fillRect(0, 0, canvas.width, canvas.height);*/
+
+		drawText({
+			text: 'This is the tale of...',
+			x: canvas.width / 2,
+			y: (canvas.height / 2) - 28,
+			font: "18px Ubuntu"
+		});
+
+		//ctx.fillRect();
+
+		drawText({
+			text: '(press enter to spawn)',
+			x: canvas.width / 2,
+			y: (canvas.height / 2) + 30,
+			font: "10px Ubuntu"
+		});
 	}
 }, 10);
 
