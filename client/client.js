@@ -222,6 +222,7 @@ function drawTank(x, y, angle, radius, color, barrels, bodyType) {
 		ctx.fillStyle = "#000000";
 	} else if (bodyType == 1) {
 		ctx.fillStyle = color;
+		ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 
 		ctx.fillRect(-1 * radius * 2, -1 * radius * 2, radius * 4, radius * 4);
 		ctx.strokeRect(-1 * radius * 2, -1 * radius * 2, radius * 4, radius * 4);
