@@ -423,6 +423,8 @@ chatForm.style.opacity = 0;
 chatInput.style.opacity = 0;
 chatText.style.opacity = 0;
 
+ctx.lineJoin = "round";
+
 //init
 
 /**
