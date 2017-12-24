@@ -19,7 +19,7 @@ function inArray(value, array) {
 var serv = require('http').Server(app);
 
 serv.listen(config.port);
-console.log('Server started')
+console.log('Server started on port', config.port)
 
 var namelist = {};
 var arenasize = [1500, 1500]
