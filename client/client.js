@@ -297,15 +297,15 @@ var height = window.innerHeight;
 //var chooseTank = document.getElementById('choose-tank');
 var gameDiv = document.getElementById('gameDiv');
 var signDiv = document.getElementById('signDiv');
-var signDivUsername = document.getElementById('signDiv-username');
+var input = document.getElementById('textInput');
 var play = document.getElementById('play');
 
-document.getElementById('signDiv-username').onchange = function() {
+document.getElementById('textInput').onchange = function() {
 	ga('send', {
 		hitType: 'event',
 		eventCategory: 'Title Screen',
 		eventAction: 'name-change',
-		eventLabel: `Changed name to '${document.getElementById('signDiv-username').value}'.`
+		eventLabel: `Changed name to '${document.getElementById('textInput').value}'.`
 	});
 }
 
@@ -319,10 +319,10 @@ play.onclick = function() {
 	    socket.emit('signIn',{name:signDivUsername.value,address:ip,tank:"Tank",width:width,height:height});
 	  }); */
 
-	if (signDivUsername.value != '') {
+	if (input.value != '') {
 		var ip = 104024 * Math.random();
 		socket.emit('signIn', {
-			name: signDivUsername.value,
+			name: input.value,
 			address: ip,
 			tank: "basic",
 			width: width,
@@ -332,7 +332,7 @@ play.onclick = function() {
 		inGame = true;
 
 		/*global localStorage*/
-		localStorage.username = localStorage.username == undefined ? "" : document.getElementById("signDiv-username").value;
+		localStorage.username = localStorage.username == undefined ? "" : document.getElementById("textInput").value;
 
 		ga('send', {
 			hitType: 'event',
@@ -347,7 +347,7 @@ play.onclick = function() {
 }
 
 window.onload = function() {
-	document.getElementById("signDiv-username").value = document.getElementById("signDiv-username").value == undefined ? "" : localStorage.username;
+	document.getElementById("textInput").value = document.getElementById("textInput").value == undefined ? "" : localStorage.username;
 };
 
 socket.on('signInResponse', function(data) {
@@ -404,7 +404,7 @@ chatForm.onsubmit = function(e) {
 	e.preventDefault();
 	socket.emit('sendMsgToServer', {
 		words: chatInput.value,
-		name: signDivUsername.value,
+		name: input.value,
 	});
 	chatInput.value = '';
 
