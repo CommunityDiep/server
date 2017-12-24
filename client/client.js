@@ -867,11 +867,13 @@ function drawUpgrades() {
 };
 
 function drawCircle(x, y, radius, color, trap) {
+	color = color == undefined ? '#1DB2DF' : color;
+
 	if (trap == 'trap') {
 		var radius = 0;
 		ctx.save();
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = "#555555";
+		ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 		ctx.fillStyle = color;
 		ctx.translate(x, y)
 		ctx.beginPath();
@@ -895,7 +897,7 @@ function drawCircle(x, y, radius, color, trap) {
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		ctx.fillStyle = color;
 		ctx.fill();
-		ctx.strokeStyle = "#555555";
+		ctx.strokeStyle = softStroke ? shadeColor2(color, -0.25) : "#555555";
 		ctx.stroke();
 		ctx.closePath();
 		ctx.restore();
@@ -919,20 +921,21 @@ var Bullet = function(initPack) {
 		var y = self.y - Player.list[selfId].y + height / 2;
 		if (self.parent_tank == 'destroyer' || self.parent_tank == 'destroyerflank' || self.parent_tank == 'Hybrid') {
 			ctx.fillStyle = color;
-			drawCircle(x, y, 20, self.type)
+			drawCircle(x, y, 20, color, self.type)
 		} else if (self.parent_tank == 'Arena Closer') {
 			ctx.fillStyle = color;
-			drawCircle(x, y, 19, self.type)
+			drawCircle(x, y, 19, color, self.type)
 
 		} else if (self.parent_tank == 'streamliner') {
 			ctx.fillStyle = color;
-			drawCircle(x, y, 8, self.type)
+			drawCircle(x, y, 8, color, self.type)
 			//ctx.drawImage(Img.bullet,self.x-5,self.y-5,15,15);
 
 		} else {
 			ctx.fillStyle = color;
 			drawCircle(x, y, 10, {
-				"red": "F14E54"
+				"red": "F14E54",
+				"blue": "#1DB2DF"
 			}.team, self.type)
 			//ctx.drawImage(Img.bullet,self.x-5,self.y-5,20,20);
 		}
