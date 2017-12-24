@@ -1157,7 +1157,7 @@ setInterval(function() {
 			text: 'This is the tale of...',
 			x: canvas.width / 2,
 			y: (canvas.height / 2) - 28,
-			font: "18px Ubuntu"
+			font: "bold 18px Ubuntu"
 		});
 
 		//ctx.fillRect();
@@ -1166,7 +1166,7 @@ setInterval(function() {
 			text: '(press enter to spawn)',
 			x: canvas.width / 2,
 			y: (canvas.height / 2) + 32,
-			font: "10px Ubuntu"
+			font: "bold 10px Ubuntu"
 		});
 	}
 }, 10);
