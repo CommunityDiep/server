@@ -1164,8 +1164,8 @@ function drawHotbar() {
 		font: '10px Ubuntu'
 	});
 
-	// How bout we try that score bar
-	drawBar({})
+	// How bout we don't try that score bar
+	//drawBar({})
 }
 
 // obj.width: total width of bar (in pixels)
