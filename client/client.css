@@ -3,6 +3,9 @@
     color: skyblue;
     background-color: #4286f4;
 }
+html {
+  overflow: hidden;
+}
 img {
     display: none;
 }
