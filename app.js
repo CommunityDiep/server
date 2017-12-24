@@ -16,17 +16,6 @@ function inArray(value, array) {
 	return array.indexOf(value) > -1;
 }
 var serv = require('http').Server(app);
-app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/client/index.html');
-});
-app.get('/client.js', function(req, res) {
-	res.sendFile(__dirname + '/client/client.js');
-});
-app.get('/client.css', function(req, res) {
-	res.sendFile(__dirname + '/client/client.css');
-});
-
-app.use('/client', express.static(__dirname + '/client'));
 
 serv.listen(8080);
 console.log('Server started')
