@@ -109,7 +109,7 @@ var resulter;
 var servernum = randInt(1, servers[par].servers.length);
 var servername = par + 1; // randInt(0,servers[param('s')].servers.length-1)]
 
-var socket = io.connect(servers[par].servers[servernum - 1], {
+var socket = io.connect(param('ip') == undefined ? servers[par].servers[servernum - 1] : param('ip'), {
 	reconnect: false
 });
 var tanktree = {};
