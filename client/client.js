@@ -20,6 +20,10 @@ if (isMobile()) {
 	alert('It looks likes you\'re on mobile. For the best experience, play on your PC.')
 }
 
+var inGame = false;
+
+var bgImage = new Image(window.innerWidth, window.innerHeight);
+bgImage.src = 'https://diep.io/title.png';
 
 document.getElementsByClassName('upgradedetect')[0].onclick = function() {
 	socket.emit('upgrade', {
@@ -293,6 +297,8 @@ play.onclick = function() {
 			width: width,
 			height: height
 		});
+
+		inGame = true;
 
 		/*global localStorage*/
 		localStorage.username = localStorage.username == undefined ? "" : document.getElementById("signDiv-username").value;
@@ -1117,7 +1123,7 @@ setInterval(function() {
 		drawPlayerCount();
 		drawScoreboard();
 	} else {
-
+		ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height)
 	}
 }, 10);
 

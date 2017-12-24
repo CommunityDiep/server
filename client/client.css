@@ -6,10 +6,6 @@
 img {
     display: none;
 }
-#signDiv {
-    background: url('https://diep.io/title.png');
-    background-size: 100% auto;
-}
 #chat {
     position: absolute;
     display: inline-block;
