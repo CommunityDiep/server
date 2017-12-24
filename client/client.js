@@ -20,6 +20,13 @@ if (isMobile()) {
 	alert('It looks likes you\'re on mobile. For the best experience, play on your PC.')
 }
 
+// for soft stroking
+// Source: https://stackoverflow.com/a/13542669/5513988
+function shadeColor2(color, percent) {
+    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
+
 var softStroke = true;
 var inGame = false;
 
@@ -466,7 +473,7 @@ function degToRad(deg) {
 function drawPolygon(x, y, angle, radius, color, sides) {
 	ctx.save();
 	ctx.fillStyle = color;
-	ctx.strokeStyle = softStroke ? color : "#555555";
+	ctx.strokeStyle = softStroke ? shadeColor2(color, 30) : "#555555";
 	ctx.lineJoin = "round";
 	ctx.beginPath();
 	var step = ((Math.PI * 2) / sides);
