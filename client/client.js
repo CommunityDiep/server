@@ -1163,7 +1163,7 @@ setInterval(function() {
 		drawScoreboard();
 	} else {
 		// TITLE SCREEN IMAGE
-		ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+		ctx.drawImage(bgImage, canvas.width / 2 - bgImage.width / 2, canvas.height / 2 - bgImage.height / 2);
 
 		// DARKEN THE IMAGE
 		/*ctx.fillColor = "black";
