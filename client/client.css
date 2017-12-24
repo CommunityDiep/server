@@ -50,11 +50,13 @@ h1 {
     font-size: 47px;
 }
 #textInput {
-  position: absolute;
+  position: fixed;
   width: 325.867px;
   height: 42.2222px;
   line-height: 38px;
   font-size: 38px;
   padding-left: 5px;
   padding-right: 5px;
+  background-color: transparent;
+  border-color: transparent;
 }

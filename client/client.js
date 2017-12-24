@@ -1184,6 +1184,9 @@ setInterval(function() {
 		ctx.fillStyle = "black";
 		ctx.strokeRect((canvas.width / 2) - 160, (canvas.height / 2) - 20, 320, 40);
 
+		document.getElementById('textInput').style.left = (canvas.width / 2) - 160 + "px";
+		document.getElementById('textInput').style.top = (canvas.height / 2) - 20 + "px";
+
 		drawText({
 			text: '(press enter to spawn)',
 			x: canvas.width / 2,
