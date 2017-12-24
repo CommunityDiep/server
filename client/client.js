@@ -31,6 +31,19 @@ window.addEventListener('scroll', function(event) {
 	window.scrollTo(0, 0);
 });
 
+// Disable Chrome two-finger swipe to go back/forward
+// Source: https://stackoverflow.com/a/46439501/5513988
+document.addEventListener(
+  'touchstart',
+  this.handleTouchStart,
+  {passive: false}
+)
+document.addEventListener(
+  'touchmove',
+  this.handleTouchMove,
+  {passive: false}
+)
+
 document.getElementsByClassName('upgradedetect')[0].onclick = function() {
 	socket.emit('upgrade', {
 		pos: 0
