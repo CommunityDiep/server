@@ -1,7 +1,7 @@
 {
   "name": "cdiep-server",
   "description": "A server for Community Diep.io that also provides a client.",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "scripts": {
     "start": "node app.js"
   }
