@@ -11,13 +11,14 @@ function speed(name) {
 }
 
 var classes = require('./tanks.json');
+var config = require('./config.json');
 
 function inArray(value, array) {
 	return array.indexOf(value) > -1;
 }
 var serv = require('http').Server(app);
 
-serv.listen(8080);
+serv.listen(config.port);
 console.log('Server started')
 
 var namelist = {};
