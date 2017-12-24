@@ -25,6 +25,11 @@ var inGame = false;
 var bgImage = new Image(window.innerWidth, window.innerHeight);
 bgImage.src = 'https://diep.io/title.png';
 
+// Prevent scrolling
+window.addEventListener('scroll', function() {
+	window.scrollTo(0, 0);
+});
+
 document.getElementsByClassName('upgradedetect')[0].onclick = function() {
 	socket.emit('upgrade', {
 		pos: 0
