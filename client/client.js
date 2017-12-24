@@ -1108,6 +1108,7 @@ setInterval(function() {
 	if (inGame) {
 		if (Player.list[selfId]) {
 			scoreboard_content.style.opacity = 0;
+			textInput.style.display = "none";
 			chatForm.style.opacity = 1;
 			chatInput.style.opacity = 1;
 			chatText.style.opacity = 1;
@@ -1162,6 +1163,9 @@ setInterval(function() {
 		drawPlayerCount();
 		drawScoreboard();
 	} else {
+		// SHOW TEXT INPUT
+		textInput.style.display = "";
+
 		// TITLE SCREEN IMAGE
 		ctx.drawImage(bgImage, canvas.width / 2 - bgImage.width / 2, canvas.height / 2 - bgImage.height / 2);
 
