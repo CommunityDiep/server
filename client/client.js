@@ -1165,7 +1165,7 @@ setInterval(function() {
 		drawText({
 			text: '(press enter to spawn)',
 			x: canvas.width / 2,
-			y: (canvas.height / 2) + 30,
+			y: (canvas.height / 2) + 32,
 			font: "10px Ubuntu"
 		});
 	}
