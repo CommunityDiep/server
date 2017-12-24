@@ -1084,7 +1084,10 @@ var pastx;
 var pasty;
 
 setInterval(function() {
+	canvas.width = window.innerWidth;
 	width = window.innerWidth;
+
+	canvas.height = window.innerHeight;
 	height = window.innerHeight;
 
 	if (inGame) {
@@ -1174,6 +1177,8 @@ setInterval(function() {
 		});
 	}
 }, 10);
+
+
 
 // Replace this with drawStats soon.
 // The new function will include player count/server name,
