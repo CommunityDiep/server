@@ -20,6 +20,7 @@ if (isMobile()) {
 	alert('It looks likes you\'re on mobile. For the best experience, play on your PC.')
 }
 
+var softStroke = true;
 var inGame = false;
 
 var bgImage = new Image(window.innerWidth, window.innerHeight);
@@ -465,7 +466,7 @@ function degToRad(deg) {
 function drawPolygon(x, y, angle, radius, color, sides) {
 	ctx.save();
 	ctx.fillStyle = color;
-	ctx.strokeStyle = "#555555";
+	ctx.strokeStyle = softStroke ? color : "#555555";
 	ctx.lineJoin = "round";
 	ctx.beginPath();
 	var step = ((Math.PI * 2) / sides);
