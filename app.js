@@ -7,7 +7,17 @@ var infolist = {};
 var dimensions = {};
 
 function speed(name) {
-	return name == 'none' ? 0 : name == 'low' ? 4 : name == 'normal' ? 8 : name == 'high' ? 14 : 8
+	switch (name) {
+	case 'none':
+		return 0;
+	case 'low':
+		return 4;
+	case 'normal':
+	default:
+		return 8;
+	case 'high':
+		return 14;
+	}
 }
 
 var classes = require('./tanks.json');
