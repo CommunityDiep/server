@@ -917,6 +917,8 @@ var removePack = {
 };
 var other_timer = 0;
 
+const scoreboard = require('cdiep-score-sort');
+
 setInterval(function() {
 
 	ip_list = [];
@@ -966,7 +968,11 @@ setInterval(function() {
 		shape: Shape.update(),
 	}
 
+	var scores = scoreboard.sort(Player.list);
+	console.log(scores)
+
 	io.sockets.emit('update', pack);
+	io.sockets.emit('scoreboard', scores);
 	io.sockets.emit('init', initPack);
 	io.sockets.emit('remove', removePack);
 
