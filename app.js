@@ -969,7 +969,6 @@ setInterval(function() {
 	}
 
 	var scores = scoreboard.sort(Player.list);
-	console.log(scores)
 
 	io.sockets.emit('update', pack);
 	io.sockets.emit('scoreboard', scores);
