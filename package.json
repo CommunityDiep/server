@@ -1,7 +1,7 @@
 {
   "name": "cdiep-server",
   "description": "A server for Community Diep.io that also provides a client.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "repository": "github:CommunityDiep/server",
   "bugs": {
     "url": "https://github.com/CommunityDiep/server/issues"
