@@ -891,7 +891,7 @@ io.sockets.on('connection', function(socket) {
 
 				var words = data.words.slice(0, 200).toString();
 				var worded = words.toString().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/'/g, "&#39;").replace(/"/g, "&#34;");
-				SOCKET_LIST[i].emit('addToChat', {
+				io.sockets.emit('addToChat', {
 					text: name_theirs + ' ' + addition + sep + ' ' + worded,
 					dev: isDev,
 					trusted: isTrusted,
@@ -964,15 +964,11 @@ setInterval(function() {
 		player: Player.update(),
 		bullet: Bullet.update(),
 		shape: Shape.update(),
-
 	}
-	for (var i in SOCKET_LIST) {
-		var socket = SOCKET_LIST[i];
-		socket.emit('update', pack);
-		socket.emit('init', initPack);
-		socket.emit('remove', removePack);
 
-	}
+	io.sockets.emit('update', pack);
+	io.sockets.emit('init', initPack);
+	io.sockets.emit('remove', removePack);
 
 	initPack.player = [];
 	initPack.bullet = [];
