@@ -167,7 +167,6 @@ var Bullet = function(parent, angle) {
 			};
 			var notsameteam = self.parent_team == "none" || p.team == "none" ? true : self.parent_team !== p.team
 			if (self.getDistance(p) < 32 && self.parent !== p.id) {
-				console.log('Here it is: ' + infolist[self.parent].tank)
 				p.regen_timer = 0;
 
 				if (infolist[self.parent].tank == 'healthsteal') { // special healthstealing hax
@@ -327,12 +326,10 @@ var Shape = function(id) {
 			var s = Shape.list[i];
 
 			if (self.getDistance(s) < 40 && s.id != self.id && s.type == 'pentagon') {
-				console.log('distance');
 				s.hp = -1000;
 				s.toRemove = true;
 
 			} else if (self.getDistance(s) < 23 && s.id != self.id) {
-				console.log('distance');
 				s.hp = -1000;
 				s.toRemove = true;
 			}
