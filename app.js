@@ -782,10 +782,6 @@ io.sockets.on('connection', function(socket) {
 				tank: tank_choice
 			}
 			Player.onConnect(socket);
-			var one = data.address;
-			if (one == '"74.77.193.112"' || one == '"107.218.73.180"' || one == '"108.77.251.37"') {
-				Player.list[socket.id].isDev = true;
-			}
 			ip_list.push(ip_address);
 			ip_dic[socket.id] = ip_address;
 
@@ -800,31 +796,14 @@ io.sockets.on('connection', function(socket) {
 			for (var i in SOCKET_LIST) {
 
 				var name_theirs = namelist[socket.id];
-				var isDev = false;
-				var isTrusted = false;
 				var sep = ':';
-				var isServer = false;
 				var addition = '';
 				var one = ip_dic[socket.id];
-				if (data.server) {
-					isServer = true;
-					sep = '';
-					name_theirs = data.name;
-				} else if (one == '"74.77.193.112"' || one == '"71.12.4.238"' || one == '"108.77.251.37"') { //nylon and haykam, the devs.
-					isDev = true;
-					addition = '[DEV]'
-				} else if (one == '"50.39.110.171"' || one == '"94.230.147.175"') { //Abasda! or whatever his/her name is, and also Koul and Wowie
-					isTrusted - true;
-					addition = '[TRUSTED]';
-				}
 
 				var words = data.words.slice(0, 200).toString();
 				var worded = words.toString().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/'/g, "&#39;").replace(/"/g, "&#34;");
 				io.sockets.emit('addToChat', {
-					text: name_theirs + ' ' + addition + sep + ' ' + worded,
-					dev: isDev,
-					trusted: isTrusted,
-					server: isServer,
+					text: name_theirs + ' ' + addition + sep + ' ' + worded
 				});
 
 			}
