@@ -715,36 +715,6 @@ Player.update = function() {
 
 	return pack;
 }
-
-var USERS = {
-	//username:password
-
-	"bob": "asd",
-	"b": "b",
-	"time": "lol",
-	"": "",
-
-}
-
-var isValidPassword = function(data, cb) {
-	setTimeout(function() {
-		cb(USERS[data.username] === data.password);
-	}, 10);
-}
-
-var isUsernameTaken = function(data, cb) {
-	setTimeout(function() {
-		cb(USERS[data.username]);
-	}, 10);
-}
-
-var addUser = function(data, cb) {
-	setTimeout(function() {
-		USERS[data.username] = data.password;
-		cb();
-	}, 10);
-}
-
 var io = require('socket.io')(serv, {});
 
 function sendClasses() {
@@ -844,25 +814,6 @@ io.sockets.on('connection', function(socket) {
 				success: true
 			});
 		}
-	});
-
-	socket.on('signUp', function(data) {
-		isUsernameTaken(data, function(res) {
-			if (res) {
-				socket.emit('signUpResponse', {
-					success: false
-				});
-			} else {
-				addUser(data, function() {
-
-					socket.emit('signUpResponse', {
-						success: true
-					});
-				});
-			}
-
-		});
-
 	});
 
 	socket.on('sendMsgToServer', function(data) {
