@@ -10,7 +10,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "cdiep-score-sort": "github:CommunityDiep/score-sort#0.0.1",
+    "cdiep-score-sort": "github:CommunityDiep/score-sort#0.0.5",
     "express": "^4.16.2",
     "socket.io": "^2.0.4"
   }
