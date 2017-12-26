@@ -431,10 +431,7 @@ var Player = function(id) {
 	self.name = namelist[self.id];
 	self.tank = self.dev ? 'Arena Closer' : 'basic'; //infolist[self.id].tank
 	self.number = "" + Math.floor(10 * Math.random());
-	self.pressingRight = false;
-	self.pressingLeft = false;
-	self.pressingUp = false;
-	self.pressingDown = false;
+	self.directions = {right: false, left: false, up: false, down: false}
 	self.pressingInc = false;
 	self.pressingDec = false;
 	self.team = 'none';
@@ -589,10 +586,10 @@ var Player = function(id) {
 	}
 
 	self.updateSpd = function() {
-		if (self.pressingRight && self.spdX < self.maxSpd) { self.spdX++; }
-		if (self.pressingLeft && self.spdX > -self.maxSpd) { self.spdX--; }
-		if (self.pressingUp && self.spdY > -self.maxSpd) { self.spdY--; }
-		if (self.pressingDown && self.spdY < self.maxSpd) { self.spdY++ }
+		if (self.directions.right && self.spdX < self.maxSpd) { self.spdX++; }
+		if (self.directions.left && self.spdX > -self.maxSpd) { self.spdX--; }
+		if (self.directions.up && self.spdY > -self.maxSpd) { self.spdY--; }
+		if (self.directions.down && self.spdY < self.maxSpd) { self.spdY++ }
 	}
 
 	self.getInitPack = function() {
@@ -642,13 +639,13 @@ Player.onConnect = function(socket) {
 
 	socket.on('keyPress', function(data) {
 		if (data.inputId === 'left')
-			player.pressingLeft = data.state;
+			player.directions.left = data.state;
 		else if (data.inputId === 'right')
-			player.pressingRight = data.state;
+			player.directions.right = data.state;
 		else if (data.inputId === 'up')
-			player.pressingUp = data.state;
+			player.directions.up = data.state;
 		else if (data.inputId === 'down')
-			player.pressingDown = data.state;
+			player.directions.down = data.state;
 		else if (data.inputId === 'attack')
 			player.pressingAttack = data.state;
 		else if (data.inputId === 'mouseAngle')
