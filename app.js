@@ -710,15 +710,11 @@ function sendClasses() {
 
 io.sockets.on('connection', function(socket) {
 	sendClasses();
-	//console.log(socket);
-
-	console.log('connection');
 
 	socket.id = Math.random();
 	SOCKET_LIST[socket.id] = socket;
 
 	socket.on('disconnect', function() {
-		console.log('disconnection');
 
 		Player.onDisconnect(socket);
 		delete SOCKET_LIST[socket.id];
@@ -772,11 +768,9 @@ io.sockets.on('connection', function(socket) {
 		if (data.address == '"2602:030a:c0fd:2090:6046:508f:786a:d3f5"' && tank_choice == 'basic') {
 			tank_choice = 'Latoonia Tank';
 		}
-		console.log("TANK DATA:" + data.tank)
 		username = username.slice(0, 16);
 		var ip_address = data.address;
 		ip_address = String(ip_address);
-		console.log('HERE IS THE IP:' + ip_address);
 		if (inArray(ip_address, ip_list) || ip_address == undefined) {
 			socket.emit('signInResponse', {
 				success: false
@@ -787,7 +781,6 @@ io.sockets.on('connection', function(socket) {
 				name: username,
 				tank: tank_choice
 			}
-			console.log('Here is the infolist:' + infolist[socket.id].name + ' ' + infolist[socket.id].tank);
 			Player.onConnect(socket);
 			var one = data.address;
 			if (one == '"74.77.193.112"' || one == '"107.218.73.180"' || one == '"108.77.251.37"') {
@@ -820,7 +813,6 @@ io.sockets.on('connection', function(socket) {
 				} else if (one == '"74.77.193.112"' || one == '"71.12.4.238"' || one == '"108.77.251.37"') { //nylon and haykam, the devs.
 					isDev = true;
 					addition = '[DEV]'
-					console.log('match');
 				} else if (one == '"50.39.110.171"' || one == '"94.230.147.175"') { //Abasda! or whatever his/her name is, and also Koul and Wowie
 					isTrusted - true;
 					addition = '[TRUSTED]';
