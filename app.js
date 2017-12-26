@@ -679,20 +679,13 @@ Player.onConnect = function(socket) {
 }
 
 Player.onDisconnect = function(socket) {
-	console.log('HERE IS THE IP LIST: ' + ip_list);
-	console.log('disconnection');
 	delete Player.list[socket.id];
 	removePack.player.push(socket.id);
-	console.log('removed');
 	var index_of = ip_list.indexOf(ip_dic[socket.id]);
 	if (index_of > -1) {
-		console.log('IP found at ' + String(index_of));
 		ip_list.splice(index_of, 1);
 	}
 	delete ip_dic[socket.id];
-	console.log('removed ip addressses');
-	console.log('HERE IS THE IP LIST AFTER: ' + ip_list);
-	console.log('HERE IS THE IP DICTIONARY AFTER: ' + ip_dic);
 
 }
 
