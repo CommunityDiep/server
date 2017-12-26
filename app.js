@@ -621,33 +621,42 @@ var Player = function(id) {
 Player.list = {};
 
 Player.onConnect = function(socket) {
-
 	var player = Player(socket.id);
 
 	socket.on('keyPress', function(data) {
-		if (data.inputId === 'left')
-			player.directions.left = data.state;
-		else if (data.inputId === 'right')
-			player.directions.right = data.state;
-		else if (data.inputId === 'up')
-			player.directions.up = data.state;
-		else if (data.inputId === 'down')
-			player.directions.down = data.state;
-		else if (data.inputId === 'attack')
-			player.pressingAttack = data.state;
-		else if (data.inputId === 'mouseAngle')
-			player.mouseAngle = data.state;
-		else if (data.inputId === 'inc')
-			player.pressingInc = data.state;
-		else if (data.inputId === 'dec')
-			player.pressingDec = data.state;
-		//Player.list[socket.id].mouseAngle = data.state;
-		else if (data.inputId === 'auto')
-			player.autofire = player.autofire ? false : true;
-		else if (data.inputId === 'spin') {
-			player.autospin = player.autospin ? false : true;
+		switch (data.inputId) {
+			case 'left':
+				player.directions.left = data.state;
+				break;
+			case 'right':
+				player.directions.right = data.state;
+				break;
+			case 'up':
+				player.directions.up = data.state;
+				break;
+			case 'down':
+				player.directions.down = data.state;
+				break;
+			case 'attack':
+			default:
+				player.pressingAttack = data.state;
+				break;
+			case 'mouseAngle':
+				player.mouseAngle = data.state;
+				break;
+			case 'inc':
+				player.pressingInc = data.state;
+				break;
+			case 'dec':
+				player.pressingDec = data.state;
+				break;
+			case 'auto':
+				player.autofire = player.autofire ? false : true;
+				break;
+			case 'spin':
+				player.autospin = player.autospin ? false : true;
+				break;
 		}
-
 	});
 
 	Player.getAllInitPack = function() {
