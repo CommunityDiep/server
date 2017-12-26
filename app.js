@@ -414,10 +414,17 @@ Shape.getAllInitPack = function() {
 
 }
 
+function levelFromScore(score) {
+
+}
+
+function tierFromScore(score) {
+	var level = levelFromScore(score);
+}
+
 var Player = function(id) {
 
 	var self = Entity();
-	self.tier = 4;
 	self.hasUpgraded = false;
 	self.canUpgrade = true;
 	self.dev = false;
