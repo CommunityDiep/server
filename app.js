@@ -844,15 +844,6 @@ setInterval(function() {
 	}
 
 	for (var i in Player.list) {
-
-		if (Player.list[i].name == 'Nylon') {
-			Player.list[i].tank = 'Streamliner';
-		} else {
-			//Player.list[i].x = 50;
-		}
-
-		//console.log('LENGTH:' + removePack.shape.length);
-
 		Player.list[i].regen_timer += 0.2;
 
 		if (infolist[Player.list[i].id].tank == 'destroyer' || infolist[Player.list[i].id].tank == 'destroyerflank' || infolist[Player.list[i].id].tank == 'Hybrid') {
