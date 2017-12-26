@@ -414,11 +414,11 @@ Shape.getAllInitPack = function() {
 
 }
 
-function levelFromScore(score) {
+function levelFromScore(score, rounded=true) {
 	var toLoop = config.levels;
 	for (let x = 0; x < Object.keys(toLoop).length; x++) {
 		if (Object.values(toLoop)[x] > score) {
-			return Object.keys(toLoop)[x - 1];
+			return parseInt(Object.keys(toLoop)[x - 1]) + (rounded ? 0 : (Object.values(toLoop)[x - 1] + score) / Object.values(toLoop)[x]);
 		}
 	}
 
