@@ -420,12 +420,9 @@ Shape.getAllInitPack = function() {
 var Player = function(id) {
 
 	var self = Entity();
-	self.backtoZero = false;
 	self.tier = 4;
 	self.hasUpgraded = false;
 	self.canUpgrade = true;
-	self.hasSecondUpgraded = false
-	self.hasThirdUpgraded = false;
 	self.dev = false;
 	self.id = id;
 	self.name = namelist[self.id];
