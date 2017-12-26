@@ -426,7 +426,7 @@ function levelFromScore(score) {
 }
 
 function tierFromScore(score) {
-	var level = levelFromScore(score);
+	return Math.round(levelFromScore(score) / 15);
 }
 
 var Player = function(id) {
@@ -599,6 +599,8 @@ var Player = function(id) {
 			hp: self.hp,
 			hpMax: self.hpMax,
 			score: self.score,
+			level: levelFromScore(self.score),
+			tier: tierFromScore(self.score),
 			name: self.name,
 			mouseAngle: self.mouseAngle,
 			invisible: self.invisible,
@@ -618,6 +620,8 @@ var Player = function(id) {
 			y: self.y,
 			hp: self.hp,
 			score: self.score,
+			level: levelFromScore(self.score),
+			tier: tierFromScore(self.score),
 			mouseAngle: self.mouseAngle,
 		};
 
@@ -751,12 +755,12 @@ io.sockets.on('connection', function(socket) {
 				} else {
 					console.log(`Upgrade data: player data is ${Player.list[socket.id]}, upgrade offset is ${data.pos}, tank internal name is ${choice}, localized tank name is ${classes[choice].localized}.`)
 
-					if (Player.list[socket.id].tier >= Object.values(upgrades)[data.pos]) {
+					if (tierFromScore(Player.list[socket.id].score) >= Object.values(upgrades)[data.pos]) {
 						console.log(`Upgraded "${Player.list[socket.id].name}" to tank ${classes[choice].localized}.`)
 						Player.list[socket.id].tank = choice;
 						infolist[socket.id].tank = choice;
 					} else {
-						console.log(`Couldn't upgrade "${Player.list[socket.id].name}" to tank ${classes[choice].localized} because they were only tier ${Player.list[socket.id].tier}.`);
+						console.log(`Couldn't upgrade "${Player.list[socket.id].name}" to tank ${classes[choice].localized} because they were only tier ${tierFromScore(Player.list[socket.id].score)}.`);
 					}
 				}
 			}
