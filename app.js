@@ -459,16 +459,6 @@ var Player = function(id) {
 		self.updateSpd();
 		super_update();
 
-		/* for (var i in Player.list){
-		    var p = Player.list[i];
-		        if (self.tank == "quadfighter" && p.id != self.id){
-		            if (self.getDistance(p)<25){
-		                p.hp -=0.5;
-		            }
-		        }
-
-		        };*/
-
 		//if (infolist[self.id].tank !== "Borderless"){
 		self.spdX = self.x < 0 ? 0 : self.spdX;
 		self.x = self.x < 0 ? 0 : self.x;
