@@ -442,7 +442,7 @@ var Player = function(id) {
 	self.mouseAngle = 0;
 	self.invisible = false; //infolist[self.id].tank === "Invis" ? true : false;
 	self.maxSpd = infolist[self.id].tank === "Quad quadfighter" ? 12 : 8;
-	self.hpMax = infolist[self.id].tank === "Weighted" ? 50 : infolist[self.id].tank == 'Latoonia Tank' ? 25 : infolist[self.id].tank === "Arena Closer" ? 10001 : 10;
+	self.hpMax = infolist[self.id].tank === "Weighted" ? 50 : infolist[self.id].tank === "Arena Closer" ? 10001 : 10;
 	self.hp = self.hpMax;
 	self.x = Math.random() * spawn_width;
 	self.y = Math.random() * spawn_height;
@@ -759,15 +759,6 @@ io.sockets.on('connection', function(socket) {
 		dimensions[socket.id + 'height'] = data.height;
 		var username = data.name;
 		var tank_choice = data.tank;
-		if (tank_choice == 'Arena Closer') {
-			tank_choice = 'Unsniper';
-		}
-		if (tank_choice == 'asdfghjk111' && username == '[MG] Best Arena Clsoer Ever!!!1') {
-			tank_choice = "Arena Closer";
-		}
-		if (data.address == '"2602:030a:c0fd:2090:6046:508f:786a:d3f5"' && tank_choice == 'basic') {
-			tank_choice = 'Latoonia Tank';
-		}
 		username = username.slice(0, 16);
 		var ip_address = data.address;
 		ip_address = String(ip_address);
