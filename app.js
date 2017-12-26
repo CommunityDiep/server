@@ -415,7 +415,14 @@ Shape.getAllInitPack = function() {
 }
 
 function levelFromScore(score) {
+	var toLoop = config.levels;
+	for (let x = 0; x < Object.keys(toLoop).length; x++) {
+		if (Object.values(toLoop)[x] > score) {
+			return Object.keys(toLoop)[x - 1];
+		}
+	}
 
+	return 1;
 }
 
 function tierFromScore(score) {
