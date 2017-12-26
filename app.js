@@ -422,7 +422,7 @@ function levelFromScore(score) {
 		}
 	}
 
-	return 1;
+	return 45;
 }
 
 function tierFromScore(score) {
