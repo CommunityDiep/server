@@ -426,7 +426,7 @@ function levelFromScore(score) {
 }
 
 function tierFromScore(score) {
-	return Math.round(levelFromScore(score) / 15);
+	return Math.floor(levelFromScore(score) / 15);
 }
 
 var Player = function(id) {
