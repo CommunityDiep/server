@@ -610,7 +610,7 @@ var Player = function(id) {
 			hp: self.hp,
 			hpMax: self.hpMax,
 			score: self.score,
-			level: levelFromScore(self.score),
+			level: levelFromScore(self.score).base,
 			tier: tierFromScore(self.score),
 			name: self.name,
 			mouseAngle: self.mouseAngle,
@@ -631,7 +631,7 @@ var Player = function(id) {
 			y: self.y,
 			hp: self.hp,
 			score: self.score,
-			level: levelFromScore(self.score),
+			level: levelFromScore(self.score).base,
 			tier: tierFromScore(self.score),
 			mouseAngle: self.mouseAngle,
 		};
