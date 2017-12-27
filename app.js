@@ -414,19 +414,30 @@ Shape.getAllInitPack = function() {
 
 }
 
-function levelFromScore(score, rounded=true) {
+function levelFromScore(score) {
 	var toLoop = config.levels;
+
 	for (let x = 0; x < Object.keys(toLoop).length; x++) {
 		if (Object.values(toLoop)[x] > score) {
-			return parseInt(Object.keys(toLoop)[x - 1]) + (rounded ? 0 : (Object.values(toLoop)[x - 1] + score) / Object.values(toLoop)[x]);
+			var base = parseInt(Object.keys(toLoop)[x - 1]);
+
+			return {
+				base: base,
+				exact: base + (base + score) / Object.values(toLoop)[x],
+				until: score / Object.values(toLoop)[x] - Object.values(toLoop)[x-1]
+			}
 		}
 	}
 
-	return 45;
+	return {
+		base: 45,
+		exact: 45,
+		until: 0
+	}
 }
 
 function tierFromScore(score) {
-	return Math.floor(levelFromScore(score) / 15);
+	return Math.floor(levelFromScore(score).base / 15);
 }
 
 var Player = function(id) {
