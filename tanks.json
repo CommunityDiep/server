@@ -534,6 +534,34 @@
 			"rocketeer": 3
 		}
 	},
+	"annihilator": {
+		"localized": "Annihilator",
+		"body": 0
+	},
+	"megahybrid": {
+		"localized": "Mega Hybrid",
+		"body": 0
+	},
+	"megapusher": {
+		"localized": "Mega Pusher",
+		"body": 0
+	},
+	"hybridbetterdrones": {
+		"localized": "Hybrid w/ Better Drones",
+		"body": 0
+	},
+	"skimmer": {
+		"localized": "Skimmer",
+		"body": 0
+	},
+	"stormer": {
+		"localized": "Stormer",
+		"body": 0
+	},
+	"rocketeer": {
+		"localized": "Rocketeer",
+		"body": 0
+	},
 	"smasher": {
 		"localized": "Smasher",
 		"upgrades": {
