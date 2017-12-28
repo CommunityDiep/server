@@ -20,7 +20,7 @@ function speed(name) {
 	}
 }
 
-const classes = require('./tanks.json');
+let classes = require('./tanks.json');
 const config = require('./config.json');
 
 function inArray(value, array) {
