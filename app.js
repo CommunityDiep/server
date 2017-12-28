@@ -498,91 +498,91 @@ class Player {
 
         self.shootBullet = angle => {
             if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(self.tank)){
-            const b = Bullet(self.id, angle, self.team);
+            const b = new Bullet(self.id, angle, self.team);
             b.x = self.x - 10;
             b.y = self.y;}
             if (self.tank === "quad") {
-                var cr = Bullet(self.id, angle + 180, self.team);
+                var cr = new Bullet(self.id, angle + 180, self.team);
                 cr.x = self.x - 10;
                 cr.y = self.y;
-                var vr = Bullet(self.id, angle + 270, self.team);
+                var vr = new Bullet(self.id, angle + 270, self.team);
                 vr.x = self.x - 10;
                 vr.y = self.y;
-                var er = Bullet(self.id, angle + 90, self.team);
+                var er = new Bullet(self.id, angle + 90, self.team);
                 er.x = self.x - 10;
                 er.y = self.y;
             }
             if (self.tank === "quadfighter") {
-                var cr = Bullet(self.id, angle + 180, self.team);
+                var cr = new Bullet(self.id, angle + 180, self.team);
                 cr.x = self.x - 10;
                 cr.y = self.y;
-                var vr = Bullet(self.id, angle + 240, self.team);
+                var vr = new Bullet(self.id, angle + 240, self.team);
                 vr.x = self.x - 10;
                 vr.y = self.y;
-                var er = Bullet(self.id, angle + 120, self.team);
+                var er = new Bullet(self.id, angle + 120, self.team);
                 er.x = self.x - 10;
                 er.y = self.y;
             }
             if (self.tank === "twin") {
-                const b1 = Bullet(self.id, angle, self.team);
+                const b1 = new Bullet(self.id, angle, self.team);
                 b1.x = self.x - 10;
                 b1.y = self.y + 5;
-                    const b2 = Bullet(self.id, angle, self.team);
+                    const b2 = new Bullet(self.id, angle, self.team);
                     b2.x = self.x - 10;
                     b2.y = self.y - 5;
             }
             if (self.tank === "flank" || self.tank === "destroyerflank") {
                 setTimeout(() => {
-                    const cr = Bullet(self.id, angle + 180, self.team);
+                    const cr = new Bullet(self.id, angle + 180, self.team);
                     cr.x = self.x - 10;
                     cr.y = self.y;
 
                 }, 150);
             }
             if (self.tank === "octo") {
-                var cr = Bullet(self.id, angle + 180, self.team);
+                var cr = new Bullet(self.id, angle + 180, self.team);
                 cr.x = self.x - 10;
                 cr.y = self.y;
-                var vr = Bullet(self.id, angle + 270, self.team);
+                var vr = new Bullet(self.id, angle + 270, self.team);
                 vr.x = self.x - 10;
                 vr.y = self.y;
-                var er = Bullet(self.id, angle + 90, self.team);
+                var er = new Bullet(self.id, angle + 90, self.team);
                 er.x = self.x - 10;
                 er.y = self.y;
                 setTimeout(() => {
-                    const ar = Bullet(self.id, angle + 45, self.team);
+                    const ar = new Bullet(self.id, angle + 45, self.team);
                     ar.x = self.x - 10;
                     ar.y = self.y;
-                    const rr = Bullet(self.id, angle + 135, self.team);
+                    const rr = new Bullet(self.id, angle + 135, self.team);
                     rr.x = self.x - 10;
                     rr.y = self.y;
-                    const ur = Bullet(self.id, angle + 225, self.team);
+                    const ur = new Bullet(self.id, angle + 225, self.team);
                     ur.x = self.x - 10;
                     ur.y = self.y;
-                    const nr = Bullet(self.id, angle + 315, self.team);
+                    const nr = new Bullet(self.id, angle + 315, self.team);
                     nr.x = self.x - 10;
                     nr.y = self.y;
                 }, 150);
             }
             if (self.tank === "trishot") {
-                var cr = Bullet(self.id, angle + 45, self.team);
+                var cr = new Bullet(self.id, angle + 45, self.team);
                 cr.x = self.x - 10;
                 cr.y = self.y;
-                var vr = Bullet(self.id, angle - 45, self.team);
+                var vr = new Bullet(self.id, angle - 45, self.team);
                 vr.x = self.x - 10;
                 vr.y = self.y;
             }
             if (self.tank === "horizon") {
-                var cr = Bullet(self.id, angle + 45, self.team);
+                var cr = new Bullet(self.id, angle + 45, self.team);
                 cr.x = self.x - 10;
                 cr.y = self.y;
-                var vr = Bullet(self.id, angle - 45, self.team);
+                var vr = new Bullet(self.id, angle - 45, self.team);
                 vr.x = self.x - 10;
                 vr.y = self.y;
-                const nr = Bullet(self.id, angle + 22, self.team);
+                const nr = new Bullet(self.id, angle + 22, self.team);
                 nr.x = self.x - 10;
                 nr.y = self.y;
-                const dr = Bullet(self.id, angle - 22, self.team);
+                const dr = new Bullet(self.id, angle - 22, self.team);
                 dr.x = self.x - 10;
                 dr.y = self.y;
             }
