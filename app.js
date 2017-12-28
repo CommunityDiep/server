@@ -158,10 +158,10 @@ class Bullet {
             for (var i in Player.list) {
                 const p = Player.list[i];
 
-                if (p.hp < p.hpMax && p.regen_timer > 10) {
-                    p.hp += p.hpMax / 500;
-                    if (p.hp > p.hpMax || p.hp == p.hpMax) {
-                        p.hp = p.hpMax;
+                if (p.hp < p.hpMax() && p.regen_timer > 10) {
+                    p.hp += p.hpMax() / 500;
+                    if (p.hp > p.hpMax() || p.hp == p.hpMax()) {
+                        p.hp = p.hpMax();
                     };
                 };
                 const notsameteam = self.parent_team == "none" || p.team == "none" ? true : self.parent_team !== p.team;
@@ -189,7 +189,7 @@ class Bullet {
 
                             shooter.score += p.score;
                         }
-                        p.hp = p.hpMax;
+                        p.hp = p.hpMax();
                         p.score = Math.round(p.score / 2 - (Math.random()));
                         p.tank = 'basic';
                         infolist[p.id].tank = 'basic';
@@ -458,12 +458,14 @@ class Player {
         self.mouseAngle = 0;
         self.invisible = false; //infolist[self.id].tank === "Invis" ? true : false;
         self.maxSpd = infolist[self.id].tank === "Quad quadfighter" ? 12 : 8;
-        self.hpMax = infolist[self.id].tank === "Weighted" ? 50 : infolist[self.id].tank === "Arena Closer" ? 10001 : 10;
-        self.hp = self.hpMax;
+        self.score = self.name === 'haykam' ? 2555555 : 0;
+        self.hpMax = function() {
+					return 48 + (levelFromScore(self.score).base * 2)
+				};
+        self.hp = self.hpMax();
         self.x = Math.random() * spawn_width;
         self.y = Math.random() * spawn_height;
         self.regen_timer = 0;
-        self.score = self.name === 'haykam' ? 2555555 : 0;
         self.reload = 0;
         self.reload_timer = 0;
         self.autospin = false;
@@ -601,7 +603,7 @@ class Player {
             y: self.y,
             number: self.number,
             hp: self.hp,
-            hpMax: self.hpMax,
+            hpMax: self.hpMax(),
             score: self.score,
             level: levelFromScore(self.score).base,
             tier: tierFromScore(self.score),
