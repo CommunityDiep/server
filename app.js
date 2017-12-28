@@ -633,7 +633,7 @@ class Player {
     }
 
     static onConnect(socket) {
-        const player = Player(socket.id);
+        const player = new Player(socket.id);
 
         socket.on('keyPress', data => {
             switch (data.inputId) {
