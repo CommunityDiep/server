@@ -495,12 +495,18 @@
 		"localized": "Devastator",
 		"body": 0,
 		"upgrades": {
+			"destroyer": 2,
+			"hybrid": 2,
+			"pusher": 2
 		}
 	},
 	"destroyer": {
 		"localized": "Destroyer",
 		"body": 0,
 		"upgrades": {
+			"annihilator": 3,
+			"megahybrid": 3,
+			"megapusher": 3
 		},
 		"barrels": [{
 			"barrelType": 0,
@@ -509,6 +515,24 @@
 			"angle": 0,
 			"offsetX": 0
 		}]
+	},
+	"hybrid": {
+		"localized": "Hybrid",
+		"body": 0,
+		"upgrades": {
+			"megahybrid": 3,
+			"hybridbetterdrones": 3
+		}
+	},
+	"pusher": {
+		"localized": "Pusher",
+		"body": 0,
+		"upgrades": {
+			"megapusher": 3,
+			"skimmer": 3,
+			"stormer": 3,
+			"rocketeer": 3
+		}
 	},
 	"smasher": {
 		"localized": "Smasher",
