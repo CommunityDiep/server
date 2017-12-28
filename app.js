@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 const app = express();
 let timer = 0;
 let ip_list = [];
@@ -20,8 +20,8 @@ function speed(name) {
 	}
 }
 
-import classes from './tanks.json';
-import config from './config.json';
+const classes = require('./tanks.json');
+const config = require('./config.json');
 
 function inArray(value, array) {
 	return array.includes(value);
@@ -832,7 +832,7 @@ var removePack = {
 };
 let other_timer = 0;
 
-import scoreboard from 'cdiep-score-sort';
+const scoreboard = require('cdiep-score-sort');
 
 setInterval(() => {
 
