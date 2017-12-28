@@ -81,8 +81,18 @@ class Bullet {
         angle += (Math.random() * 5) + 1;
         angle -= (Math.random() * 5) + 1;
         const self = Entity();
-        self.hp = 10;
+
         self.parent = parent;
+
+        self.hp = function() {
+					let penScaleFactor = 1 + 0.75 * 0;//parent.stat.bulletPenetration;
+					let damageScaleFactor = 0.7 + 0.3 * 0;//parent.stat.bulletDamage;
+
+					let bulletFactor = 8;
+
+					return bulletFactor * damageScaleFactor * penScaleFactor;
+				};
+
         self.id = Math.random();
         if (self.parent) {
             if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
