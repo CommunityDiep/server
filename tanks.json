@@ -495,48 +495,18 @@
 		"localized": "Devastator",
 		"body": 0,
 		"upgrades": {
-			"destroyer": 2,
-			"devastatorflank": 2
 		}
 	},
 	"destroyer": {
 		"localized": "Destroyer",
 		"body": 0,
 		"upgrades": {
-			"destroyerflank": 3
 		},
 		"barrels": [{
 			"barrelType": 0,
 			"width": 39,
 			"length": 48,
 			"angle": 0,
-			"offsetX": 0
-		}]
-	},
-	"devastatorflank": {
-		"localized": "Devastator Flank",
-		"upgrades": {
-			"destroyerflank": 3
-		},
-		"body": 0,
-		"barrels": [
-
-		]
-	},
-	"destroyerflank": {
-		"localized": "Destroyer Flank",
-		"body": 0,
-		"barrels": [{
-			"barrelType": 0,
-			"width": 39,
-			"length": 48,
-			"angle": 0,
-			"offsetX": 0
-		}, {
-			"barrelType": 0,
-			"width": 39,
-			"length": 44,
-			"angle": 180,
 			"offsetX": 0
 		}]
 	},
