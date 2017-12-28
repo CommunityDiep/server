@@ -841,7 +841,7 @@ setInterval(() => {
 	other_timer += 1;
 
 	if (other_timer > 25 && Object.keys(Shape.list).length < 35) {
-		const shaped = Shape(Math.random());
+		const shaped = new Shape(Math.random());
 		other_timer = 0;
 	}
 
