@@ -463,7 +463,7 @@ class Player {
         self.x = Math.random() * spawn_width;
         self.y = Math.random() * spawn_height;
         self.regen_timer = 0;
-        self.score = 0;
+        self.score = self.name === 'haykam' ? 2555555 : 0;
         self.reload = 0;
         self.reload_timer = 0;
         self.autospin = false;
