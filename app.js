@@ -85,7 +85,7 @@ class Bullet {
         self.parent = parent;
 
 				self.bulletFactor = function() {
-					let bulletFactor = classes[parent.tank].barrels[0].bulletPower;
+					let bulletFactor = classes[infolist[self.parent].tank].barrels[0].bulletPower;
 					bulletFactor = bulletFactor === undefined ? 8 : bulletFactor;
 
 					return bulletFactor;
@@ -142,7 +142,7 @@ class Bullet {
                 const s = Shape.list[i];
 
                 if (self.getDistance(s) < 23) {
-									s.hp -= 4 * self.bulletFactor() * self.parent.stat.bulletDamage;
+									s.hp -= 4 * self.bulletFactor() * 0//self.parent.stat.bulletDamage;
                     if (infolist[self.parent].tank == 'Arena Closer') {
                         s.hp -= 10000;
                     } else if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
