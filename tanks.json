@@ -2,8 +2,6 @@
 	"basic": {
 		"localized": "Basic Tank",
 		"reload": "unknown",
-		"bodyDamage": 12.5,
-		"spread": 0,
 		"speed": "unknown",
 		"upgrades": {
 			"twin": 1,
@@ -20,7 +18,8 @@
 			"width": 19,
 			"length": 48,
 			"angle": 0,
-			"offsetX": 0
+			"offsetX": 0,
+			"bulletPower": 8
 		}],
 		"body": 0
 	},
