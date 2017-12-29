@@ -90,12 +90,13 @@ class Bullet {
 
 					return bulletFactor;
 				}
-        self.hp = function() {
+        self.hpMax = function() {
 					let penScaleFactor = 1 + 0.75 * 0;//parent.stat.bulletPenetration;
 					let damageScaleFactor = 0.7 + 0.3 * 0;//parent.stat.bulletDamage;
-
-					return self.bulletFactor * damageScaleFactor * penScaleFactor;
+					
+					return self.bulletFactor() * damageScaleFactor * penScaleFactor;
 				};
+				self.hp = self.hpMax();
 
         self.id = Math.random();
         if (self.parent) {
@@ -142,31 +143,19 @@ class Bullet {
                 const s = Shape.list[i];
 
                 if (self.getDistance(s) < 23) {
-									s.hp -= 4 * self.bulletFactor() * 0//self.parent.stat.bulletDamage;
-                    if (infolist[self.parent].tank == 'Arena Closer') {
-                        s.hp -= 10000;
-                    } else if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
-                        s.hp -= 12;
-                    } else if (infolist[self.parent].tank == 'Annihilator') {
-                        s.hp -= 16;
-                    } else if (infolist[self.parent].tank == 'Streamliner') {
-                        s.hp -= 1;
-                    } else {
-                        s.hp -= 4;
-                    }
-                    if (s.hp <= 0) {
-                        if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid' || infolist[self.parent].tank == 'sniper') {
-
-                        } else {
-                            self.toRemove = true;
-                        }
-                        s.toRemove = true;
-                        if (Player.list[self.parent]) {
-                            Player.list[self.parent].score += s.score;
-                        }
-                    }
+									s.hp -= 4 * self.bulletFactor() * 1;//self.parent.stat.bulletDamage;
+									self.hp -= 4 * self.bulletFactor() * 1;
+									console.log(s.hp, self.hp)
+									if (self.hp <= 0) {
+										self.toRemove = true;
+									}
+									if (s.hp <= 0) {
+										s.toRemove = true;
+										if (Player.list[self.parent]) {
+												Player.list[self.parent].score += s.score;
+										}
+									}
                 }
-
             }
 
             for (var i in Player.list) {
