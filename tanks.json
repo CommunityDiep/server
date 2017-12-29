@@ -21,7 +21,8 @@
 			"offsetX": 0,
 			"bulletPower": 8
 		}],
-		"body": 0
+		"body": 0,
+		"bodyDamage": 0
 	},
 	"twin": {
 		"localized": "Twin",
