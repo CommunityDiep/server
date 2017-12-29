@@ -88,7 +88,8 @@ class Bullet {
 					let penScaleFactor = 1 + 0.75 * 0;//parent.stat.bulletPenetration;
 					let damageScaleFactor = 0.7 + 0.3 * 0;//parent.stat.bulletDamage;
 
-					let bulletFactor = 8;
+					let bulletFactor = classes[parent.tank].barrels[0].bulletPower;
+					bulletFactor = bulletFactor === undefined ? 8 : bulletFactor;
 
 					return bulletFactor * damageScaleFactor * penScaleFactor;
 				};
