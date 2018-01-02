@@ -516,7 +516,7 @@
 			"destroyer": 2,
 			"hybrid": 2,
 			"pusher": 2,
-			"trapper": 2,
+			"trapper": 2
 		}
 	},
 	"destroyer": {
@@ -526,7 +526,7 @@
 			"annihilator": 3,
 			"megahybrid": 3,
 			"megapusher": 3,
-			"megatrapper": 3,
+			"megatrapper": 3
 		},
 		"barrels": [{
 			"barrelType": 0,
