@@ -774,7 +774,10 @@ io.sockets.on('connection', socket => {
 				if (classes[choice] == undefined) {
 					logger.warn(`Couldn't upgrade "${name}" to that tank because it doesn't exist.`);
 				} else {
-					logger.debug(`Upgrade data: player data is ${player}, upgrade offset is ${data.pos}, tank internal name is ${choice}, localized tank name is ${classes[choice].localized}.`);
+					logger.debug(`Player data for this upgrade is ${player}.`);
+					logger.debug(`Upgrade offset is ${data.pos}`);
+					logger.debug(`The tank's internal name is ${choice}`);
+					logger.debug(`The localized name is ${classes[choice].localized}.`);
 
 					if (tier >= choice) {
 						logger.debug(`Upgraded "${name}" to tank ${classes[choice].localized}.`);
