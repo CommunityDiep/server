@@ -520,9 +520,23 @@
 	},
 	"drone": {
 		"localized": "Overseer",
-		"barrels": [
-
-		],
+		"barrels": [{
+			"barrelType": 1,
+			"length": 34,
+			"width": 40,
+			"angle": 90,
+			"offsetX": 0,
+			"damage": 1,
+			"penetration": 1
+		}, {
+			"barrelType": 1,
+			"length": 34,
+			"width": 40,
+			"angle": 270,
+			"offsetX": 0,
+			"damage": 1,
+			"penetration": 1
+		}],
 		"body": 0
 	},
 	"trapper": {
