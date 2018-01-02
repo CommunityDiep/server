@@ -453,8 +453,8 @@ class Player {
         self.pressingDec = false;
         self.team = 'none';
         self.teamcolor = {
-            "red": "F14E54",
-            "blue": "1DB2DF",
+            "red": "#F14E54",
+            "blue": "#1DB2DF",
             "purple": "#BE83F2",
             "green": "#24DF73"
         }[self.team];
