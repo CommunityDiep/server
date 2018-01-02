@@ -1,5 +1,9 @@
 const express = require('express');
 const app = express();
+
+const logger = require('winston');
+logger.level = 'silly';
+
 let timer = 0;
 let ip_list = [];
 const ip_dic = {};
@@ -29,7 +33,7 @@ function inArray(value, array) {
 const serv = require('http').Server(app);
 
 serv.listen(config.port);
-console.log('Server started on port', config.port)
+logger.info(`The server started on port ${config.port}`);
 
 const namelist = {};
 const arenasize = [1500, 1500];
@@ -93,7 +97,7 @@ class Bullet {
         self.hpMax = function() {
 					let penScaleFactor = 1 + 0.75 * 0;//parent.stat.bulletPenetration;
 					let damageScaleFactor = 0.7 + 0.3 * 0;//parent.stat.bulletDamage;
-					
+
 					return self.bulletFactor() * damageScaleFactor * penScaleFactor;
 				};
 				self.hp = self.hpMax();
@@ -751,27 +755,27 @@ io.sockets.on('connection', socket => {
 	socket.on('upgrade', data => {
 		try {
 			if (classes[Player.list[socket.id].tank].upgrades == undefined) {
-				console.log(`Couldn't upgrade "${Player.list[socket.id].name}" because there are no upgrades.`)
+				logger.debug(`Couldn't upgrade "${Player.list[socket.id].name}" because there are no upgrades.`);
 			} else {
 				const upgrades = classes[Player.list[socket.id].tank].upgrades;
 				const choice = Object.keys(upgrades)[data.pos];
 
 				if (classes[choice] == undefined) {
-					console.log(`Couldn't upgrade "${Player.list[socket.id].name}" to that tank because it doesn't exist.`)
+					logger.warn(`Couldn't upgrade "${Player.list[socket.id].name}" to that tank because it doesn't exist.`);
 				} else {
-					console.log(`Upgrade data: player data is ${Player.list[socket.id]}, upgrade offset is ${data.pos}, tank internal name is ${choice}, localized tank name is ${classes[choice].localized}.`)
+					logger.debug(`Upgrade data: player data is ${Player.list[socket.id]}, upgrade offset is ${data.pos}, tank internal name is ${choice}, localized tank name is ${classes[choice].localized}.`);
 
 					if (tierFromScore(Player.list[socket.id].score) >= Object.values(upgrades)[data.pos]) {
-						console.log(`Upgraded "${Player.list[socket.id].name}" to tank ${classes[choice].localized}.`)
+						logger.debug(`Upgraded "${Player.list[socket.id].name}" to tank ${classes[choice].localized}.`);
 						Player.list[socket.id].tank = choice;
 						infolist[socket.id].tank = choice;
 					} else {
-						console.log(`Couldn't upgrade "${Player.list[socket.id].name}" to tank ${classes[choice].localized} because they were only tier ${tierFromScore(Player.list[socket.id].score)}.`);
+						logger.debug(`Couldn't upgrade "${Player.list[socket.id].name}" to tank ${classes[choice].localized} because they were only tier ${tierFromScore(Player.list[socket.id].score)}.`);
 					}
 				}
 			}
 		} catch (e) {
-			console.log(`Upgrading error: ${e}`);
+			logger.error(`Upgrading error: ${e}`);
 		}
 	});
 
