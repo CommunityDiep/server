@@ -8,7 +8,6 @@ let timer = 0;
 let ip_list = [];
 const ip_dic = {};
 const infolist = {};
-const dimensions = {};
 
 function speed(name) {
 	switch (name) {
@@ -355,8 +354,6 @@ class Shape {
         self.getUpdatePack = player => {
             const player_x = player.x;
             const player_y = player.y;
-            const screen_width = dimensions[`${player.id}width`];
-            const screen_height = dimensions[`${player.id}height`];
             if (Math.abs(player.x - self.x) < screen_width && Math.abs(player.y - self.y) < screen_height) {
                 return {
                     id: self.id,
@@ -798,8 +795,6 @@ io.sockets.on('connection', socket => {
 	});
 
 	socket.on('signIn', data => {
-		dimensions[`${socket.id}width`] = data.width;
-		dimensions[`${socket.id}height`] = data.height;
 		let username = data.name;
 		const tank_choice = data.tank;
 		username = username.slice(0, 16);
