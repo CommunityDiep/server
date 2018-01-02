@@ -327,6 +327,8 @@
 	"sniper": {
 		"localized": "Sniper",
 		"upgrades": {
+			"assassin": 2,
+			"hunter": 2,
 			"healthsteal": 3
 		},
 		"barrels": [{
@@ -336,6 +338,34 @@
 			"angle": 0,
 			"offsetX": 0
 		}],
+		"body": 0
+	},
+	"assassin": {
+		"localized": "Assassin",
+		"upgrades": {
+			"ranger": 3,
+			"stalker": 3
+		},
+		"body": 0
+	},
+	"ranger": {
+		"localized": "Ranger",
+		"body": 0
+	},
+	"stalker": {
+		"localized": "Stalker",
+		"body": 0
+	},
+	"hunter": {
+		"localized": "Hunter",
+		"upgrades": {
+			"predator": 3,
+			"streamliner": 3
+		},
+		"body": 0
+	},
+	"predator": {
+		"localized": "Predator",
 		"body": 0
 	},
 	"flank": {
