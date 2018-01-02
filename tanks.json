@@ -149,6 +149,16 @@
 		}],
 		"body": 0
 	},
+	"auto3": {
+		"localized": "Auto 3",
+		"upgrades": {
+			"auto5": 3,
+			"autosmasher": 3,
+			"trapauto": 3,
+			"gunauto": 3
+		},
+		"body": 0
+	},
 	"auto5": {
 		"localized": "Auto 5",
 		"body": 0
@@ -334,7 +344,9 @@
 		"upgrades": {
 			"quad": 2,
 			"triangle": 2,
-			"devastatorflank": 2
+			"twinflank": 2,
+			"devastatorflank": 2,
+			"auto3": 2
 		},
 		"barrels": [{
 			"barrelType": 0,
