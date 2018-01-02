@@ -753,29 +753,47 @@ io.sockets.on('connection', socket => {
 	}
 
 	socket.on('upgrade', data => {
+		let willWork = true;
+
 		try {
 			if (classes[Player.list[socket.id].tank].upgrades == undefined) {
+				willWork = false;
 				logger.debug(`Couldn't upgrade "${Player.list[socket.id].name}" because there are no upgrades.`);
-			} else {
-				const upgrades = classes[Player.list[socket.id].tank].upgrades;
+			}
+			if (Player.list[socket.id] == undefined) {
+				willWork = false;
+				logger.warn(`Couldn't upgrade a client because they don't exist in the player list.`);
+			}
+
+			if (willWork) {
+				const player = Player.list[socket.id];
+
+				const name = player.name;
+				const tank = player.tank;
+
+				const score = player.score;
+				const tier = tierFromScore(player.score);
+
+				const upgrades = classes[player.tank].upgrades;
 				const choice = Object.keys(upgrades)[data.pos];
 
 				if (classes[choice] == undefined) {
-					logger.warn(`Couldn't upgrade "${Player.list[socket.id].name}" to that tank because it doesn't exist.`);
+					logger.warn(`Couldn't upgrade "${name}" to that tank because it doesn't exist.`);
 				} else {
-					logger.debug(`Upgrade data: player data is ${Player.list[socket.id]}, upgrade offset is ${data.pos}, tank internal name is ${choice}, localized tank name is ${classes[choice].localized}.`);
+					logger.debug(`Upgrade data: player data is ${player}, upgrade offset is ${data.pos}, tank internal name is ${choice}, localized tank name is ${classes[choice].localized}.`);
 
-					if (tierFromScore(Player.list[socket.id].score) >= Object.values(upgrades)[data.pos]) {
-						logger.debug(`Upgraded "${Player.list[socket.id].name}" to tank ${classes[choice].localized}.`);
+					if (tier >= choice) {
+						logger.debug(`Upgraded "${name}" to tank ${classes[choice].localized}.`);
+
 						Player.list[socket.id].tank = choice;
 						infolist[socket.id].tank = choice;
 					} else {
-						logger.debug(`Couldn't upgrade "${Player.list[socket.id].name}" to tank ${classes[choice].localized} because they were only tier ${tierFromScore(Player.list[socket.id].score)}.`);
+						logger.debug(`Couldn't upgrade "${name}" to tank ${classes[choice].localized} because they were only tier ${tier}.`);
 					}
 				}
 			}
-		} catch (e) {
-			logger.error(`Upgrading error: ${e}`);
+		} catch (error) {
+			logger.error(`Unknown upgrading error: ${error}`);
 		}
 	});
 
