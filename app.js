@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const logger = require('winston');
-logger.level = 'silly';
+logger.level = 'info';
 
 let timer = 0;
 let ip_list = [];
