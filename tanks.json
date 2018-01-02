@@ -9,7 +9,6 @@
 			"machine": 1,
 			"flank": 1,
 			"drone": 1,
-			"trapper": 1,
 			"devastator": 1,
 			"smasher": 2
 		},
@@ -503,13 +502,21 @@
 		],
 		"body": 0
 	},
+	"megatrapper": {
+		"localized": "Mega Trapper",
+		"barrels": [
+
+		],
+		"body": 0
+	},
 	"devastator": {
 		"localized": "Devastator",
 		"body": 0,
 		"upgrades": {
 			"destroyer": 2,
 			"hybrid": 2,
-			"pusher": 2
+			"pusher": 2,
+			"trapper": 2,
 		}
 	},
 	"destroyer": {
@@ -518,7 +525,8 @@
 		"upgrades": {
 			"annihilator": 3,
 			"megahybrid": 3,
-			"megapusher": 3
+			"megapusher": 3,
+			"megatrapper": 3,
 		},
 		"barrels": [{
 			"barrelType": 0,
