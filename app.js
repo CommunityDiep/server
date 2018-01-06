@@ -149,7 +149,6 @@ class Bullet {
                 if (self.getDistance(s) < 23) {
 									s.hp -= 4 * self.bulletFactor() * 1;//self.parent.stat.bulletDamage;
 									self.hp -= 4 * self.bulletFactor() * 1;
-									console.log(s.hp, self.hp)
 									if (self.hp <= 0) {
 										self.toRemove = true;
 									}
