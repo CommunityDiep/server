@@ -448,7 +448,7 @@ class Player {
         self.dev = false;
         self.id = id;
         self.name = namelist[self.id];
-        self.tank = self.dev ? 'Arena Closer' : 'basic'; //infolist[self.id].tank
+        self.tank = "basic"; // It's the default tank.
         self.number = `${Math.floor(10 * Math.random())}`;
         self.directions = {right: false, left: false, up: false, down: false}
         self.pressingInc = false;
