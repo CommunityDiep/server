@@ -9,7 +9,7 @@
 			"machine": 1,
 			"flank": 1,
 			"drone": 1,
-			"devastator": 1,
+			"destructor": 1,
 			"smasher": 2
 		},
 		"barrels": [{
@@ -374,7 +374,7 @@
 			"quad": 2,
 			"triangle": 2,
 			"twinflank": 2,
-			"devastatorflank": 2,
+			"destructorflank": 2,
 			"auto3": 2
 		},
 		"barrels": [{
@@ -553,8 +553,8 @@
 		],
 		"body": 0
 	},
-	"devastator": {
-		"localized": "Devastator",
+	"destructor": {
+		"localized": "destructor",
 		"body": 0,
 		"upgrades": {
 			"destroyer": 2,
