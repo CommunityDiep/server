@@ -854,7 +854,6 @@ const scoreboard = require('cdiep-score-sort');
 setInterval(() => {
 
 	ip_list = [];
-	timer += 1;
 	other_timer += 1;
 
 	if (other_timer > 25 && Object.keys(Shape.list).length < 35) {
