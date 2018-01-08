@@ -465,10 +465,23 @@ class Player {
         self.invisible = false; //infolist[self.id].tank === "Invis" ? true : false;
         self.maxSpd = infolist[self.id].tank === "Quad quadfighter" ? 12 : 8;
         self.score = self.name === 'haykam' ? 2555555 : 0;
+
+				self.statPoints = { // the custom ones, base stats are added in to equations
+					"healthRegeneration": 0,
+					"bodyDamage": 0,
+					"maxHealth": 0,
+					"bulletSpeed": 0,
+					"bulletDamage": 0,
+					"bulletPower": 0,
+					"bulletReload": 0,
+					"movementSpeed": 0,
+				};
+
         self.hpMax = function() {
 					return 48 + (levelFromScore(self.score).base * 2)
 				};
         self.hp = self.hpMax();
+
         self.x = Math.random() * spawn_width;
         self.y = Math.random() * spawn_height;
         self.regen_timer = 0;
