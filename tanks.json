@@ -554,7 +554,7 @@
 		"body": 0
 	},
 	"destructor": {
-		"localized": "destructor",
+		"localized": "Destructor",
 		"body": 0,
 		"upgrades": {
 			"destroyer": 2,
