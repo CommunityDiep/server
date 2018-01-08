@@ -1,6 +1,7 @@
 {
   "teams": -1,
   "port": 8080,
+  "debugLevel": "info",
   "levels": {
     "1": 0,
     "2": 4,

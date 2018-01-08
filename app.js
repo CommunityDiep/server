@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 
 const logger = require('winston');
-logger.level = 'info';
 
 let timer = 0;
 let ip_list = [];
@@ -26,6 +25,8 @@ function speed(name) {
 
 let classes = require('./tanks.json');
 const config = require('./config.json');
+
+logger.level = config.debugLevel;
 
 function inArray(value, array) {
 	return array.includes(value);
