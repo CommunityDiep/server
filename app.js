@@ -3,7 +3,6 @@ const app = express();
 
 const logger = require('winston');
 
-let timer = 0;
 let ip_list = [];
 const ip_dic = {};
 const infolist = {};
@@ -823,7 +822,7 @@ io.sockets.on('connection', socket => {
 			});
 		}
 	});
-	
+
 var initPack = {
 	player: [],
 	bullet: [],
