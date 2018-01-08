@@ -823,29 +823,7 @@ io.sockets.on('connection', socket => {
 			});
 		}
 	});
-
-	socket.on('sendMsgToServer', data => {
-		if (timer > 15) {
-			for (const i in SOCKET_LIST) {
-
-				const name_theirs = namelist[socket.id];
-				const sep = ':';
-				const addition = '';
-				const one = ip_dic[socket.id];
-
-				const words = data.words.slice(0, 200).toString();
-				const worded = words.toString().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/'/g, "&#39;").replace(/"/g, "&#34;");
-				io.sockets.emit('addToChat', {
-					text: `${name_theirs} ${addition}${sep} ${worded}`
-				});
-
-			}
-			timer = 0;
-		}
-	});
-
-});
-
+	
 var initPack = {
 	player: [],
 	bullet: [],
