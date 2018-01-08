@@ -835,6 +835,7 @@ io.sockets.on('connection', socket => {
 			});
 		}
 	});
+});
 
 var initPack = {
 	player: [],
