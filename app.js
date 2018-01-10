@@ -23,7 +23,14 @@ function speed(name) {
 }
 
 let classes = require('./tanks.json');
-const config = require('./config.json');
+let config = {};
+
+try {
+	const commentStrip = require("strip-json-comments");
+	config = JSON.parse(commentStrip(JSON.stringify(require('./config.json')))); // hacky!
+} catch (error) {
+	config = require('./config.json');
+}
 
 logger.level = config.debugLevel;
 
