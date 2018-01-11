@@ -888,10 +888,10 @@ setInterval(() => {
 
 	const scores = scoreboard.sort(Player.list).slice(0, 10);
 
-	io.sockets.emit('update', pack);
-	io.sockets.emit('scoreboard', scores);
-	io.sockets.emit('init', initPack);
-	io.sockets.emit('remove', removePack);
+	if (pack.length > 0) io.sockets.emit('update', pack);
+	if (scoresPack.length > 0) io.sockets.emit('scoreboard', scores);
+	if (initPack.length > 0) io.sockets.emit('init', initPack);
+	if (removePack.length > 0) io.sockets.emit('remove', removePack);
 
 	initPack.player = [];
 	initPack.bullet = [];
