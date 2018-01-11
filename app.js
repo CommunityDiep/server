@@ -10,20 +10,6 @@ const ip_dic = {};
 const infolist = {};
 const dimensions = {};
 
-function speed(name) {
-	switch (name) {
-	case 'none':
-		return 0;
-	case 'low':
-		return 4;
-	case 'normal':
-	default:
-		return 8;
-	case 'high':
-		return 14;
-	}
-}
-
 let classes = require('./tanks.json');
 let config = {};
 
@@ -36,9 +22,6 @@ try {
 
 logger.level = config.debugLevel;
 
-function inArray(value, array) {
-	return array.includes(value);
-}
 const serv = require('http').Server(app);
 
 serv.listen(config.port);
@@ -825,7 +808,7 @@ io.sockets.on('connection', socket => {
 		username = username.slice(0, 16);
 		let ip_address = data.address;
 		ip_address = String(ip_address);
-		if (inArray(ip_address, ip_list) || ip_address == undefined) {
+		if (ip_list.includes(ip_address) || ip_address == undefined) {
 			socket.emit('signInResponse', {
 				success: false
 			});
