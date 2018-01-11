@@ -849,6 +849,8 @@ let other_timer = 0;
 
 const scoreboard = require('cdiep-score-sort');
 
+let lastUpdatePack = {};
+
 setInterval(() => {
 
 	ip_list = [];
@@ -887,8 +889,12 @@ setInterval(() => {
 
 	const scores = scoreboard.sort(Player.list).slice(0, 10);
 
-	if (pack.player.length > 0 || pack.bullet.length > 0 || pack.shape.length > 0) {
+	let updatesSomething = pack.player.length > 0 || pack.bullet.length > 0 || pack.shape.length > 0;
+	let isDifferent = lastUpdatePack !== pack || lastUpdatePack === [];
+
+	if (updatesSomething && isDifferent) {
 		io.sockets.emit('update', pack);
+		lastUpdatePack = pack;
 	}
 
 	if (scores.length > 0) {
