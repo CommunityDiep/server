@@ -801,31 +801,38 @@ io.sockets.on('connection', socket => {
 	});
 
 	socket.on('signIn', data => {
+		// Set up dimensions (for selective object sending)
 		dimensions[`${socket.id}width`] = data.width;
 		dimensions[`${socket.id}height`] = data.height;
+
+		// Set up important data
 		let username = data.name;
 		const tank_choice = data.tank;
 		username = username.slice(0, 16);
+
+		// Prevent IP duplication
 		let ip_address = data.address;
 		ip_address = String(ip_address);
 		if (ip_list.includes(ip_address) || ip_address == undefined) {
 			socket.emit('signInResponse', {
 				success: false
 			});
-		} else {
-			namelist[socket.id] = username;
-			infolist[socket.id] = {
-				name: username,
-				tank: tank_choice
-			}
-			Player.onConnect(socket);
-			ip_list.push(ip_address);
-			ip_dic[socket.id] = ip_address;
-
-			socket.emit('signInResponse', {
-				success: true
-			});
+			break;
 		}
+
+		// Other things
+		namelist[socket.id] = username;
+		infolist[socket.id] = {
+			name: username,
+			tank: tank_choice
+		}
+		Player.onConnect(socket);
+		ip_list.push(ip_address);
+		ip_dic[socket.id] = ip_address;
+
+		socket.emit('signInResponse', {
+			success: true
+		});
 	});
 });
 
