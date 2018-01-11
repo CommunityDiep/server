@@ -191,8 +191,8 @@ class Bullet {
                         p.score = Math.round(p.score / 2 - (Math.random()));
                         p.tank = 'basic';
                         infolist[p.id].tank = 'basic';
-                        p.x = Math.random() * spawn_width;
-                        p.y = Math.random() * spawn_height;
+                        p.x = Math.random() * arenaSize.width;
+                        p.y = Math.random() * arenaSize.height;
                         /*io.sockets.emit('killNotification',{
                             killer: shooter.id,
                             killed: namelist[p.id],
@@ -474,8 +474,8 @@ class Player {
 				};
         self.hp = self.hpMax();
 
-        self.x = Math.random() * spawn_width;
-        self.y = Math.random() * spawn_height;
+        self.x = Math.random() * arenaSize.width;
+        self.y = Math.random() * arenaSize.height;
         self.regen_timer = 0;
         self.reload = 0;
         self.reload_timer = 0;
