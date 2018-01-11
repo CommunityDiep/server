@@ -177,7 +177,7 @@ class Bullet {
                         p.hp = p.hpMax();
                     };
                 };
-                const notsameteam = self.parent_team == "none" || p.team == "none" ? true : self.parent_team !== p.team;
+                const onDifferentTeams = self.parent_team == "none" || p.team == "none" ? true : self.parent_team !== p.team;
                 if (self.getDistance(p) < 32 && self.parent !== p.id) {
                     p.regen_timer = 0;
 
