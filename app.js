@@ -3,6 +3,8 @@ const app = express();
 
 const logger = require('winston');
 
+const shortid = require('shortid');
+
 let ip_list = [];
 const ip_dic = {};
 const infolist = {};
