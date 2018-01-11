@@ -744,10 +744,8 @@ io.sockets.on('connection', socket => {
 	SOCKET_LIST[socket.id] = socket;
 
 	socket.on('disconnect', () => {
-
 		Player.onDisconnect(socket);
 		delete SOCKET_LIST[socket.id];
-
 	});
 
 	socket.on('upgrade', data => {
