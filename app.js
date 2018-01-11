@@ -30,7 +30,6 @@ logger.info(`The server started on port ${config.port}`);
 const namelist = {};
 const arenasize = [1500, 1500];
 
-const SOCKET_LIST = {};
 const spawn_width = arenasize[0];
 const spawn_height = arenasize[1];
 
@@ -741,11 +740,9 @@ io.sockets.on('connection', socket => {
 	sendClasses();
 
 	socket.id = shortid.generate();
-	SOCKET_LIST[socket.id] = socket;
 
 	socket.on('disconnect', () => {
 		Player.onDisconnect(socket);
-		delete SOCKET_LIST[socket.id];
 	});
 
 	socket.on('upgrade', data => {
