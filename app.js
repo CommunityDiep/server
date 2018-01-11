@@ -891,19 +891,18 @@ setInterval(() => {
 		io.sockets.emit('update', pack);
 	}
 
-console.log(pack)
-	if (scores.length) {
+	if (scores.length > 0) {
 		io.sockets.emit('scoreboard', scores);
 	}
 
-	if (initPack.length) {
+	if (initPack.length > 0) {
 		io.sockets.emit('init', initPack);
 
 		initPack.player = [];
 		initPack.bullet = [];
 		initPack.shape = [];
 	}
-	if (removePack.length) {
+	if (removePack.length > 0) {
 		io.sockets.emit('remove', removePack);
 
 		removePack.player = [];
