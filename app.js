@@ -66,18 +66,18 @@ const Entity = () => {
 
 		if (Player.list[self.id]) {
 			if (Player.list[self.id].tank == 'drifter') {
-				self.spdX *= 0.98;
-				self.spdY *= 0.98;
+				self.xVelocity *= 0.98;
+				self.yVelocity *= 0.98;
 			} else if (Player.list[self.id].tank == 'frictionless') {
-				self.spdX *= 1.009;
-				self.spdY *= 1.009;
+				self.xVelocity *= 1.009;
+				self.yVelocity *= 1.009;
 			} else {
-				self.spdX *= 0.92;
-				self.spdY *= 0.92;
+				self.xVelocity *= 0.92;
+				self.yVelocity *= 0.92;
 			}
 		}
-		self.x += self.spdX;
-		self.y += self.spdY;
+		self.x += self.xVelocity;
+		self.y += self.yVelocity;
 
 	}
 
@@ -112,18 +112,18 @@ class Bullet {
         self.id = Math.random();
         if (self.parent) {
             if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
-                self.spdX = Math.cos(angle / 180 * Math.PI) * 13;
-                self.spdY = Math.sin(angle / 180 * Math.PI) * 13;
+                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 13;
+                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 13;
             } else if (infolist[self.parent].tank == 'sniper') {
-                self.spdX = Math.cos(angle / 180 * Math.PI) * 35;
-                self.spdY = Math.sin(angle / 180 * Math.PI) * 35;
+                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 35;
+                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 35;
 
             } else if (infolist[self.parent].tank == 'quadfighter') {
-                self.spdX = Math.cos(angle / 180 * Math.PI) * 30;
-                self.spdY = Math.sin(angle / 180 * Math.PI) * 30;
+                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 30;
+                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 30;
             } else {
-                self.spdX = Math.cos(angle / 180 * Math.PI) * 20;
-                self.spdY = Math.sin(angle / 180 * Math.PI) * 20;
+                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 20;
+                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 20;
             }
 
         }
@@ -318,8 +318,8 @@ class Shape {
         self.hpMax = pointawards[self.type].hp;
         self.hp = pointawards[self.type].hp;
         self.angle = Math.random() * 360;
-        self.spdX = Math.cos(self.angle / 180 * Math.PI) * 0.18;
-        self.spdY = Math.sin(self.angle / 180 * Math.PI) * 0.18;
+        self.xVelocity = Math.cos(self.angle / 180 * Math.PI) * 0.18;
+        self.yVelocity = Math.sin(self.angle / 180 * Math.PI) * 0.18;
 
         const super_update = self.update;
         self.update = () => {
@@ -504,13 +504,13 @@ class Player {
             super_update();
 
             //if (infolist[self.id].tank !== "Borderless"){
-            self.spdX = self.x < 0 ? 0 : self.spdX;
+            self.xVelocity = self.x < 0 ? 0 : self.xVelocity;
             self.x = self.x < 0 ? 0 : self.x;
-            self.spdY = self.y < 0 ? 0 : self.spdY;
+            self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
             self.y = self.y < 0 ? 0 : self.y;
-            self.spdY = self.y < 0 ? 0 : self.spdY;
+            self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
             self.x = self.x > arenasize[0] && !(self.y > 90 && self.y < 130 && self.tank == "Arena Closer") ? arenasize[0] : self.x;
-            self.spdY = self.y > arenasize[1] ? 0 : self.spdY;
+            self.yVelocity = self.y > arenasize[1] ? 0 : self.yVelocity;
             self.y = self.y > arenasize[1] ? arenasize[1] : self.y;
 
             //};
@@ -617,10 +617,10 @@ class Player {
         }
 
         self.updateSpd = () => {
-            if (self.directions.right && self.spdX < self.maxSpd) { self.spdX++; }
-            if (self.directions.left && self.spdX > -self.maxSpd) { self.spdX--; }
-            if (self.directions.up && self.spdY > -self.maxSpd) { self.spdY--; }
-            if (self.directions.down && self.spdY < self.maxSpd) { self.spdY++ }
+            if (self.directions.right && self.xVelocity < self.maxSpd) { self.xVelocity++; }
+            if (self.directions.left && self.xVelocity > -self.maxSpd) { self.xVelocity--; }
+            if (self.directions.up && self.yVelocity > -self.maxSpd) { self.yVelocity--; }
+            if (self.directions.down && self.yVelocity < self.maxSpd) { self.yVelocity++ }
         }
 
         self.getInitPack = () => ({
