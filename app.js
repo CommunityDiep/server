@@ -818,16 +818,18 @@ io.sockets.on('connection', socket => {
 			break;
 		}
 
-		// Other things
+		// Add to these weird "lists" and "dictionaries"
 		namelist[socket.id] = username;
 		infolist[socket.id] = {
 			name: username,
 			tank: tank_choice
 		}
-		Player.onConnect(socket);
 		ip_list.push(ip_address);
 		ip_dic[socket.id] = ip_address;
 
+		Player.onConnect(socket);
+
+		// We did it! Let's tell the client
 		socket.emit('signInResponse', {
 			success: true
 		});
