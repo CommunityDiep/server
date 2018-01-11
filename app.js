@@ -890,14 +890,19 @@ setInterval(() => {
 
 	if (pack.length > 0) io.sockets.emit('update', pack);
 	if (scoresPack.length > 0) io.sockets.emit('scoreboard', scores);
-	if (initPack.length > 0) io.sockets.emit('init', initPack);
-	if (removePack.length > 0) io.sockets.emit('remove', removePack);
 
-	initPack.player = [];
-	initPack.bullet = [];
-	initPack.shape = [];
-	removePack.player = [];
-	removePack.bullet = [];
-	removePack.shape = [];
+	if (initPack.length > 0) {
+		io.sockets.emit('init', initPack);
 
+		initPack.player = [];
+		initPack.bullet = [];
+		initPack.shape = [];
+	}
+	if (removePack.length > 0) {
+		io.sockets.emit('remove', removePack);
+
+		removePack.player = [];
+		removePack.bullet = [];
+		removePack.shape = [];
+	}
 }, 1000 / 25);
