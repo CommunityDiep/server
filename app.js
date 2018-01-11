@@ -28,10 +28,11 @@ serv.listen(config.port);
 logger.info(`The server started on port ${config.port}`);
 
 const namelist = {};
-const arenasize = [1500, 1500];
 
-const spawn_width = arenasize[0];
-const spawn_height = arenasize[1];
+const arenaSize = {
+	width: config.arenaSize.width,
+	height: config.arenaSize.height
+};
 
 const Entity = () => {
 	const self = {
