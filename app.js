@@ -740,7 +740,7 @@ function sendClasses() {
 io.sockets.on('connection', socket => {
 	sendClasses();
 
-	socket.id = Math.random();
+	socket.id = shortid.generate();
 	SOCKET_LIST[socket.id] = socket;
 
 	socket.on('disconnect', () => {
