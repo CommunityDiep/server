@@ -298,8 +298,8 @@ class Shape {
         self.score = pointawards[self.type].score;
         self.size = 0;
         self.regen_timer = 0;
-        self.x = Math.random() * arenasize[0];
-        self.y = Math.random() * arenasize[1];
+        self.x = Math.random() * config.arenaSize.width;
+        self.y = Math.random() * config.arenaSize.height;
         self.hpMax = pointawards[self.type].hp;
         self.hp = pointawards[self.type].hp;
         self.angle = Math.random() * 360;
@@ -312,8 +312,8 @@ class Shape {
 
             self.x = self.x < 0 ? 0 : self.x;
             self.y = self.y < 0 ? 0 : self.y;
-            self.x = self.x > arenasize[0] ? arenasize[0] : self.x;
-            self.y = self.y > arenasize[1] ? arenasize[1] : self.y;
+            self.x = self.x > config.arenaSize.width ? config.arenaSize.width : self.x;
+            self.y = self.y > config.arenaSize.height ? config.arenaSize.height : self.y;
 
             for (const i in Shape.list) {
                 const s = Shape.list[i];
@@ -494,9 +494,9 @@ class Player {
             self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
             self.y = self.y < 0 ? 0 : self.y;
             self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
-            self.x = self.x > arenasize[0] && !(self.y > 90 && self.y < 130 && self.tank == "Arena Closer") ? arenasize[0] : self.x;
-            self.yVelocity = self.y > arenasize[1] ? 0 : self.yVelocity;
-            self.y = self.y > arenasize[1] ? arenasize[1] : self.y;
+            self.x = self.x > config.arenaSize.width && !(self.y > 90 && self.y < 130 && self.tank == "Arena Closer") ? config.arenaSize.width : self.x;
+            self.yVelocity = self.y > config.arenaSize.height ? 0 : self.yVelocity;
+            self.y = self.y > config.arenaSize.height ? config.arenaSize.height : self.y;
 
             //};
 
