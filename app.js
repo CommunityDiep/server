@@ -38,8 +38,8 @@ const Entity = () => {
 	const self = {
 		x: 250,
 		y: 250,
-		spdX: 0,
-		spdY: 0,
+		xVelocity: 0,
+		yVelocity: 0,
 		id: ''
 	};
 
@@ -887,17 +887,23 @@ setInterval(() => {
 
 	const scores = scoreboard.sort(Player.list).slice(0, 10);
 
-	if (pack.length > 0) io.sockets.emit('update', pack);
-	if (scores.length > 0) io.sockets.emit('scoreboard', scores);
+	if (pack.player.length > 0 || pack.bullet.length > 0 || pack.shape.length > 0) {
+		io.sockets.emit('update', pack);
+	}
 
-	if (initPack.length > 0) {
+console.log(pack)
+	if (scores.length) {
+		io.sockets.emit('scoreboard', scores);
+	}
+
+	if (initPack.length) {
 		io.sockets.emit('init', initPack);
 
 		initPack.player = [];
 		initPack.bullet = [];
 		initPack.shape = [];
 	}
-	if (removePack.length > 0) {
+	if (removePack.length) {
 		io.sockets.emit('remove', removePack);
 
 		removePack.player = [];
