@@ -10,14 +10,16 @@ const ip_dic = {};
 const infolist = {};
 const dimensions = {};
 
-let classes = require('./tanks.json');
-let config = {};
+let classes = loadJSON("tanks");
+let config = loadJSON("config");
 
-try {
-	const commentStrip = require("strip-json-comments");
-	config = JSON.parse(commentStrip(JSON.stringify(require('./config.json')))); // hacky!
-} catch (error) {
-	config = require('./config.json');
+function loadJSON(fileName) {
+	try {
+		const commentStrip = require("strip-json-comments");
+		return JSON.parse(commentStrip(JSON.stringify(require(`./${fileName}.json`)))); // hacky!
+	} catch (error) {
+		return require(`./${fileName}.json`);
+	}
 }
 
 logger.level = config.debugLevel;
