@@ -200,9 +200,10 @@ class Bullet {
                             killed: namelist[p.id],
                             id: self.parent.id
                         });*/
-                        io.sockets.emit('death', {
-                            id: p.id
-                        })
+                        io.sockets.emit('statusMessage', {
+													type: "death",
+													data: p.id
+                        });
 
                     }
 
