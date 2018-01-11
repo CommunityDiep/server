@@ -862,7 +862,6 @@ setInterval(() => {
 
 	for (var i in Shape.list) {
 		Shape.list[i].angle += Math.random() * 20;
-
 	}
 
 	for (var i in Player.list) {
@@ -871,9 +870,7 @@ setInterval(() => {
 		if (infolist[Player.list[i].id].tank == 'destroyer' || infolist[Player.list[i].id].tank == 'destroyerflank' || infolist[Player.list[i].id].tank == 'Hybrid') {
 			Player.list[i].reload_timer += 0.5;
 		} else if (infolist[Player.list[i].id].tank == 'Streamliner') {
-
 			Player.list[i].reload_timer += 4;
-
 		} else {
 			Player.list[i].reload_timer += 1;
 		}
