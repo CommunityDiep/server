@@ -13,10 +13,10 @@
     "cdiep-score-sort": "github:CommunityDiep/score-sort",
     "express": "^4.16.2",
     "socket.io": "^2.0.4",
-    "winston": "^2.4.0"
+    "winston": "^2.4.0",
+    "shortid": "^2.2.8"
   },
   "optionalDependencies": {
-    "strip-json-comments": "^2.0.1",
-    "shortid": "^2.2.8"
+    "strip-json-comments": "^2.0.1"
   }
 }
