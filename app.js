@@ -806,13 +806,11 @@ io.sockets.on('connection', socket => {
 		dimensions[`${socket.id}height`] = data.height;
 
 		// Set up important data
-		let username = data.name;
+		let username = data.name.slice(0, 16);
 		const tank_choice = data.tank;
-		username = username.slice(0, 16);
 
 		// Prevent IP duplication
-		let ip_address = data.address;
-		ip_address = String(ip_address);
+		let ip_address = data.address.toString();
 		if (ip_list.includes(ip_address) || ip_address == undefined) {
 			socket.emit('signInResponse', {
 				success: false
