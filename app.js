@@ -888,7 +888,7 @@ setInterval(() => {
 	const scores = scoreboard.sort(Player.list).slice(0, 10);
 
 	if (pack.length > 0) io.sockets.emit('update', pack);
-	if (scoresPack.length > 0) io.sockets.emit('scoreboard', scores);
+	if (scores.length > 0) io.sockets.emit('scoreboard', scores);
 
 	if (initPack.length > 0) {
 		io.sockets.emit('init', initPack);
