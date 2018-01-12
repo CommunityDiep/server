@@ -601,7 +601,13 @@
 	},
 	"bomber": {
 		"localized": "Bomber",
-		"body": 0
+		"body": 0,
+		"upgrades": {
+			"megapusher": 3,
+			"skimmer": 3,
+			"stormer": 3,
+			"rocketeer": 3
+		}
 	},
 	"annihilator": {
 		"localized": "Annihilator",

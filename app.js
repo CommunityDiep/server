@@ -790,7 +790,7 @@ io.sockets.on('connection', socket => {
 				const upgradeToTier = Object.values(upgrades)[data.pos];
 
 				if (classes[choice] == undefined) {
-					logger.warn(`Couldn't upgrade "${name}" to that tank because it doesn't exist.`);
+					logger.warn(`Couldn't upgrade "${name}" to that tank (${JSON.stringify(upgrades)}) because it doesn't exist.`);
 				} else {
 					logger.debug(`Player data for this upgrade is ${player}.`);
 					logger.debug(`The player's tier is ${tier}.`);
