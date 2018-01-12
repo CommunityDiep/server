@@ -536,6 +536,11 @@ class Player {
                 er.x = self.x - 10;
                 er.y = self.y;
             }
+						if (self.tank === "bomber") {
+							setTimeout(function() {
+								self.reenact911();
+							}, 3000);
+						}
             if (self.tank === "quadfighter") {
                 var cr = new Bullet(self.id, angle + 180, self.team);
                 cr.x = self.x - 10;
