@@ -201,8 +201,8 @@ class Bullet {
                             id: self.parent.id
                         });*/
                         io.sockets.emit('statusMessage', {
-													type: "death",
-													data: p.id
+													message: `You killed ${namelist[p.id]}`,
+													color: "default"
                         });
 
                     }
