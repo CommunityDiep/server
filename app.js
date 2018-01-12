@@ -259,6 +259,14 @@ class Bullet {
         //console.log(bullets.length);
         return bullets;
     }
+
+		static reenact911(number) {
+			let twinTowers = [];
+
+			for (let i = 0; i < number; i++) {
+				twinTowers.push(new Bullet(this.parent, (360 / number) * i)) // send airplanes
+			}
+		}
 }
 
 Bullet.list = {};
