@@ -83,7 +83,8 @@ class Bullet {
         self.parent = parent;
 
 				self.bulletFactor = function() {
-					let bulletFactor = classes[infolist[self.parent].tank].barrels[0].bulletPower;
+					let parentBarrels = classes[infolist[self.parent].tank].barrels;
+					let bulletFactor = parentBarrels ? parentBarrels[0].bulletPower : 1;
 					bulletFactor = bulletFactor === undefined ? 8 : bulletFactor;
 
 					return bulletFactor;
