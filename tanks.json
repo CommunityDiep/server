@@ -560,6 +560,7 @@
 			"destroyer": 2,
 			"hybrid": 2,
 			"pusher": 2,
+			"bomber": 2,
 			"trapper": 2
 		}
 	},
@@ -597,6 +598,10 @@
 			"stormer": 3,
 			"rocketeer": 3
 		}
+	},
+	"bomber": {
+		"localized": "Bomber",
+		"body": 0
 	},
 	"annihilator": {
 		"localized": "Annihilator",
