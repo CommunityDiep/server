@@ -96,7 +96,7 @@ class Bullet {
 				};
 				self.hp = self.hpMax();
 
-        self.id = Math.random();
+        self.id = shortid.generate();
         if (self.parent) {
             if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
                 self.xVelocity = Math.cos(angle / 180 * Math.PI) * 13;
@@ -292,7 +292,7 @@ class Shape {
     constructor(id) {
         //console.log('ID' + id);
         const self = Entity();
-        self.id = id;
+        self.id = shortid.generate();
         self.type = Math.random() > 0.25 ? 'square' : Math.random() < 0.85 ? 'triangle' : Math.random() > 0.98 ? 'alphapentagon' : 'pentagon';
         self.colorname = Math.random() > 0.999999 ? 'green' : 'normal-colored'
         self.color = self.colorname == 'green' ? '#8DFD71' : pointawards[self.type].color;
