@@ -900,7 +900,7 @@ setInterval(() => {
 		io.sockets.emit('scoreboard', scores);
 	}
 
-	if (initPack.length > 0) {
+	if (initPack) {
 		io.sockets.emit('init', initPack);
 
 		initPack.player = [];
