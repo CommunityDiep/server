@@ -525,7 +525,12 @@ class Player {
             if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(self.tank)){
             const b = new Bullet(self.id, angle, self.team);
             b.x = self.x - 10;
-            b.y = self.y;}
+            b.y = self.y;
+						if (self.tank === "bomber") {
+							setTimeout(function() {
+								b.reenact911();
+							}, 2000);
+						}}
             if (self.tank === "quad") {
                 var cr = new Bullet(self.id, angle + 180, self.team);
                 cr.x = self.x - 10;
@@ -537,11 +542,6 @@ class Player {
                 er.x = self.x - 10;
                 er.y = self.y;
             }
-						if (self.tank === "bomber") {
-							setTimeout(function() {
-								b.reenact911();
-							}, 2000);
-						}
             if (self.tank === "quadfighter") {
                 var cr = new Bullet(self.id, angle + 180, self.team);
                 cr.x = self.x - 10;
