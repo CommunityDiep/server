@@ -900,14 +900,14 @@ setInterval(() => {
 		io.sockets.emit('scoreboard', scores);
 	}
 
-	if (initPack) {
+	if (initPack.player.length > 0 || initPack.bullet.length > 0 || initPack.shape.length > 0) {
 		io.sockets.emit('init', initPack);
 
 		initPack.player = [];
 		initPack.bullet = [];
 		initPack.shape = [];
 	}
-	if (removePack.length > 0) {
+	if (removePack.player.length > 0 || removePack.bullet.length > 0 || removePack.shape.length > 0) {
 		io.sockets.emit('remove', removePack);
 
 		removePack.player = [];
