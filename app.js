@@ -431,7 +431,7 @@ class Player {
 
         self.shootBullet = angle => {
             if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(self.tank)){
-            let b = new Bullet(self.id, angle, self.team);
+            var b = new Bullet(self.id, angle, self.team);
             b.x = self.x - 10;
             b.y = self.y;
 						if (self.tank === "bomber") {
