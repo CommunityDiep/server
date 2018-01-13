@@ -435,9 +435,9 @@ class Player {
             let b = new Bullet(self.id, angle, self.team);
             b.x = self.x - 10;
             b.y = self.y;
-						if (self.tank === "bomber") {
+						if (self.tank === "bomber" || self.tank === "grenadier") {
 							setTimeout(function() {
-								b.nineEleven(6);
+								b.nineEleven(self.tank === "bomber" ? 6 : 8);
 								b.toRemove = true;
 							}, 1000);
 						}}
