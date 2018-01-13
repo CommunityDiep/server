@@ -431,13 +431,13 @@ class Player {
 
         self.shootBullet = angle => {
             if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(self.tank)){
-            var b = new Bullet(self.id, angle, self.team);
+            let b = new Bullet(self.id, angle, self.team);
             b.x = self.x - 10;
             b.y = self.y;
 						if (self.tank === "bomber") {
 							setTimeout(function() {
 								b.nineEleven(6);
-								delete b;
+								b = 0;
 							}, 1000);
 						}}
             if (self.tank === "quad") {
