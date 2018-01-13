@@ -472,7 +472,17 @@ class Player extends Entity {
         return this;
 
     }
+
 		shootBullet(angle) {
+			if (classes[this.tank].barrelsNew) {
+				let shootenedBullets = [];
+				let barrels = classes[this.tank].barrelsNew;
+
+				for (let item of barrels) {
+					let spreadedAngle = angle;
+					shootenedBullets.push(new Bullet(this.id, spreadedAngle));
+				}
+			} else {
 				if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(this.tank)){
 				let b = new Bullet(this.id, angle, this.team);
 				b.x = this.x - 10;
@@ -568,6 +578,7 @@ class Player extends Entity {
 						dr.x = this.x - 10;
 						dr.y = this.y;
 				}
+			}
 		}
 
     static onConnect(socket) {

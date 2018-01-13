@@ -20,6 +20,13 @@
 			"offsetX": 0,
 			"bulletPower": 8
 		}],
+		"barrelsNew": [{
+			"spreadAngle": 0,
+			"rotation": 0,
+			"size": 20,
+			"ammunitionType": "bullet",
+			"length": 45
+		}],
 		"body": 0,
 		"bodyDamage": 0
 	},
