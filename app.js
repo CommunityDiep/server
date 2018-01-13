@@ -437,7 +437,7 @@ class Player {
             b.y = self.y;
 						if (self.tank === "bomber" || self.tank === "grenadier") {
 							setTimeout(function() {
-								b.nineEleven(self.tank === "bomber" ? 6 : 8);
+								b.nineEleven(self.tank === "bomber" ? 5 : 8);
 								b.toRemove = true;
 							}, 1000);
 						}}
