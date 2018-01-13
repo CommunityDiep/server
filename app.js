@@ -82,6 +82,9 @@ class Bullet extends Entity {
 
         this.parent = parent;
 
+				this.x = Player.list[this.parent].x;
+				this.y = Player.list[this.parent].y;
+
 				this.bulletFactor = function() {
 					let parentBarrels = classes[infolist[this.parent].tank].barrels;
 					let bulletFactor = parentBarrels !== undefined ? parentBarrels[0].bulletPower : 1;
