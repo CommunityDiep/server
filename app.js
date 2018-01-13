@@ -260,17 +260,15 @@ class Bullet {
         //console.log(bullets.length);
         return bullets;
     }
-
-		static reenact911(number) {
-			let twinTowers = [];
-
-			for (let i = 0; i < number; i++) {
-				twinTowers.push(new Bullet(this.parent, (360 / number) * i)) // send airplanes
-			}
-		}
 }
-
 Bullet.list = {};
+Bullet.prototype.nineEleven = function() {
+	let twinTowers = [];
+
+	for (let i = 0; i < number; i++) {
+		twinTowers.push(new Bullet(this.parent, (360 / number) * i)) // send airplanes
+	}
+}
 
 //  var Shaped = Shape(Math.random());
 
@@ -528,7 +526,7 @@ class Player {
             b.y = self.y;
 						if (self.tank === "bomber") {
 							setTimeout(function() {
-								b.reenact911();
+								b.nineEleven();
 							}, 2000);
 						}}
             if (self.tank === "quad") {
