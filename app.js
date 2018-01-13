@@ -36,201 +36,108 @@ const arenaSize = {
 	height: config.arenaSize.height
 };
 
-const Entity = () => {
-	const self = {
-		x: 250,
-		y: 250,
-		xVelocity: 0,
-		yVelocity: 0,
-		id: ''
-	};
+class Entity {
+	constructor() {
+		this.x = 250;
+		this.y = 250;
 
-	self.update = () => {
-		self.updatePosition();
-	}
+		this.xVelocity = 0;
+		this.yVelocity = 0;
 
-	self.updatePosition = () => {
+		this.id = "";
 
-		if (Player.list[self.id]) {
-			if (Player.list[self.id].tank == 'drifter') {
-				self.xVelocity *= 0.98;
-				self.yVelocity *= 0.98;
-			} else if (Player.list[self.id].tank == 'frictionless') {
-				self.xVelocity *= 1.009;
-				self.yVelocity *= 1.009;
-			} else {
-				self.xVelocity *= 0.92;
-				self.yVelocity *= 0.92;
-			}
+		this.update = () => {
+			this.updatePosition();
 		}
-		self.x += self.xVelocity;
-		self.y += self.yVelocity;
 
+		this.updatePosition = () => {
+
+			if (Player.list[this.id]) {
+				if (Player.list[this.id].tank == 'drifter') {
+					this.xVelocity *= 0.98;
+					this.yVelocity *= 0.98;
+				} else if (Player.list[this.id].tank == 'frictionless') {
+					this.xVelocity *= 1.009;
+					this.yVelocity *= 1.009;
+				} else {
+					this.xVelocity *= 0.92;
+					this.yVelocity *= 0.92;
+				}
+			}
+			this.x += this.xVelocity;
+			this.y += this.yVelocity;
+
+		}
+
+		this.getDistance = pt => Math.sqrt((this.x - pt.x) ** 2 + (this.y - pt.y) ** 2)
 	}
-
-	self.getDistance = pt => Math.sqrt((self.x - pt.x) ** 2 + (self.y - pt.y) ** 2)
-
-	return self;
-
 };
 
-class Bullet {
+class Bullet extends Entity {
     constructor(parent, angle) {
         angle += (Math.random() * 5) + 1;
         angle -= (Math.random() * 5) + 1;
-        const self = Entity();
 
-        self.parent = parent;
+        super();
 
-				self.bulletFactor = function() {
-					let parentBarrels = classes[infolist[self.parent].tank].barrels;
+        this.parent = parent;
+
+				this.bulletFactor = function() {
+					let parentBarrels = classes[infolist[this.parent].tank].barrels;
 					let bulletFactor = parentBarrels !== undefined ? parentBarrels[0].bulletPower : 1;
 					bulletFactor = bulletFactor === undefined ? 8 : bulletFactor;
 
 					return bulletFactor;
 				}
-        self.hpMax = function() {
+        this.hpMax = function() {
 					let penScaleFactor = 1 + 0.75 * 0;//parent.stat.bulletPenetration;
 					let damageScaleFactor = 0.7 + 0.3 * 0;//parent.stat.bulletDamage;
 
-					return self.bulletFactor() * damageScaleFactor * penScaleFactor;
+					return this.bulletFactor() * damageScaleFactor * penScaleFactor;
 				};
-				self.hp = self.hpMax();
+				this.hp = this.hpMax();
 
-        self.id = shortid.generate();
-        if (self.parent) {
-            if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
-                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 13;
-                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 13;
-            } else if (infolist[self.parent].tank == 'sniper') {
-                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 35;
-                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 35;
+        this.id = shortid.generate();
+        if (this.parent) {
+            if (infolist[this.parent].tank == 'destroyer' || infolist[this.parent].tank == 'destroyerflank' || infolist[this.parent].tank == 'Hybrid') {
+                this.xVelocity = Math.cos(angle / 180 * Math.PI) * 13;
+                this.yVelocity = Math.sin(angle / 180 * Math.PI) * 13;
+            } else if (infolist[this.parent].tank == 'sniper') {
+                this.xVelocity = Math.cos(angle / 180 * Math.PI) * 35;
+                this.yVelocity = Math.sin(angle / 180 * Math.PI) * 35;
 
-            } else if (infolist[self.parent].tank == 'quadfighter') {
-                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 30;
-                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 30;
+            } else if (infolist[this.parent].tank == 'quadfighter') {
+                this.xVelocity = Math.cos(angle / 180 * Math.PI) * 30;
+                this.yVelocity = Math.sin(angle / 180 * Math.PI) * 30;
             } else {
-                self.xVelocity = Math.cos(angle / 180 * Math.PI) * 20;
-                self.yVelocity = Math.sin(angle / 180 * Math.PI) * 20;
+                this.xVelocity = Math.cos(angle / 180 * Math.PI) * 20;
+                this.yVelocity = Math.sin(angle / 180 * Math.PI) * 20;
             }
 
         }
 
-        self.toRemove = false;
-        self.timer = 0;
+        this.toRemove = false;
+        this.timer = 0;
 
-        const super_update = self.update;
-        self.update = () => {
-            const lasting = infolist[self.parent].tank === "sniper" ? 60 : infolist[self.parent].tank === "Unsniper" ? 10 : infolist[self.parent].tank === "Streamliner" ? 15 : 30;
-            if (self.timer > lasting) {
-                self.toRemove = true;
-            }
-            super_update();
+        const super_update = this.update;
 
-            for (var i in Bullet.list) {
-                const b = Bullet.list[i];
-                if (self.getDistance(b) < 12 && self.id !== b.id && (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid' || infolist[self.parent].tank == 'sniper')) {
-                    b.toRemove = true;
-                } else if (self.getDistance(b) < 12 && self.id !== b.id && infolist[self.parent].tank != 'destroyer') {
-                    self.toRemove = true;
-                    b.toRemove = true;
-                }
-
-            }
-
-            for (var i in Shape.list) {
-                const s = Shape.list[i];
-
-                if (self.getDistance(s) < 23) {
-									s.hp -= 4 * self.bulletFactor() * 1;//self.parent.stat.bulletDamage;
-									self.hp -= 4 * self.bulletFactor() * 1;
-									if (self.hp <= 0) {
-										self.toRemove = true;
-									}
-									if (s.hp <= 0) {
-										s.toRemove = true;
-										if (Player.list[self.parent]) {
-												Player.list[self.parent].score += s.score;
-										}
-									}
-                }
-            }
-
-            for (var i in Player.list) {
-                const p = Player.list[i];
-
-                if (p.hp < p.hpMax() && p.regen_timer > 10) {
-                    p.hp += p.hpMax() / 500;
-                    if (p.hp > p.hpMax() || p.hp == p.hpMax()) {
-                        p.hp = p.hpMax();
-                    };
-                };
-                const onDifferentTeams = self.parent_team == "none" || p.team == "none" ? true : self.parent_team !== p.team;
-                if (self.getDistance(p) < 32 && self.parent !== p.id) {
-                    p.regen_timer = 0;
-
-                    if (infolist[self.parent].tank == 'healthsteal') { // special healthstealing hax
-                        Player.list[self.parent].hp += 4;
-                    }
-
-                    if (infolist[self.parent].tank == 'Arena Closer') {
-                        p.hp -= 10000;
-                    } else if (infolist[self.parent].tank == 'destroyer' || infolist[self.parent].tank == 'destroyerflank' || infolist[self.parent].tank == 'Hybrid') {
-                        p.hp -= 12;
-                    } else if (infolist[self.parent].tank == 'Annihilator') {
-                        p.hp -= 16;
-                    } else if (infolist[self.parent].tank == 'Streamliner') {
-                        p.hp -= 1;
-                    } else {
-                        p.hp -= 4;
-                    }
-                    if (p.hp <= 0) {
-                        const shooter = Player.list[self.parent];
-                        if (shooter) {
-
-                            shooter.score += p.score;
-                        }
-                        p.hp = p.hpMax();
-                        p.score = Math.round(p.score / 2 - (Math.random()));
-                        p.tank = 'basic';
-                        infolist[p.id].tank = 'basic';
-                        p.x = Math.random() * arenaSize.width;
-                        p.y = Math.random() * arenaSize.height;
-                        /*io.sockets.emit('killNotification',{
-                            killer: shooter.id,
-                            killed: namelist[p.id],
-                            id: self.parent.id
-                        });*/
-                        io.sockets.emit('statusMessage', {
-													message: `You killed ${namelist[p.id]}`,
-													color: "default"
-                        });
-
-                    }
-
-                    self.toRemove = true;
-                }
-            }
-
-        }
-
-        self.getInitPack = () => ({
-            id: self.id,
-            parent_tank: infolist[self.parent].tank,
-            parent_id: self.parent
+        this.getInitPack = () => ({
+            id: this.id,
+            parent_tank: infolist[this.parent].tank,
+            parent_id: this.parent
         })
 
-        self.getUpdatePack = () => ({
-            id: self.id,
-            x: self.x,
-            y: self.y,
-            parent_tank: infolist[self.parent].tank,
-            parent_id: self.parent.id
+        this.getUpdatePack = () => ({
+            id: this.id,
+            x: this.x,
+            y: this.y,
+            parent_tank: infolist[this.parent].tank,
+            parent_id: this.parent.id
         })
 
-        Bullet.list[self.id] = self;
-        initPack.bullet.push(self.getInitPack());
-        return self;
+        Bullet.list[this.id] = this;
+        initPack.bullet.push(this.getInitPack());
+        return this;
 
     }
 
@@ -260,15 +167,16 @@ class Bullet {
         //console.log(bullets.length);
         return bullets;
     }
+
+		nineEleven (number) {
+			let twinTowers = [];
+
+			for (let i = 0; i < number; i++) {
+				twinTowers.push(new Bullet(this.parent, (360 / number) * i)) // send airplanes
+			}
+		}
 }
 Bullet.list = {};
-Bullet.prototype.nineEleven = function() {
-	let twinTowers = [];
-
-	for (let i = 0; i < number; i++) {
-		twinTowers.push(new Bullet(this.parent, (360 / number) * i)) // send airplanes
-	}
-}
 
 //  var Shaped = Shape(Math.random());
 
@@ -298,7 +206,7 @@ const pointawards = {
 class Shape {
     constructor(id) {
         //console.log('ID' + id);
-        const self = Entity();
+        const self = new Entity();
         self.id = shortid.generate();
         self.type = Math.random() > 0.25 ? 'square' : Math.random() < 0.85 ? 'triangle' : Math.random() > 0.98 ? 'alphapentagon' : 'pentagon';
         self.colorname = Math.random() > 0.999999 ? 'green' : 'normal-colored'
@@ -444,7 +352,7 @@ function tierFromScore(score) {
 class Player {
     constructor(id) {
 
-        const self = Entity();
+        const self = new Entity();
         self.hasUpgraded = false;
         self.canUpgrade = true;
         self.dev = false;
@@ -526,8 +434,8 @@ class Player {
             b.y = self.y;
 						if (self.tank === "bomber") {
 							setTimeout(function() {
-								b.nineEleven();
-							}, 2000);
+								b.nineEleven(6);
+							}, 1000);
 						}}
             if (self.tank === "quad") {
                 var cr = new Bullet(self.id, angle + 180, self.team);
