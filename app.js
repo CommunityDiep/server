@@ -75,9 +75,6 @@ class Entity {
 
 class Bullet extends Entity {
     constructor(parent, angle, bulletInfo) {
-        angle += (Math.random() * 5) + 1;
-        angle -= (Math.random() * 5) + 1;
-
         super();
 
         this.parent = parent;
