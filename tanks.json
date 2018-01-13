@@ -10,8 +10,7 @@
 			"flank": 1,
 			"drone": 1,
 			"destructor": 1,
-			"smasher": 2,
-			"debug": 0
+			"smasher": 2
 		},
 		"barrels": [{
 			"barrelType": 0,
