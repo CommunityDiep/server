@@ -44,33 +44,33 @@ class Entity {
 		this.xVelocity = 0;
 		this.yVelocity = 0;
 
-		this.id = "";
-
-		this.update = () => {
-			this.updatePosition();
-		}
-
-		this.updatePosition = () => {
-
-			if (Player.list[this.id]) {
-				if (Player.list[this.id].tank == 'drifter') {
-					this.xVelocity *= 0.98;
-					this.yVelocity *= 0.98;
-				} else if (Player.list[this.id].tank == 'frictionless') {
-					this.xVelocity *= 1.009;
-					this.yVelocity *= 1.009;
-				} else {
-					this.xVelocity *= 0.92;
-					this.yVelocity *= 0.92;
-				}
-			}
-			this.x += this.xVelocity;
-			this.y += this.yVelocity;
-
-		}
-
-		this.getDistance = pt => Math.sqrt((this.x - pt.x) ** 2 + (this.y - pt.y) ** 2)
+		this.id = shortid.generate();
 	}
+
+	update() {
+		return this.updatePosition();
+	};
+
+	updatePosition() {
+		if (Player.list[this.id]) {
+			if (Player.list[this.id].tank == 'drifter') {
+				this.xVelocity *= 0.98;
+				this.yVelocity *= 0.98;
+			} else if (Player.list[this.id].tank == 'frictionless') {
+				this.xVelocity *= 1.009;
+				this.yVelocity *= 1.009;
+			} else {
+				this.xVelocity *= 0.92;
+				this.yVelocity *= 0.92;
+			}
+		}
+		this.x += this.xVelocity;
+		this.y += this.yVelocity;
+	};
+
+	getDistance(pt) {
+		return Math.sqrt((this.x - pt.x) ** 2 + (this.y - pt.y) ** 2);
+	};
 };
 
 class Bullet extends Entity {
