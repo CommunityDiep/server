@@ -170,13 +170,13 @@ class Bullet extends Entity {
         return bullets;
     }
 
-		nineEleven (number) {
+		explode(number) {
 			if (this.tankData) return;
 
-			let twinTowers = [];
+			let explodedBullets = [];
 
-			for (let i = 0; i < number; i++) {
-				twinTowers.push(new Bullet(this.parent, (360 / number) * i, this)) // send airplanes
+			for (let loop = 0; loop < number; i++) {
+				explodedBullets.push(new Bullet(this.parent, (360 / number) * i, this)) // send airplanes
 			}
 		}
 }
