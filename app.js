@@ -476,7 +476,9 @@ class Player extends Entity {
 				let barrels = classes[this.tank].barrelsNew;
 
 				for (let item of barrels) {
-					let spreadedAngle = angle;
+					let spreadPart = Math.random() * (item.spreadAngle * 2) - item.spreadAngle;
+
+					let spreadedAngle = item.offsetAngle + angle + spreadPart;
 					shootenedBullets.push(new Bullet(this.id, spreadedAngle));
 				}
 			} else {
