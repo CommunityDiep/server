@@ -82,7 +82,6 @@ class Bullet extends Entity {
 
         this.parent = parent;
 				this.bulletInfo = bulletInfo;
-				console.log(bulletInfo)
 
 				if (this.bulletInfo) {
 					this.x = bulletInfo.x;
@@ -177,7 +176,7 @@ class Bullet extends Entity {
 
 		nineEleven (number) {
 			if (this.tankData) return;
-			
+
 			let twinTowers = [];
 
 			for (let i = 0; i < number; i++) {
