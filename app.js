@@ -437,6 +437,7 @@ class Player {
 						if (self.tank === "bomber") {
 							setTimeout(function() {
 								b.nineEleven(6);
+								delete b;
 							}, 1000);
 						}}
             if (self.tank === "quad") {
