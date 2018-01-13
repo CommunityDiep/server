@@ -402,7 +402,7 @@ class Player {
             self.updateSpd();
             super_update();
 
-            //if (infolist[self.id].tank !== "Borderless"){
+          if (infolist[self.id].tank !== "debugBounds"){
             self.xVelocity = self.x < 0 ? 0 : self.xVelocity;
             self.x = self.x < 0 ? 0 : self.x;
             self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
@@ -411,12 +411,11 @@ class Player {
             self.x = self.x > config.arenaSize.width && !(self.y > 90 && self.y < 130 && self.tank == "Arena Closer") ? config.arenaSize.width : self.x;
             self.yVelocity = self.y > config.arenaSize.height ? 0 : self.yVelocity;
             self.y = self.y > config.arenaSize.height ? config.arenaSize.height : self.y;
-
-            //};
+					};
 
             if ((self.pressingAttack && self.reload_timer > 10) || (self.autofire && self.reload_timer > 10)) {
                 self.reload_timer = 0;
-								
+
                 self.shootBullet(self.mouseAngle);
                 self.reload_timer = self.tank === "machine" ? 5 : self.tank === "Streamliner" ? 9 : self.tank === "sniper" ? -17 : 0;
             }
