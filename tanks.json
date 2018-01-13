@@ -605,11 +605,15 @@
 		"body": 0,
 		"upgrades": {
 			"megabomber": 3,
+			"detonator": 3,
 			"grenadier": 3
 		}
 	},
 	"megabomber": {
 		"localized": "Mega Bomber"
+	},
+	"detonator": {
+		"localized": "Detonator"
 	},
 	"grenadier": {
 		"localized": "Grenadier"
