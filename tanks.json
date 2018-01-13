@@ -604,11 +604,15 @@
 		"localized": "Bomber",
 		"body": 0,
 		"upgrades": {
-			"megapusher": 3,
-			"skimmer": 3,
-			"stormer": 3,
-			"rocketeer": 3
+			"megabomber": 3,
+			"grenadier": 3
 		}
+	},
+	"megabomber": {
+		"localized": "Mega Bomber"
+	},
+	"grenadier": {
+		"localized": "Grenadier"
 	},
 	"annihilator": {
 		"localized": "Annihilator",
