@@ -47,10 +47,6 @@ class Entity {
 		this.id = shortid.generate();
 	}
 
-	update() {
-		return this.updatePosition();
-	};
-
 	updatePosition() {
 		if (Player.list[this.id]) {
 			if (Player.list[this.id].tank == 'drifter') {
@@ -125,7 +121,7 @@ class Bullet extends Entity {
         this.toRemove = false;
         this.timer = 0;
 
-        const super_update = this.update;
+        const super_update = this.updatePosition;
 
         this.getInitPack = () => ({
             id: this.id,
@@ -229,7 +225,7 @@ class Shape {
         self.xVelocity = Math.cos(self.angle / 180 * Math.PI) * 0.18;
         self.yVelocity = Math.sin(self.angle / 180 * Math.PI) * 0.18;
 
-        const super_update = self.update;
+        const super_update = self.updatePosition;
         self.update = () => {
             super_update();
 
