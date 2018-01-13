@@ -10,7 +10,8 @@
 			"flank": 1,
 			"drone": 1,
 			"destructor": 1,
-			"smasher": 2
+			"smasher": 2,
+			"debug": 0
 		},
 		"barrels": [{
 			"barrelType": 0,
@@ -682,5 +683,14 @@
 
 		],
 		"body": 0
+	},
+	"debug": {
+		"localized": "Dev Debugs",
+		"upgrades": {
+			"debugBounds": 0
+		}
+	},
+	"debugBounds": {
+		"localized": "Go Out of Arena"
 	}
 }
