@@ -286,7 +286,6 @@ class Shape {
 
         Shape.list[id] = self;
         initPack.shape.push(self.getInitPack());
-        return self;
 
     }
 
@@ -353,34 +352,34 @@ function tierFromScore(score) {
 	return Math.floor(levelFromScore(score).base / 15);
 }
 
-class Player {
+class Player extends Entity {
     constructor(id) {
-
-        const self = new Entity();
-        self.hasUpgraded = false;
-        self.canUpgrade = true;
-        self.dev = false;
-        self.id = id;
-        self.name = namelist[self.id];
-        self.tank = "basic"; // It's the default tank.
-        self.number = `${Math.floor(10 * Math.random())}`;
-        self.directions = {right: false, left: false, up: false, down: false}
-        self.pressingInc = false;
-        self.pressingDec = false;
-        self.team = 'none';
-        self.teamcolor = {
+				super();
+				
+        this.hasUpgraded = false;
+        this.canUpgrade = true;
+        this.dev = false;
+        this.id = id;
+        this.name = namelist[this.id];
+        this.tank = "basic"; // It's the default tank.
+        this.number = `${Math.floor(10 * Math.random())}`;
+        this.directions = {right: false, left: false, up: false, down: false}
+        this.pressingInc = false;
+        this.pressingDec = false;
+        this.team = 'none';
+        this.teamcolor = {
             "red": "#F14E54",
             "blue": "#1DB2DF",
             "purple": "#BE83F2",
             "green": "#24DF73"
-        }[self.team];
-        self.autofire = false;
-        self.mouseAngle = 0;
-        self.invisible = false; //infolist[self.id].tank === "Invis" ? true : false;
-        self.maxSpd = infolist[self.id].tank === "Quad quadfighter" ? 12 : 8;
-        self.score = self.name === 'haykam' ? 2555555 : 0;
+        }[this.team];
+        this.autofire = false;
+        this.mouseAngle = 0;
+        this.invisible = false; //infolist[this.id].tank === "Invis" ? true : false;
+        this.maxSpd = infolist[this.id].tank === "Quad quadfighter" ? 12 : 8;
+        this.score = this.name === 'haykam' ? 2555555 : 0;
 
-				self.statPoints = { // the custom ones, base stats are added in to equations
+				this.statPoints = { // the custom ones, base stats are added in to equations
 					"healthRegeneration": 0,
 					"bodyDamage": 0,
 					"maxHealth": 0,
@@ -391,184 +390,184 @@ class Player {
 					"movementSpeed": 0,
 				};
 
-        self.hpMax = function() {
-					return 48 + (levelFromScore(self.score).base * 2)
+        this.hpMax = function() {
+					return 48 + (levelFromScore(this.score).base * 2)
 				};
-        self.hp = self.hpMax();
+        this.hp = this.hpMax();
 
-        self.x = Math.random() * arenaSize.width;
-        self.y = Math.random() * arenaSize.height;
-        self.regen_timer = 0;
-        self.reload = 0;
-        self.reload_timer = 0;
-        self.autospin = false;
-        self.vX = 0;
-        self.vY = 0;
+        this.x = Math.random() * arenaSize.width;
+        this.y = Math.random() * arenaSize.height;
+        this.regen_timer = 0;
+        this.reload = 0;
+        this.reload_timer = 0;
+        this.autospin = false;
+        this.vX = 0;
+        this.vY = 0;
 
-        const super_update = self.update;
-        self.update = () => {
-            self.updateSpd();
+        const super_update = this.update;
+        this.update = () => {
+            this.updateSpd();
             super_update();
 
-          if (infolist[self.id].tank !== "debugBounds"){
-            self.xVelocity = self.x < 0 ? 0 : self.xVelocity;
-            self.x = self.x < 0 ? 0 : self.x;
-            self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
-            self.y = self.y < 0 ? 0 : self.y;
-            self.yVelocity = self.y < 0 ? 0 : self.yVelocity;
-            self.x = self.x > config.arenaSize.width && !(self.y > 90 && self.y < 130 && self.tank == "Arena Closer") ? config.arenaSize.width : self.x;
-            self.yVelocity = self.y > config.arenaSize.height ? 0 : self.yVelocity;
-            self.y = self.y > config.arenaSize.height ? config.arenaSize.height : self.y;
+          if (infolist[this.id].tank !== "debugBounds"){
+            this.xVelocity = this.x < 0 ? 0 : this.xVelocity;
+            this.x = this.x < 0 ? 0 : this.x;
+            this.yVelocity = this.y < 0 ? 0 : this.yVelocity;
+            this.y = this.y < 0 ? 0 : this.y;
+            this.yVelocity = this.y < 0 ? 0 : this.yVelocity;
+            this.x = this.x > config.arenaSize.width && !(this.y > 90 && this.y < 130 && this.tank == "Arena Closer") ? config.arenaSize.width : this.x;
+            this.yVelocity = this.y > config.arenaSize.height ? 0 : this.yVelocity;
+            this.y = this.y > config.arenaSize.height ? config.arenaSize.height : this.y;
 					};
 
-            if ((self.pressingAttack && self.reload_timer > 10) || (self.autofire && self.reload_timer > 10)) {
-                self.reload_timer = 0;
+            if ((this.pressingAttack && this.reload_timer > 10) || (this.autofire && this.reload_timer > 10)) {
+                this.reload_timer = 0;
 
-                self.shootBullet(self.mouseAngle);
-                self.reload_timer = self.tank === "machine" ? 5 : self.tank === "Streamliner" ? 9 : self.tank === "sniper" ? -17 : 0;
+                this.shootBullet(this.mouseAngle);
+                this.reload_timer = this.tank === "machine" ? 5 : this.tank === "Streamliner" ? 9 : this.tank === "sniper" ? -17 : 0;
             }
 
         }
 
-        self.shootBullet = angle => {
-            if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(self.tank)){
-            let b = new Bullet(self.id, angle, self.team);
-            b.x = self.x - 10;
-            b.y = self.y;
-						if (self.tank === "bomber" || self.tank === "grenadier") {
+        this.shootBullet = angle => {
+            if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(this.tank)){
+            let b = new Bullet(this.id, angle, this.team);
+            b.x = this.x - 10;
+            b.y = this.y;
+						if (this.tank === "bomber" || this.tank === "grenadier") {
 							setTimeout(function() {
-								b.explode(self.tank === "bomber" ? 5 : 8);
+								b.explode(this.tank === "bomber" ? 5 : 8);
 								b.toRemove = true;
 							}, 1000);
 						}}
-            if (self.tank === "quad") {
-                var cr = new Bullet(self.id, angle + 180, self.team);
-                cr.x = self.x - 10;
-                cr.y = self.y;
-                var vr = new Bullet(self.id, angle + 270, self.team);
-                vr.x = self.x - 10;
-                vr.y = self.y;
-                var er = new Bullet(self.id, angle + 90, self.team);
-                er.x = self.x - 10;
-                er.y = self.y;
+            if (this.tank === "quad") {
+                var cr = new Bullet(this.id, angle + 180, this.team);
+                cr.x = this.x - 10;
+                cr.y = this.y;
+                var vr = new Bullet(this.id, angle + 270, this.team);
+                vr.x = this.x - 10;
+                vr.y = this.y;
+                var er = new Bullet(this.id, angle + 90, this.team);
+                er.x = this.x - 10;
+                er.y = this.y;
             }
-            if (self.tank === "quadfighter") {
-                var cr = new Bullet(self.id, angle + 180, self.team);
-                cr.x = self.x - 10;
-                cr.y = self.y;
-                var vr = new Bullet(self.id, angle + 240, self.team);
-                vr.x = self.x - 10;
-                vr.y = self.y;
-                var er = new Bullet(self.id, angle + 120, self.team);
-                er.x = self.x - 10;
-                er.y = self.y;
+            if (this.tank === "quadfighter") {
+                var cr = new Bullet(this.id, angle + 180, this.team);
+                cr.x = this.x - 10;
+                cr.y = this.y;
+                var vr = new Bullet(this.id, angle + 240, this.team);
+                vr.x = this.x - 10;
+                vr.y = this.y;
+                var er = new Bullet(this.id, angle + 120, this.team);
+                er.x = this.x - 10;
+                er.y = this.y;
             }
-            if (self.tank === "twin") {
-                const b1 = new Bullet(self.id, angle, self.team);
-                b1.x = self.x - 10;
-                b1.y = self.y + 5;
-                    const b2 = new Bullet(self.id, angle, self.team);
-                    b2.x = self.x - 10;
-                    b2.y = self.y - 5;
+            if (this.tank === "twin") {
+                const b1 = new Bullet(this.id, angle, this.team);
+                b1.x = this.x - 10;
+                b1.y = this.y + 5;
+                    const b2 = new Bullet(this.id, angle, this.team);
+                    b2.x = this.x - 10;
+                    b2.y = this.y - 5;
             }
-            if (self.tank === "flank" || self.tank === "destroyerflank") {
+            if (this.tank === "flank" || this.tank === "destroyerflank") {
                 setTimeout(() => {
-                    const cr = new Bullet(self.id, angle + 180, self.team);
-                    cr.x = self.x - 10;
-                    cr.y = self.y;
+                    const cr = new Bullet(this.id, angle + 180, this.team);
+                    cr.x = this.x - 10;
+                    cr.y = this.y;
 
                 }, 150);
             }
-            if (self.tank === "octo") {
-                var cr = new Bullet(self.id, angle + 180, self.team);
-                cr.x = self.x - 10;
-                cr.y = self.y;
-                var vr = new Bullet(self.id, angle + 270, self.team);
-                vr.x = self.x - 10;
-                vr.y = self.y;
-                var er = new Bullet(self.id, angle + 90, self.team);
-                er.x = self.x - 10;
-                er.y = self.y;
+            if (this.tank === "octo") {
+                var cr = new Bullet(this.id, angle + 180, this.team);
+                cr.x = this.x - 10;
+                cr.y = this.y;
+                var vr = new Bullet(this.id, angle + 270, this.team);
+                vr.x = this.x - 10;
+                vr.y = this.y;
+                var er = new Bullet(this.id, angle + 90, this.team);
+                er.x = this.x - 10;
+                er.y = this.y;
                 setTimeout(() => {
-                    const ar = new Bullet(self.id, angle + 45, self.team);
-                    ar.x = self.x - 10;
-                    ar.y = self.y;
-                    const rr = new Bullet(self.id, angle + 135, self.team);
-                    rr.x = self.x - 10;
-                    rr.y = self.y;
-                    const ur = new Bullet(self.id, angle + 225, self.team);
-                    ur.x = self.x - 10;
-                    ur.y = self.y;
-                    const nr = new Bullet(self.id, angle + 315, self.team);
-                    nr.x = self.x - 10;
-                    nr.y = self.y;
+                    const ar = new Bullet(this.id, angle + 45, this.team);
+                    ar.x = this.x - 10;
+                    ar.y = this.y;
+                    const rr = new Bullet(this.id, angle + 135, this.team);
+                    rr.x = this.x - 10;
+                    rr.y = this.y;
+                    const ur = new Bullet(this.id, angle + 225, this.team);
+                    ur.x = this.x - 10;
+                    ur.y = this.y;
+                    const nr = new Bullet(this.id, angle + 315, this.team);
+                    nr.x = this.x - 10;
+                    nr.y = this.y;
                 }, 150);
             }
-            if (self.tank === "trishot") {
-                var cr = new Bullet(self.id, angle + 45, self.team);
-                cr.x = self.x - 10;
-                cr.y = self.y;
-                var vr = new Bullet(self.id, angle - 45, self.team);
-                vr.x = self.x - 10;
-                vr.y = self.y;
+            if (this.tank === "trishot") {
+                var cr = new Bullet(this.id, angle + 45, this.team);
+                cr.x = this.x - 10;
+                cr.y = this.y;
+                var vr = new Bullet(this.id, angle - 45, this.team);
+                vr.x = this.x - 10;
+                vr.y = this.y;
             }
-            if (self.tank === "horizon") {
-                var cr = new Bullet(self.id, angle + 45, self.team);
-                cr.x = self.x - 10;
-                cr.y = self.y;
-                var vr = new Bullet(self.id, angle - 45, self.team);
-                vr.x = self.x - 10;
-                vr.y = self.y;
-                const nr = new Bullet(self.id, angle + 22, self.team);
-                nr.x = self.x - 10;
-                nr.y = self.y;
-                const dr = new Bullet(self.id, angle - 22, self.team);
-                dr.x = self.x - 10;
-                dr.y = self.y;
+            if (this.tank === "horizon") {
+                var cr = new Bullet(this.id, angle + 45, this.team);
+                cr.x = this.x - 10;
+                cr.y = this.y;
+                var vr = new Bullet(this.id, angle - 45, this.team);
+                vr.x = this.x - 10;
+                vr.y = this.y;
+                const nr = new Bullet(this.id, angle + 22, this.team);
+                nr.x = this.x - 10;
+                nr.y = this.y;
+                const dr = new Bullet(this.id, angle - 22, this.team);
+                dr.x = this.x - 10;
+                dr.y = this.y;
             }
         }
 
-        self.updateSpd = () => {
-            if (self.directions.right && self.xVelocity < self.maxSpd) { self.xVelocity++; }
-            if (self.directions.left && self.xVelocity > -self.maxSpd) { self.xVelocity--; }
-            if (self.directions.up && self.yVelocity > -self.maxSpd) { self.yVelocity--; }
-            if (self.directions.down && self.yVelocity < self.maxSpd) { self.yVelocity++ }
+        this.updateSpd = () => {
+            if (this.directions.right && this.xVelocity < this.maxSpd) { this.xVelocity++; }
+            if (this.directions.left && this.xVelocity > -this.maxSpd) { this.xVelocity--; }
+            if (this.directions.up && this.yVelocity > -this.maxSpd) { this.yVelocity--; }
+            if (this.directions.down && this.yVelocity < this.maxSpd) { this.yVelocity++ }
         }
 
-        self.getInitPack = () => ({
-            id: self.id,
-            x: self.x,
-            y: self.y,
-            number: self.number,
-            hp: self.hp,
-            hpMax: self.hpMax(),
-            score: self.score,
-            level: levelFromScore(self.score).base,
-            tier: tierFromScore(self.score),
-            name: self.name,
-            mouseAngle: self.mouseAngle,
-            invisible: self.invisible,
-            tank: self.tank,
-            team: self.team,
-            teamcolor: self.teamcolor,
-            autospin: self.autospin
+        this.getInitPack = () => ({
+            id: this.id,
+            x: this.x,
+            y: this.y,
+            number: this.number,
+            hp: this.hp,
+            hpMax: this.hpMax(),
+            score: this.score,
+            level: levelFromScore(this.score).base,
+            tier: tierFromScore(this.score),
+            name: this.name,
+            mouseAngle: this.mouseAngle,
+            invisible: this.invisible,
+            tank: this.tank,
+            team: this.team,
+            teamcolor: this.teamcolor,
+            autospin: this.autospin
         })
 
-        self.getUpdatePack = () => ({
-            tank: self.tank,
-            id: self.id,
-            x: self.x,
-            y: self.y,
-            hp: self.hp,
-            score: self.score,
-            level: levelFromScore(self.score).base,
-            tier: tierFromScore(self.score),
-            mouseAngle: self.mouseAngle
+        this.getUpdatePack = () => ({
+            tank: this.tank,
+            id: this.id,
+            x: this.x,
+            y: this.y,
+            hp: this.hp,
+            score: this.score,
+            level: levelFromScore(this.score).base,
+            tier: tierFromScore(this.score),
+            mouseAngle: this.mouseAngle
         })
 
-        Player.list[id] = self;
-        initPack.player.push(self.getInitPack());
-        return self;
+        Player.list[id] = this;
+        initPack.player.push(this.getInitPack());
+        return this;
 
     }
 
