@@ -164,7 +164,7 @@ class Bullet extends Entity {
         for (const i in Bullet.list) {
             bullets.push(Bullet.list[i].getInitPack());
         }
-        //console.log(bullets.length);
+
         return bullets;
     }
 
@@ -177,8 +177,6 @@ class Bullet extends Entity {
 		}
 }
 Bullet.list = {};
-
-//  var Shaped = Shape(Math.random());
 
 const pointawards = {
 	'square': {
@@ -205,7 +203,6 @@ const pointawards = {
 
 class Shape {
     constructor(id) {
-        //console.log('ID' + id);
         const self = new Entity();
         self.id = shortid.generate();
         self.type = Math.random() > 0.25 ? 'square' : Math.random() < 0.85 ? 'triangle' : Math.random() > 0.98 ? 'alphapentagon' : 'pentagon';
@@ -305,7 +302,6 @@ class Shape {
             }
 
             master_pack[player.id] = pack;
-            //console.log(master_pack[player.id]);
         }
         return master_pack;
     }
@@ -315,7 +311,7 @@ class Shape {
         for (const i in Shape.list) {
             shapes.push(Shape.list[i].getInitPack());
         }
-        //console.log(shapes.length);
+
         return shapes;
 
     }
@@ -420,7 +416,7 @@ class Player {
 
             if ((self.pressingAttack && self.reload_timer > 10) || (self.autofire && self.reload_timer > 10)) {
                 self.reload_timer = 0;
-                //console.log('SLIST:'  + Shape.list);
+								
                 self.shootBullet(self.mouseAngle);
                 self.reload_timer = self.tank === "machine" ? 5 : self.tank === "Streamliner" ? 9 : self.tank === "sniper" ? -17 : 0;
             }
@@ -607,8 +603,6 @@ class Player {
             }
         });
 
-        //console.log(socket.id);
-
         socket.emit('init', {
             selfId: socket.id,
             player: Player.getAllInitPack(),
@@ -622,7 +616,7 @@ class Player {
 		for (const i in Player.list) {
 			players.push(Player.list[i].getInitPack());
 		}
-		//console.log(players.length);
+
 		return players;
 	}
 
