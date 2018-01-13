@@ -355,7 +355,7 @@ function tierFromScore(score) {
 class Player extends Entity {
     constructor(id) {
 				super();
-				
+
         this.hasUpgraded = false;
         this.canUpgrade = true;
         this.dev = false;
@@ -429,104 +429,6 @@ class Player extends Entity {
 
         }
 
-        this.shootBullet = angle => {
-            if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(this.tank)){
-            let b = new Bullet(this.id, angle, this.team);
-            b.x = this.x - 10;
-            b.y = this.y;
-						if (this.tank === "bomber" || this.tank === "grenadier") {
-							setTimeout(function() {
-								b.explode(this.tank === "bomber" ? 5 : 8);
-								b.toRemove = true;
-							}, 1000);
-						}}
-            if (this.tank === "quad") {
-                var cr = new Bullet(this.id, angle + 180, this.team);
-                cr.x = this.x - 10;
-                cr.y = this.y;
-                var vr = new Bullet(this.id, angle + 270, this.team);
-                vr.x = this.x - 10;
-                vr.y = this.y;
-                var er = new Bullet(this.id, angle + 90, this.team);
-                er.x = this.x - 10;
-                er.y = this.y;
-            }
-            if (this.tank === "quadfighter") {
-                var cr = new Bullet(this.id, angle + 180, this.team);
-                cr.x = this.x - 10;
-                cr.y = this.y;
-                var vr = new Bullet(this.id, angle + 240, this.team);
-                vr.x = this.x - 10;
-                vr.y = this.y;
-                var er = new Bullet(this.id, angle + 120, this.team);
-                er.x = this.x - 10;
-                er.y = this.y;
-            }
-            if (this.tank === "twin") {
-                const b1 = new Bullet(this.id, angle, this.team);
-                b1.x = this.x - 10;
-                b1.y = this.y + 5;
-                    const b2 = new Bullet(this.id, angle, this.team);
-                    b2.x = this.x - 10;
-                    b2.y = this.y - 5;
-            }
-            if (this.tank === "flank" || this.tank === "destroyerflank") {
-                setTimeout(() => {
-                    const cr = new Bullet(this.id, angle + 180, this.team);
-                    cr.x = this.x - 10;
-                    cr.y = this.y;
-
-                }, 150);
-            }
-            if (this.tank === "octo") {
-                var cr = new Bullet(this.id, angle + 180, this.team);
-                cr.x = this.x - 10;
-                cr.y = this.y;
-                var vr = new Bullet(this.id, angle + 270, this.team);
-                vr.x = this.x - 10;
-                vr.y = this.y;
-                var er = new Bullet(this.id, angle + 90, this.team);
-                er.x = this.x - 10;
-                er.y = this.y;
-                setTimeout(() => {
-                    const ar = new Bullet(this.id, angle + 45, this.team);
-                    ar.x = this.x - 10;
-                    ar.y = this.y;
-                    const rr = new Bullet(this.id, angle + 135, this.team);
-                    rr.x = this.x - 10;
-                    rr.y = this.y;
-                    const ur = new Bullet(this.id, angle + 225, this.team);
-                    ur.x = this.x - 10;
-                    ur.y = this.y;
-                    const nr = new Bullet(this.id, angle + 315, this.team);
-                    nr.x = this.x - 10;
-                    nr.y = this.y;
-                }, 150);
-            }
-            if (this.tank === "trishot") {
-                var cr = new Bullet(this.id, angle + 45, this.team);
-                cr.x = this.x - 10;
-                cr.y = this.y;
-                var vr = new Bullet(this.id, angle - 45, this.team);
-                vr.x = this.x - 10;
-                vr.y = this.y;
-            }
-            if (this.tank === "horizon") {
-                var cr = new Bullet(this.id, angle + 45, this.team);
-                cr.x = this.x - 10;
-                cr.y = this.y;
-                var vr = new Bullet(this.id, angle - 45, this.team);
-                vr.x = this.x - 10;
-                vr.y = this.y;
-                const nr = new Bullet(this.id, angle + 22, this.team);
-                nr.x = this.x - 10;
-                nr.y = this.y;
-                const dr = new Bullet(this.id, angle - 22, this.team);
-                dr.x = this.x - 10;
-                dr.y = this.y;
-            }
-        }
-
         this.updateSpd = () => {
             if (this.directions.right && this.xVelocity < this.maxSpd) { this.xVelocity++; }
             if (this.directions.left && this.xVelocity > -this.maxSpd) { this.xVelocity--; }
@@ -570,6 +472,103 @@ class Player extends Entity {
         return this;
 
     }
+		shootBullet(angle) {
+				if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(this.tank)){
+				let b = new Bullet(this.id, angle, this.team);
+				b.x = this.x - 10;
+				b.y = this.y;
+				if (this.tank === "bomber" || this.tank === "grenadier") {
+					setTimeout(function() {
+						b.explode(this.tank === "bomber" ? 5 : 8);
+						b.toRemove = true;
+					}, 1000);
+				}}
+				if (this.tank === "quad") {
+						var cr = new Bullet(this.id, angle + 180, this.team);
+						cr.x = this.x - 10;
+						cr.y = this.y;
+						var vr = new Bullet(this.id, angle + 270, this.team);
+						vr.x = this.x - 10;
+						vr.y = this.y;
+						var er = new Bullet(this.id, angle + 90, this.team);
+						er.x = this.x - 10;
+						er.y = this.y;
+				}
+				if (this.tank === "quadfighter") {
+						var cr = new Bullet(this.id, angle + 180, this.team);
+						cr.x = this.x - 10;
+						cr.y = this.y;
+						var vr = new Bullet(this.id, angle + 240, this.team);
+						vr.x = this.x - 10;
+						vr.y = this.y;
+						var er = new Bullet(this.id, angle + 120, this.team);
+						er.x = this.x - 10;
+						er.y = this.y;
+				}
+				if (this.tank === "twin") {
+						const b1 = new Bullet(this.id, angle, this.team);
+						b1.x = this.x - 10;
+						b1.y = this.y + 5;
+								const b2 = new Bullet(this.id, angle, this.team);
+								b2.x = this.x - 10;
+								b2.y = this.y - 5;
+				}
+				if (this.tank === "flank" || this.tank === "destroyerflank") {
+						setTimeout(() => {
+								const cr = new Bullet(this.id, angle + 180, this.team);
+								cr.x = this.x - 10;
+								cr.y = this.y;
+
+						}, 150);
+				}
+				if (this.tank === "octo") {
+						var cr = new Bullet(this.id, angle + 180, this.team);
+						cr.x = this.x - 10;
+						cr.y = this.y;
+						var vr = new Bullet(this.id, angle + 270, this.team);
+						vr.x = this.x - 10;
+						vr.y = this.y;
+						var er = new Bullet(this.id, angle + 90, this.team);
+						er.x = this.x - 10;
+						er.y = this.y;
+						setTimeout(() => {
+								const ar = new Bullet(this.id, angle + 45, this.team);
+								ar.x = this.x - 10;
+								ar.y = this.y;
+								const rr = new Bullet(this.id, angle + 135, this.team);
+								rr.x = this.x - 10;
+								rr.y = this.y;
+								const ur = new Bullet(this.id, angle + 225, this.team);
+								ur.x = this.x - 10;
+								ur.y = this.y;
+								const nr = new Bullet(this.id, angle + 315, this.team);
+								nr.x = this.x - 10;
+								nr.y = this.y;
+						}, 150);
+				}
+				if (this.tank === "trishot") {
+						var cr = new Bullet(this.id, angle + 45, this.team);
+						cr.x = this.x - 10;
+						cr.y = this.y;
+						var vr = new Bullet(this.id, angle - 45, this.team);
+						vr.x = this.x - 10;
+						vr.y = this.y;
+				}
+				if (this.tank === "horizon") {
+						var cr = new Bullet(this.id, angle + 45, this.team);
+						cr.x = this.x - 10;
+						cr.y = this.y;
+						var vr = new Bullet(this.id, angle - 45, this.team);
+						vr.x = this.x - 10;
+						vr.y = this.y;
+						const nr = new Bullet(this.id, angle + 22, this.team);
+						nr.x = this.x - 10;
+						nr.y = this.y;
+						const dr = new Bullet(this.id, angle - 22, this.team);
+						dr.x = this.x - 10;
+						dr.y = this.y;
+				}
+		}
 
     static onConnect(socket) {
         const player = new Player(socket.id);
