@@ -74,16 +74,20 @@ class Entity {
 };
 
 class Bullet extends Entity {
-    constructor(parent, angle) {
+    constructor(parent, angle, bulletInfo) {
         angle += (Math.random() * 5) + 1;
         angle -= (Math.random() * 5) + 1;
 
         super();
 
         this.parent = parent;
+				this.bulletInfo = bulletInfo;
+				console.log(bulletInfo)
 
-				this.x = Player.list[this.parent].x;
-				this.y = Player.list[this.parent].y;
+				if (this.bulletInfo) {
+					this.x = bulletInfo.x;
+					this.y = bulletInfo.y;
+				}
 
 				this.bulletFactor = function() {
 					let parentBarrels = classes[infolist[this.parent].tank].barrels;
@@ -175,7 +179,7 @@ class Bullet extends Entity {
 			let twinTowers = [];
 
 			for (let i = 0; i < number; i++) {
-				twinTowers.push(new Bullet(this.parent, (360 / number) * i)) // send airplanes
+				twinTowers.push(new Bullet(this.parent, (360 / number) * i, this)) // send airplanes
 			}
 		}
 }
