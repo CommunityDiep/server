@@ -16,4 +16,4 @@ In order to install the server, you must first have Node.js and `npm` installed,
 * Extract it to a folder.
 * Open your command prompt with the working directory being the extracted folder.
 * Install the dependencies using `npm install`.
-* Run the `app.js` file.
+* Run the server (`app.js`) with Node.js.
