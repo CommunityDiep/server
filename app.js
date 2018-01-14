@@ -74,16 +74,14 @@ class Entity {
 };
 
 class Bullet extends Entity {
-    constructor(parent, angle, bulletInfo) {
+    constructor(obj) {
         super();
 
-        this.parent = parent;
-				this.bulletInfo = bulletInfo;
+				this.x = obj.x;
+				this.y = obj.y;
+				this.parent = obj.parent;
 
-				if (this.bulletInfo) {
-					this.x = bulletInfo.x;
-					this.y = bulletInfo.y;
-				}
+				let angle = obj.angle;
 
 				this.bulletFactor = function() {
 					let parentBarrels = classes[infolist[this.parent].tank].barrels;
@@ -479,7 +477,12 @@ class Player extends Entity {
 					let spreadPart = Math.random() * (item.spreadAngle * 2) - item.spreadAngle;
 
 					let spreadedAngle = item.offsetAngle + angle + spreadPart;
-					shootenedBullets.push(new Bullet(this.id, spreadedAngle));
+					shootenedBullets.push(new Bullet({
+						parent: this.id,
+						x: this.x,
+						y: this.y,
+						angle: spreadedAngle
+					}));
 				}
 			} else {
 				if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(this.tank)){
