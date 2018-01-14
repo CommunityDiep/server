@@ -12,6 +12,7 @@
   "dependencies": {
     "cdiep-score-sort": "github:CommunityDiep/score-sort",
     "express": "^4.16.2",
+    "polygon-collision": "0.0.1",
     "shortid": "^2.2.8",
     "socket.io": "^2.0.4",
     "winston": "^2.4.0"
