@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const logger = require('winston');
-
+const collision = require('polygon-collision');
 const shortid = require('shortid');
 
 let ip_list = [];
@@ -71,6 +71,17 @@ class Entity {
 
 		this.getDistance = pt => Math.sqrt((this.x - pt.x) ** 2 + (this.y - pt.y) ** 2)
 	}
+
+	collisionShape() {
+		return {
+			type: "circle",
+			points: [{
+				"x": this.x,
+				"y": this.y
+			}],
+			r: 30
+		}
+	}
 };
 
 class Bullet extends Entity {
@@ -131,13 +142,19 @@ class Bullet extends Entity {
 
 				for (var i in Bullet.list) {
 						const b = Bullet.list[i];
-						if (this.getDistance(b) < 12 && this.id !== b.id && (infolist[this.parent].tank == 'destroyer' || infolist[this.parent].tank == 'destroyerflank' || infolist[this.parent].tank == 'Hybrid' || infolist[this.parent].tank == 'sniper')) {
+						/*if (this.getDistance(b) < 12 && this.id !== b.id && (infolist[this.parent].tank == 'destroyer' || infolist[this.parent].tank == 'destroyerflank' || infolist[this.parent].tank == 'Hybrid' || infolist[this.parent].tank == 'sniper')) {
 								b.toRemove = true;
 						} else if (this.getDistance(b) < 12 && this.id !== b.id && infolist[this.parent].tank != 'destroyer') {
 								this.toRemove = true;
 								b.toRemove = true;
-						}
+						}*/
+						// Don't collide with self
+						if (this.id === b.id) return;
 
+						if (collision(this.collisionShape, b.collisionShape)) {
+							this.toRemove = true;
+							b.toRemove = true;
+						}
 				}
 
 				for (var i in Shape.list) {
