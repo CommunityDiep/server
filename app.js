@@ -81,7 +81,7 @@ class Entity {
 
 	collisionShape() {
 		return {
-			type: "circle",
+			type: shapeWord.circle,
 			points: [{
 				"x": this.x,
 				"y": this.y
