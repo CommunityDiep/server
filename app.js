@@ -2,8 +2,15 @@ const express = require('express');
 const app = express();
 
 const logger = require('winston');
-const collision = require('polygon-collision');
 const shortid = require('shortid');
+
+const collision = require('polygon-collision');
+let shapeWord = {
+    line: "line",
+    point: "point",
+    circle: "circle",
+    polygon: "polygon",
+};
 
 let ip_list = [];
 const ip_dic = {};
