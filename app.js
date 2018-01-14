@@ -122,6 +122,100 @@ class Bullet extends Entity {
 
         const super_update = this.update;
 
+				this.update = () => {
+				const lasting = infolist[this.parent].tank === "sniper" ? 60 : infolist[this.parent].tank === "Unsniper" ? 10 : infolist[this.parent].tank === "Streamliner" ? 15 : 30;
+				if (this.timer > lasting) {
+						this.toRemove = true;
+				}
+				super_update();
+
+				for (var i in Bullet.list) {
+						const b = Bullet.list[i];
+						if (this.getDistance(b) < 12 && this.id !== b.id && (infolist[this.parent].tank == 'destroyer' || infolist[this.parent].tank == 'destroyerflank' || infolist[this.parent].tank == 'Hybrid' || infolist[this.parent].tank == 'sniper')) {
+								b.toRemove = true;
+						} else if (this.getDistance(b) < 12 && this.id !== b.id && infolist[this.parent].tank != 'destroyer') {
+								this.toRemove = true;
+								b.toRemove = true;
+						}
+
+				}
+
+				for (var i in Shape.list) {
+						const s = Shape.list[i];
+
+						if (this.getDistance(s) < 23) {
+							s.hp -= 4 * this.bulletFactor() * 1;//this.parent.stat.bulletDamage;
+							this.hp -= 4 * this.bulletFactor() * 1;
+							if (this.hp <= 0) {
+								this.toRemove = true;
+							}
+							if (s.hp <= 0) {
+								s.toRemove = true;
+								if (Player.list[this.parent]) {
+										Player.list[this.parent].score += s.score;
+								}
+							}
+						}
+				}
+
+				for (var i in Player.list) {
+						const p = Player.list[i];
+
+						if (p.hp < p.hpMax() && p.regen_timer > 10) {
+								p.hp += p.hpMax() / 500;
+								if (p.hp > p.hpMax() || p.hp == p.hpMax()) {
+										p.hp = p.hpMax();
+								};
+						};
+						const onDifferentTeams = this.parent_team == "none" || p.team == "none" ? true : this.parent_team !== p.team;
+						if (this.getDistance(p) < 32 && this.parent !== p.id) {
+								p.regen_timer = 0;
+
+								if (infolist[this.parent].tank == 'healthsteal') { // special healthstealing hax
+										Player.list[this.parent].hp += 4;
+								}
+
+								if (infolist[this.parent].tank == 'Arena Closer') {
+										p.hp -= 10000;
+								} else if (infolist[this.parent].tank == 'destroyer' || infolist[this.parent].tank == 'destroyerflank' || infolist[this.parent].tank == 'Hybrid') {
+										p.hp -= 12;
+								} else if (infolist[this.parent].tank == 'Annihilator') {
+										p.hp -= 16;
+								} else if (infolist[this.parent].tank == 'Streamliner') {
+										p.hp -= 1;
+								} else {
+										p.hp -= 4;
+								}
+								if (p.hp <= 0) {
+										const shooter = Player.list[this.parent];
+										if (shooter) {
+
+												shooter.score += p.score;
+										}
+										p.hp = p.hpMax();
+										p.score = Math.round(p.score / 2 - (Math.random()));
+										p.tank = 'basic';
+										infolist[p.id].tank = 'basic';
+										p.x = Math.random() * arenaSize.width;
+										p.y = Math.random() * arenaSize.height;
+										/*io.sockets.emit('killNotification',{
+												killer: shooter.id,
+												killed: namelist[p.id],
+												id: this.parent.id
+										});*/
+										io.sockets.emit('statusMessage', {
+											message: `You killed ${namelist[p.id]}`,
+											color: "default"
+										});
+
+								}
+
+								this.toRemove = true;
+						}
+				}
+
+		}
+
         this.getInitPack = () => ({
             id: this.id,
             parent_tank: infolist[this.parent].tank,
