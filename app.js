@@ -796,6 +796,10 @@ io.sockets.on('connection', socket => {
 
 	socket.id = shortid.generate();
 
+	socket.emit("serverInfo", {
+		
+	});
+
 	socket.on('disconnect', () => {
 		Player.onDisconnect(socket);
 	});
