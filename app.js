@@ -102,7 +102,10 @@ class Bullet extends Entity {
 				let angle = obj.angle;
 
 				this.bulletFactor = function() {
-					let parentTankBarrels = classes[infolist[this.parent].tank].barrels;
+					let parentInfo = infolist[this.parent];
+					if (!parentInfo) return 0;
+
+					let parentTankBarrels = classes[parentInfo.tank].barrels;
 					let bulletFactor = parentTankBarrels !== undefined ? parentTankBarrels[0].bulletPower : 1;
 					bulletFactor = bulletFactor === undefined ? 8 : bulletFactor;
 
