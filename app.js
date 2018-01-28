@@ -100,6 +100,7 @@ class Bullet extends Entity {
 				this.parent = obj.parent;
 
 				let angle = obj.angle;
+				this.angle = obj.angle;
 
 				this.bulletFactor = function() {
 					let parentInfo = infolist[this.parent];
@@ -243,25 +244,27 @@ class Bullet extends Entity {
 
 		}
 
-        this.getInitPack = () => ({
-            id: this.id,
-            parent_tank: infolist[this.parent].tank,
-            parent_id: this.parent
-        })
-
-        this.getUpdatePack = () => ({
-            id: this.id,
-            x: this.x,
-            y: this.y,
-            parent_tank: infolist[this.parent].tank,
-            parent_id: this.parent.id
-        })
-
         Bullet.list[this.id] = this;
         initPack.bullet.push(this.getInitPack());
-        return this;
-
     }
+
+		getInitPack() {
+			return {
+				id: this.id,
+				parent_tank: Player.list[this.parent].tank,
+				parent_id: this.parent
+			};
+		}
+
+		getUpdatePack() {
+			return {
+				id: this.id,
+				x: this.x,
+				y: this.y,
+				parent_tank: Player.list[this.parent].tank,
+				parent_id: this.parent
+			};
+		}
 
     static update() {
 
@@ -296,7 +299,10 @@ class Bullet extends Entity {
 			let explodedBullets = [];
 
 			for (let loop = 0; loop < number; i++) {
-				explodedBullets.push(new Bullet(this.parent, (360 / number) * i, this)) // send airplanes
+				explodedBullets.push(new Bullet({
+					parent: this.parent,
+					angle: (360 / number) * i
+				})); // send airplanes
 			}
 		}
 }
@@ -606,8 +612,12 @@ class Player extends Entity {
 					}));
 				}
 			} else {
+				return;
 				if (!['smasher', 'twin','landmine','spike','autosmasher','dasher','unstoppable','drifter'].includes(this.tank)){
-				let b = new Bullet(this.id, angle, this.team);
+				let b = new Bullet({
+					parent: this.id,
+					angle: angle
+				});
 				b.x = this.x - 10;
 				b.y = this.y;
 				if (this.tank === "bomber" || this.tank === "grenadier") {
