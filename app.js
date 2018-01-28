@@ -102,8 +102,8 @@ class Bullet extends Entity {
 				let angle = obj.angle;
 
 				this.bulletFactor = function() {
-					let parentBarrels = classes[infolist[this.parent].tank].barrels;
-					let bulletFactor = parentBarrels !== undefined ? parentBarrels[0].bulletPower : 1;
+					let parentTankBarrels = classes[infolist[this.parent].tank].barrels;
+					let bulletFactor = parentTankBarrels !== undefined ? parentTankBarrels[0].bulletPower : 1;
 					bulletFactor = bulletFactor === undefined ? 8 : bulletFactor;
 
 					return bulletFactor;
@@ -797,7 +797,7 @@ io.sockets.on('connection', socket => {
 	socket.id = shortid.generate();
 
 	socket.emit("serverInfo", {
-		
+
 	});
 
 	socket.on('disconnect', () => {
