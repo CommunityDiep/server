@@ -414,14 +414,14 @@ class Shape {
 	static update() {
 		const master_pack = {};
 
-		for (var i in Player.list) {
-			const player = Player.list[i];
+		for (const updatePlayerLoop in Player.list) {
+			const player = Player.list[updatePlayerLoop];
 			const pack = [];
-			for (var i in Shape.list) {
-				const shape = Shape.list[i];
+			for (const innerLoop in Shape.list) {
+				const shape = Shape.list[innerLoop];
 				shape.update();
 				if (shape.toRemove) {
-					delete Shape.list[i];
+					delete Shape.list[innerLoop];
 					removePack.shape.push(shape.id);
 				} else if (shape.getUpdatePack(player)) {
 					pack.push(shape.getUpdatePack(player));
