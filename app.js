@@ -22,9 +22,11 @@ const config = loadJSON("config");
 
 function loadJSON(fileName) {
 	try {
+		// This is a bit hacky, but it works!
 		const commentStrip = require("strip-json-comments");
-		return JSON.parse(commentStrip(JSON.stringify(require(`./${fileName}.json`)))); // hacky!
+		return JSON.parse(commentStrip(JSON.stringify(require(`./${fileName}.json`))));
 	} catch (error) {
+		// Fallback to loading basic JSON if it doesn't work.
 		return require(`./${fileName}.json`);
 	}
 }
@@ -199,7 +201,8 @@ class Bullet extends Entity {
 				if (this.getDistance(p) < 32 && this.parent !== p.id) {
 					p.regen_timer = 0;
 
-					if (infolist[this.parent].tank == "healthsteal") { // special healthstealing hax
+					// Give the health-stealing tank its special ability
+					if (infolist[this.parent].tank == "healthsteal") {
 						Player.list[this.parent].hp += 4;
 					}
 
@@ -298,11 +301,12 @@ class Bullet extends Entity {
 
 		const explodedBullets = [];
 
-		for (let loop = 0; loop < number; i++) {
+		// Loop through all angles
+		for (let explodeLoop = 0; explodeLoop < number; explodeLoop++) {
 			explodedBullets.push(new Bullet({
 				parent: this.parent,
-				angle: (360 / number) * i,
-			})); // send airplanes
+				angle: (360 / number) * explodeLoop,
+			}));
 		}
 	}
 }
@@ -389,8 +393,6 @@ class Shape {
 		});
 
 		self.getUpdatePack = player => {
-			const player_x = player.x;
-			const player_y = player.y;
 			const screen_width = dimensions[`${player.id}width`];
 			const screen_height = dimensions[`${player.id}height`];
 			if (Math.abs(player.x - self.x) < screen_width && Math.abs(player.y - self.y) < screen_height) {
@@ -481,7 +483,10 @@ class Player extends Entity {
 		this.dev = false;
 		this.id = id;
 		this.name = namelist[this.id];
-		this.tank = "basic"; // It's the default tank.
+
+		// Everyone starts basic!
+		this.tank = "basic";
+
 		this.number = `${Math.floor(10 * Math.random())}`;
 		this.directions = { right: false, left: false, up: false, down: false };
 		this.pressingInc = false;
@@ -495,11 +500,12 @@ class Player extends Entity {
 		}[this.team];
 		this.autofire = false;
 		this.mouseAngle = 0;
-		this.invisible = false; // infolist[this.id].tank === "Invis" ? true : false;
+		this.invisible = false;
 		this.maxSpd = infolist[this.id].tank === "Quad quadfighter" ? 12 : 8;
 		this.score = this.name === "haykam" ? 2555555 : 0;
 
-		this.statPoints = { // the custom ones, base stats are added in to equations
+		// Add custom stat points (base stats are defined with tank).
+		this.statPoints = {
 			"healthRegeneration": 0,
 			"bodyDamage": 0,
 			"maxHealth": 0,
@@ -833,9 +839,6 @@ io.sockets.on("connection", socket => {
 				const player = Player.list[socket.id];
 
 				const name = player.name;
-				const tank = player.tank;
-
-				const score = player.score;
 				const tier = tierFromScore(player.score);
 
 				const upgrades = classes[player.tank].upgrades;
