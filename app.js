@@ -490,12 +490,7 @@ class Player extends Entity {
 		this.pressingInc = false;
 		this.pressingDec = false;
 		this.team = "none";
-		this.teamcolor = {
-			"red": "#F14E54",
-			"blue": "#1DB2DF",
-			"purple": "#BE83F2",
-			"green": "#24DF73",
-		}[this.team];
+		this.teamcolor = config.teamColors[this.team];
 		this.autofire = false;
 		this.mouseAngle = 0;
 		this.invisible = false;

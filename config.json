@@ -6,6 +6,12 @@
     "width": 1500,
     "height": 1500
   },
+  "teamColors": {
+    "red": "#F14E54",
+    "blue": "#1DB2DF",
+    "purple": "#BE83F2",
+    "green": "#24DF73"
+  },
   "levels": {
     "1": 0,
     "2": 4,
