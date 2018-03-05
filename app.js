@@ -46,9 +46,9 @@ const arenaSize = {
 };
 
 class Entity {
-	constructor() {
-		this.x = 250;
-		this.y = 250;
+	constructor(x, y) {
+		this.x = x;
+		this.y = y;
 
 		this.xVelocity = 0;
 		this.yVelocity = 0;
@@ -95,10 +95,8 @@ class Entity {
 
 class Bullet extends Entity {
 	constructor(obj) {
-		super();
+		super(obj.x, obj.y);
 
-		this.x = obj.x;
-		this.y = obj.y;
 		this.parent = obj.parent;
 
 		const angle = obj.angle;
