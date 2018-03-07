@@ -19,5 +19,8 @@
   },
   "optionalDependencies": {
     "strip-json-comments": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
   }
 }
