@@ -6,9 +6,11 @@ This is a version of the popular browser game diep.io that was created by the co
 - [/u/Koulatko](https://www.reddit.com/u/Koulatko) for the functions used to render tanks, grids, and more
 - [/u/haykam821](https://www.reddit.com/u/haykam821) for both back-end and front-end development
 
-The game is still being worked on, but not as actively as before due to prolonged downtime and other distractions. As of now, it is fully functional and can be tested out at https://cdiep-nylr.c9users.io/index.html. The game implements many features not found in the real version, including live chat and frequently spawning green shapes. In the coming months we hope to add stat upgrades as well as the complete class tree.
+This game is still being worked on, but not as actively as before due to prolonged downtime and other distractions.
 
-![](https://i.imgur.com/c0zp0MM.png)
+The game implements many features not found in the original, including a lot of new tanks, changes to existing tanks (buffs and nerfs), and an advanced server selection system.
+
+![Screenshot of game](https://i.imgur.com/c0zp0MM.png)
 
 In order to install the server, you must first have Node.js and `npm` installed, obviously. Then, follow these steps:
 
