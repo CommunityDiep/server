@@ -162,10 +162,10 @@ class Bullet extends Entity {
 				// Don't collide with self
 				if (this.id === b.id) return;
 
-				if (collision(this.collisionShape, b.collisionShape)) {
+				/* if (collision(this.collisionShape, b.collisionShape)) {
 					this.toRemove = true;
 					b.toRemove = true;
-				}
+				}*/
 			}
 
 			for (var i in Shape.list) {
