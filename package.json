@@ -15,7 +15,7 @@
     "polygon-collision": "0.0.1",
     "shortid": "^2.2.8",
     "socket.io": "^2.0.4",
-    "winston": "^2.4.0"
+    "winston": "^3.0.0-rc3"
   },
   "optionalDependencies": {
     "strip-json-comments": "^2.0.1"

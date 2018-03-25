@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const logger = require("winston");
+const winston = require("winston");
 const shortid = require("shortid");
 
 const collision = require("polygon-collision");
@@ -31,7 +31,18 @@ function loadJSON(fileName) {
 	}
 }
 
-logger.level = config.debugLevel;
+const logger = winston.createLogger({
+	level: config.debugLevel || "info",
+	transports: [
+		new winston.transports.Console({
+			colorize: true,
+			format: winston.format.combine(
+				winston.format.colorize(),
+				winston.format.simple(),
+			),
+		}),
+	],
+});
 
 const serv = require("http").Server(app);
 
