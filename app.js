@@ -1,3 +1,5 @@
+//import { setInterval } from "core-js/library/web/timers";
+
 const express = require("express");
 const app = express();
 
@@ -112,6 +114,13 @@ class Bullet extends Entity {
 
 		const angle = obj.angle;
 		this.angle = obj.angle;
+		this.barrel = obj.barrel;
+		this.tank = obj.tank;
+		this.parent_tenk = obj.parent_tank;
+
+		this.autofire = true;
+		this.reload = 0;
+		this.reload_timer = 0;
 
 		this.bulletFactor = function() {
 			const parentInfo = infolist[this.parent];
@@ -132,6 +141,11 @@ class Bullet extends Entity {
 		this.hp = this.hpMax();
 
 		this.id = shortid.generate();
+		infolist[this.id] = {
+			name: "bulle^t",
+			tank: this.tank,
+			speedSet: 0
+		};
 		if (this.parent) {
 			if (infolist[this.parent].tank == "destroyer" || infolist[this.parent].tank == "destroyerflank" || infolist[this.parent].tank == "Hybrid") {
 				this.xVelocity = Math.cos(angle / 180 * Math.PI) * 13;
@@ -144,11 +158,16 @@ class Bullet extends Entity {
 				this.xVelocity = Math.cos(angle / 180 * Math.PI) * 30;
 				this.yVelocity = Math.sin(angle / 180 * Math.PI) * 30;
 			} else {
-				this.xVelocity = Math.cos(angle / 180 * Math.PI) * 20;
-				this.yVelocity = Math.sin(angle / 180 * Math.PI) * 20;
+				this.xVelocity = Math.cos(angle / 180 * Math.PI) * 20;// + infolist[this.parent].speedSet;
+				this.yVelocity = Math.sin(angle / 180 * Math.PI) * 20;// + infolist[this.parent].speedSet;
+				//infolist[this.id].speedSet = 20 + infolist[this.parent].speedSet;
 			}
 
 		}
+
+		this.shootingTenk = setInterval(() => {
+			this.reload_timer = this.reload_timer + 1;
+		},100);
 
 		this.toRemove = false;
 		this.timer = 0;
@@ -161,6 +180,13 @@ class Bullet extends Entity {
 				this.toRemove = true;
 			}
 			super_update();
+
+			if (this.autofire && this.reload_timer > 10) {
+				this.reload_timer = 0;
+
+				this.shootBullet(this.mouseAngle);
+				this.reload_timer = this.tank === "machine" ? 5 : this.tank === "Streamliner" ? 9 : this.tank === "sniper" ? -17 : 0;
+			}
 
 			for (var i in Bullet.list) {
 				const b = Bullet.list[i];
@@ -263,9 +289,148 @@ class Bullet extends Entity {
 	getInitPack() {
 		return {
 			id: this.id,
-			parent_tank: Player.list[this.parent].tank,
+			parent_tank: Player.list[this.parent] === undefined ? Bullet.list[this.parent] === undefined ? this.tank : Bullet.list[this.parent].tank : Player.list[this.parent].tank,
 			parent_id: this.parent,
+			barrels: this.barrel,
+			angle: this.angle,
+			tank: this.tank
 		};
+	}
+
+	shootBullet(angle) {
+		if (classes[this.tank].barrelsNew) {
+			const shootenedBullets = [];
+			const barrels = classes[this.tank].barrelsNew;
+
+			for (const item of barrels) {
+				const spreadPart = Math.random() * (item.spreadAngle * 2) - item.spreadAngle;
+
+				const spreadedAngle = item.offsetAngle + angle + spreadPart;
+				shootenedBullets.push(new Bullet({
+					parent: this.id,
+					x: this.x,
+					y: this.y,
+					angle: spreadedAngle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[this.tank].barrels[0].bulletType,
+					parent_tank: this.tank
+				}));
+			}
+		} else {
+			return;
+			if (!["smasher", "twin", "landmine", "spike", "autosmasher", "dasher", "unstoppable", "drifter"].includes(this.tank)) {
+				const b = new Bullet({
+					parent: this.id,
+					parent_tank: this.tank,
+					angle: angle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[this.tank].barrels[0].bulletType
+				});
+				b.x = this.x - 10;
+				b.y = this.y;
+				if (this.tank === "bomber" || this.tank === "grenadier" || this.tank === "rocketeer") {
+					setTimeout(function() {
+						b.explode(this.tank === "bomber" ? 5 : 8);
+						b.toRemove = true;
+					}, 1000);
+				}
+			}
+			if (this.tank === "quad") {
+				var cr = new Bullet(this.id, angle + 180, this.team);
+				cr.x = this.x - 10;
+				cr.y = this.y;
+				var vr = new Bullet(this.id, angle + 270, this.team);
+				vr.x = this.x - 10;
+				vr.y = this.y;
+				var er = new Bullet(this.id, angle + 90, this.team);
+				er.x = this.x - 10;
+				er.y = this.y;
+			}
+			if (this.tank === "quadfighter") {
+				var cr = new Bullet(this.id, angle + 180, this.team);
+				cr.x = this.x - 10;
+				cr.y = this.y;
+				var vr = new Bullet(this.id, angle + 240, this.team);
+				vr.x = this.x - 10;
+				vr.y = this.y;
+				var er = new Bullet(this.id, angle + 120, this.team);
+				er.x = this.x - 10;
+				er.y = this.y;
+			}
+			if (this.tank === "twin") {
+				const b = new Bullet({
+					parent: this.id,
+					angle: angle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[this.tank].barrels[0].bulletType
+				});
+				b1.x = this.x - 10;
+				b1.y = this.y + 5;
+				const b2 = new Bullet({
+					parent: this.id,
+					angle: angle,
+					barrel: classes[classes[this.tank].barrels[1].bulletType].barrels,
+					tank: classes[this.tank].barrels[1].bulletType
+				});
+				b2.x = this.x - 10;
+				b2.y = this.y - 5;
+			}
+			if (this.tank === "flank" || this.tank === "destroyerflank") {
+				setTimeout(() => {
+					const cr = new Bullet(this.id, angle + 180, this.team);
+					cr.x = this.x - 10;
+					cr.y = this.y;
+
+				}, 150);
+			}
+			if (this.tank === "octo") {
+				var cr = new Bullet(this.id, angle + 180, this.team);
+				cr.x = this.x - 10;
+				cr.y = this.y;
+				var vr = new Bullet(this.id, angle + 270, this.team);
+				vr.x = this.x - 10;
+				vr.y = this.y;
+				var er = new Bullet(this.id, angle + 90, this.team);
+				er.x = this.x - 10;
+				er.y = this.y;
+				setTimeout(() => {
+					const ar = new Bullet(this.id, angle + 45, this.team);
+					ar.x = this.x - 10;
+					ar.y = this.y;
+					const rr = new Bullet(this.id, angle + 135, this.team);
+					rr.x = this.x - 10;
+					rr.y = this.y;
+					const ur = new Bullet(this.id, angle + 225, this.team);
+					ur.x = this.x - 10;
+					ur.y = this.y;
+					const nr = new Bullet(this.id, angle + 315, this.team);
+					nr.x = this.x - 10;
+					nr.y = this.y;
+				}, 150);
+			}
+			if (this.tank === "trishot") {
+				var cr = new Bullet(this.id, angle + 45, this.team);
+				cr.x = this.x - 10;
+				cr.y = this.y;
+				var vr = new Bullet(this.id, angle - 45, this.team);
+				vr.x = this.x - 10;
+				vr.y = this.y;
+			}
+			if (this.tank === "horizon") {
+				var cr = new Bullet(this.id, angle + 45, this.team);
+				cr.x = this.x - 10;
+				cr.y = this.y;
+				var vr = new Bullet(this.id, angle - 45, this.team);
+				vr.x = this.x - 10;
+				vr.y = this.y;
+				const nr = new Bullet(this.id, angle + 22, this.team);
+				nr.x = this.x - 10;
+				nr.y = this.y;
+				const dr = new Bullet(this.id, angle - 22, this.team);
+				dr.x = this.x - 10;
+				dr.y = this.y;
+			}
+		}
 	}
 
 	getUpdatePack() {
@@ -273,8 +438,11 @@ class Bullet extends Entity {
 			id: this.id,
 			x: this.x,
 			y: this.y,
-			parent_tank: Player.list[this.parent].tank,
+			parent_tank: this.parent_tenk,
 			parent_id: this.parent,
+			barrels: this.barrel,
+			angle: this.angle,
+			tank: this.tank,
 		};
 	}
 
@@ -288,6 +456,7 @@ class Bullet extends Entity {
 			if (bullet.toRemove) {
 				delete Bullet.list[i];
 				removePack.bullet.push(bullet.id);
+				clearInterval(this.shootingTenk);
 			} else {
 				pack.push(bullet.getUpdatePack());
 			}
@@ -315,6 +484,8 @@ class Bullet extends Entity {
 			explodedBullets.push(new Bullet({
 				parent: this.parent,
 				angle: (360 / number) * explodeLoop,
+				tank: "bullet",
+				parent_tank: "rocketeer"
 			}));
 		}
 	}
@@ -489,24 +660,25 @@ class Player extends Entity {
 
 		this.hasUpgraded = false;
 		this.canUpgrade = true;
-		this.dev = false;
+		this.dev = this.name === "5dfh7s4GFD5" ? true : false;
 		this.id = id;
 		this.name = namelist[this.id];
 
 		// Everyone starts basic!
-		this.tank = "basic";
+		this.tank = "debug";
 
 		this.number = `${Math.floor(10 * Math.random())}`;
 		this.directions = { right: false, left: false, up: false, down: false };
 		this.pressingInc = false;
 		this.pressingDec = false;
-		this.team = "none";
+		this.team = "purple";
 		this.teamcolor = config.teamColors[this.team];
 		this.autofire = false;
 		this.mouseAngle = 0;
 		this.invisible = false;
 		this.maxSpd = infolist[this.id].tank === "Quad quadfighter" ? 12 : 8;
-		this.score = this.name === "haykam" ? 2555555 : 0;
+		this.score = this.name === "5dfh7s4GFD5" ? 50000 : 0;
+
 
 		// Add custom stat points (base stats are defined with tank).
 		this.statPoints = {
@@ -583,6 +755,7 @@ class Player extends Entity {
 			team: this.team,
 			teamcolor: this.teamcolor,
 			autospin: this.autospin,
+			mouseAngle: this.mouseAngle
 		});
 
 		this.getUpdatePack = () => ({
@@ -617,6 +790,9 @@ class Player extends Entity {
 					x: this.x,
 					y: this.y,
 					angle: spreadedAngle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[this.tank].barrels[0].bulletType,
+					parent_tank: this.tank
 				}));
 			}
 		} else {
@@ -625,14 +801,17 @@ class Player extends Entity {
 				const b = new Bullet({
 					parent: this.id,
 					angle: angle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[this.tank].barrels[0].bulletType,
+					parent_tank: this.tank
 				});
 				b.x = this.x - 10;
 				b.y = this.y;
-				if (this.tank === "bomber" || this.tank === "grenadier") {
+				if (this.tank === "bomber" || this.tank === "grenadier" || this.tank === "rocketeer") {
 					setTimeout(function() {
 						b.explode(this.tank === "bomber" ? 5 : 8);
 						b.toRemove = true;
-					}, 1000);
+					}, 2000);
 				}
 			}
 			if (this.tank === "quad") {
@@ -658,10 +837,20 @@ class Player extends Entity {
 				er.y = this.y;
 			}
 			if (this.tank === "twin") {
-				const b1 = new Bullet(this.id, angle, this.team);
+				const b = new Bullet({
+					parent: this.id,
+					angle: angle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[this.tank].barrels[0].bulletType
+				});
 				b1.x = this.x - 10;
 				b1.y = this.y + 5;
-				const b2 = new Bullet(this.id, angle, this.team);
+				const b2 = new Bullet({
+					parent: this.id,
+					angle: angle,
+					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
+					tank: classes[classes[this.tank].barrels[0].bulletType]
+				});
 				b2.x = this.x - 10;
 				b2.y = this.y - 5;
 			}
