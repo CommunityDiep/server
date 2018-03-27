@@ -1,8 +1,6 @@
 {
 	"basic": {
 		"localized": "Basic Tank",
-		"reload": "unknown",
-		"speed": "unknown",
 		"upgrades": {
 			"twin": 1,
 			"sniper": 1,
@@ -23,8 +21,8 @@
 		}],
 		"barrelsNew": [{
 			"spreadAngle": 2.5,
-			"offsetAngle": 0,
-			"size": 20,
+			"angle": 0,
+			"width": 20,
 			"ammunitionType": "bullet",
 			"length": 45
 		}],
