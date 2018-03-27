@@ -18,7 +18,8 @@
 			"length": 48,
 			"angle": 0,
 			"offsetX": 0,
-			"bulletPower": 8
+			"bulletPower": 8,
+			"bulletType": "basic"
 		}],
 		"barrelsNew": [{
 			"spreadAngle": 2.5,
@@ -42,13 +43,15 @@
 			"width": 19,
 			"length": 48,
 			"angle": 0,
-			"offsetX": 25
+			"offsetX": 25,
+			"bulletType":"basic"
 		}, {
 			"barrelType": 0,
 			"width": 19,
 			"length": 48,
 			"angle": 0,
-			"offsetX": -25
+			"offsetX": -25,
+			"bulletType":"basic"
 		}],
 		"body": 0
 	},
@@ -650,6 +653,17 @@
 	},
 	"rocketeer": {
 		"localized": "Rocketeer",
+		"barrels": [{
+			"barrelType": 0,
+			"width": 39,
+			"length": 48,
+			"angle": 0,
+			"offsetX": 0,
+			"bulletType":"basic"
+		}],
+		"body": 0
+	},
+	"bullet": {
 		"body": 0
 	},
 	"smasher": {
