@@ -12,6 +12,8 @@ The game implements many features not found in the original, including a lot of 
 
 ![Screenshot of game](https://i.imgur.com/c0zp0MM.png)
 
+## Installation
+
 In order to install the server, you must first have Node.js and `npm` installed, obviously. Then, follow these steps:
 
 * Download the latest release of the server (or latest commit for devs).
