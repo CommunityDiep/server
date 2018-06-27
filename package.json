@@ -21,6 +21,9 @@
     "strip-json-comments": "^2.0.1"
   },
   "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-config-haykam": "^1.1.0",
+    "eslint-plugin-extra-rules": "0.0.0-development",
     "nodemon": "^1.17.1"
   }
 }
