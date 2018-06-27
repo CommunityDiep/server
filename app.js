@@ -1,4 +1,4 @@
-//import { setInterval } from "core-js/library/web/timers";
+// import { setInterval } from "core-js/library/web/timers";
 
 const express = require("express");
 const app = express();
@@ -144,7 +144,7 @@ class Bullet extends Entity {
 		infolist[this.id] = {
 			name: "bulle^t",
 			tank: this.tank,
-			speedSet: 0
+			speedSet: 0,
 		};
 		if (this.parent) {
 			if (infolist[this.parent].tank == "destroyer" || infolist[this.parent].tank == "destroyerflank" || infolist[this.parent].tank == "Hybrid") {
@@ -160,14 +160,14 @@ class Bullet extends Entity {
 			} else {
 				this.xVelocity = Math.cos(angle / 180 * Math.PI) * 20;// + infolist[this.parent].speedSet;
 				this.yVelocity = Math.sin(angle / 180 * Math.PI) * 20;// + infolist[this.parent].speedSet;
-				//infolist[this.id].speedSet = 20 + infolist[this.parent].speedSet;
+				// infolist[this.id].speedSet = 20 + infolist[this.parent].speedSet;
 			}
 
 		}
 
 		this.shootingTenk = setInterval(() => {
 			this.reload_timer = this.reload_timer + 1;
-		},100);
+		}, 100);
 
 		this.toRemove = false;
 		this.timer = 0;
@@ -293,7 +293,7 @@ class Bullet extends Entity {
 			parent_id: this.parent,
 			barrels: this.barrel,
 			angle: this.angle,
-			tank: this.tank
+			tank: this.tank,
 		};
 	}
 
@@ -313,7 +313,7 @@ class Bullet extends Entity {
 					angle: spreadedAngle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
 					tank: classes[this.tank].barrels[0].bulletType,
-					parent_tank: this.tank
+					parent_tank: this.tank,
 				}));
 			}
 		} else {
@@ -324,7 +324,7 @@ class Bullet extends Entity {
 					parent_tank: this.tank,
 					angle: angle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType
+					tank: classes[this.tank].barrels[0].bulletType,
 				});
 				b.x = this.x - 10;
 				b.y = this.y;
@@ -362,7 +362,7 @@ class Bullet extends Entity {
 					parent: this.id,
 					angle: angle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType
+					tank: classes[this.tank].barrels[0].bulletType,
 				});
 				b1.x = this.x - 10;
 				b1.y = this.y + 5;
@@ -370,7 +370,7 @@ class Bullet extends Entity {
 					parent: this.id,
 					angle: angle,
 					barrel: classes[classes[this.tank].barrels[1].bulletType].barrels,
-					tank: classes[this.tank].barrels[1].bulletType
+					tank: classes[this.tank].barrels[1].bulletType,
 				});
 				b2.x = this.x - 10;
 				b2.y = this.y - 5;
@@ -485,7 +485,7 @@ class Bullet extends Entity {
 				parent: this.parent,
 				angle: (360 / number) * explodeLoop,
 				tank: "bullet",
-				parent_tank: "rocketeer"
+				parent_tank: "rocketeer",
 			}));
 		}
 	}
@@ -755,7 +755,7 @@ class Player extends Entity {
 			team: this.team,
 			teamcolor: this.teamcolor,
 			autospin: this.autospin,
-			mouseAngle: this.mouseAngle
+			mouseAngle: this.mouseAngle,
 		});
 
 		this.getUpdatePack = () => ({
@@ -792,7 +792,7 @@ class Player extends Entity {
 					angle: spreadedAngle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
 					tank: classes[this.tank].barrels[0].bulletType,
-					parent_tank: this.tank
+					parent_tank: this.tank,
 				}));
 			}
 		} else {
@@ -803,7 +803,7 @@ class Player extends Entity {
 					angle: angle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
 					tank: classes[this.tank].barrels[0].bulletType,
-					parent_tank: this.tank
+					parent_tank: this.tank,
 				});
 				b.x = this.x - 10;
 				b.y = this.y;
@@ -841,7 +841,7 @@ class Player extends Entity {
 					parent: this.id,
 					angle: angle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType
+					tank: classes[this.tank].barrels[0].bulletType,
 				});
 				b1.x = this.x - 10;
 				b1.y = this.y + 5;
@@ -849,7 +849,7 @@ class Player extends Entity {
 					parent: this.id,
 					angle: angle,
 					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[classes[this.tank].barrels[0].bulletType]
+					tank: classes[classes[this.tank].barrels[0].bulletType],
 				});
 				b2.x = this.x - 10;
 				b2.y = this.y - 5;
