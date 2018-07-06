@@ -6,7 +6,6 @@ const app = express();
 const winston = require("winston");
 const shortid = require("shortid");
 
-const collision = require("polygon-collision");
 const shapeWord = {
 	line: "line",
 	point: "point",
@@ -188,53 +187,32 @@ class Bullet extends Entity {
 				this.reload_timer = this.tank === "machine" ? 5 : this.tank === "Streamliner" ? 9 : this.tank === "sniper" ? -17 : 0;
 			}
 
-			for (var i in Bullet.list) {
-				const b = Bullet.list[i];
-				/* if (this.getDistance(b) < 12 && this.id !== b.id && (infolist[this.parent].tank == 'destroyer' || infolist[this.parent].tank == 'destroyerflank' || infolist[this.parent].tank == 'Hybrid' || infolist[this.parent].tank == 'sniper')) {
-								b.toRemove = true;
-						} else if (this.getDistance(b) < 12 && this.id !== b.id && infolist[this.parent].tank != 'destroyer') {
-								this.toRemove = true;
-								b.toRemove = true;
-						}*/
-				// Don't collide with self
-				if (this.id === b.id) return;
-
-				/* if (collision(this.collisionShape, b.collisionShape)) {
-					this.toRemove = true;
-					b.toRemove = true;
-				}*/
-			}
-
-			for (var i in Shape.list) {
-				const s = Shape.list[i];
-
-				if (this.getDistance(s) < 23) {
-					s.hp -= 4 * this.bulletFactor() * 1;// this.parent.stat.bulletDamage;
+			Shape.list.forEach(shape => {
+				if (this.getDistance(shape) < 23) {
+					shape.hp -= 4 * this.bulletFactor() * 1;
 					this.hp -= 4 * this.bulletFactor() * 1;
 					if (this.hp <= 0) {
 						this.toRemove = true;
 					}
-					if (s.hp <= 0) {
-						s.toRemove = true;
+					if (shape.hp <= 0) {
+						shape.toRemove = true;
 						if (Player.list[this.parent]) {
-							Player.list[this.parent].score += s.score;
+							Player.list[this.parent].score += shape.score;
 						}
 					}
 				}
-			}
+			});
 
-			for (var i in Player.list) {
-				const p = Player.list[i];
-
-				if (p.hp < p.hpMax() && p.regen_timer > 10) {
-					p.hp += p.hpMax() / 500;
-					if (p.hp > p.hpMax() || p.hp == p.hpMax()) {
-						p.hp = p.hpMax();
+			Player.list.forEach(player => {
+				if (player.hp < player.hpMax() && player.regen_timer > 10) {
+					player.hp += player.hpMax() / 500;
+					if (player.hp > player.hpMax() || player.hp == player.hpMax()) {
+						player.hp = player.hpMax();
 					}
 				}
-				const onDifferentTeams = this.parent_team == "none" || p.team == "none" ? true : this.parent_team !== p.team;
-				if (this.getDistance(p) < 32 && this.parent !== p.id) {
-					p.regen_timer = 0;
+				
+				if (this.getDistance(player) < 32 && this.parent !== player.id) {
+					player.regen_timer = 0;
 
 					// Give the health-stealing tank its special ability
 					if (infolist[this.parent].tank == "healthsteal") {
@@ -242,35 +220,35 @@ class Bullet extends Entity {
 					}
 
 					if (infolist[this.parent].tank == "Arena Closer") {
-						p.hp -= 10000;
+						player.hp -= 10000;
 					} else if (infolist[this.parent].tank == "destroyer" || infolist[this.parent].tank == "destroyerflank" || infolist[this.parent].tank == "Hybrid") {
-						p.hp -= 12;
+						player.hp -= 12;
 					} else if (infolist[this.parent].tank == "Annihilator") {
-						p.hp -= 16;
+						player.hp -= 16;
 					} else if (infolist[this.parent].tank == "Streamliner") {
-						p.hp -= 1;
+						player.hp -= 1;
 					} else {
-						p.hp -= 4;
+						player.hp -= 4;
 					}
-					if (p.hp <= 0) {
+					if (player.hp <= 0) {
 						const shooter = Player.list[this.parent];
 						if (shooter) {
 
-							shooter.score += p.score;
+							shooter.score += player.score;
 						}
-						p.hp = p.hpMax();
-						p.score = Math.round(p.score / 2 - (Math.random()));
-						p.tank = "basic";
-						infolist[p.id].tank = "basic";
-						p.x = Math.random() * arenaSize.width;
-						p.y = Math.random() * arenaSize.height;
+						player.hp = player.hpMax();
+						player.score = Math.round(player.score / 2 - (Math.random()));
+						player.tank = "basic";
+						infolist[player.id].tank = "basic";
+						player.x = Math.random() * arenaSize.width;
+						player.y = Math.random() * arenaSize.height;
 						/* io.sockets.emit('killNotification',{
 												killer: shooter.id,
 												killed: namelist[p.id],
 												id: this.parent.id
 										});*/
 						io.sockets.emit("statusMessage", {
-							message: `You killed ${namelist[p.id]}`,
+							message: `You killed ${namelist[player.id]}`,
 							color: "default",
 						});
 
@@ -278,7 +256,7 @@ class Bullet extends Entity {
 
 					this.toRemove = true;
 				}
-			}
+			});
 
 		};
 
@@ -316,120 +294,6 @@ class Bullet extends Entity {
 					parent_tank: this.tank,
 				}));
 			}
-		} else {
-			return;
-			if (!["smasher", "twin", "landmine", "spike", "autosmasher", "dasher", "unstoppable", "drifter"].includes(this.tank)) {
-				const b = new Bullet({
-					parent: this.id,
-					parent_tank: this.tank,
-					angle: angle,
-					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType,
-				});
-				b.x = this.x - 10;
-				b.y = this.y;
-				if (this.tank === "bomber" || this.tank === "grenadier" || this.tank === "rocketeer") {
-					setTimeout(function() {
-						b.explode(this.tank === "bomber" ? 5 : 8);
-						b.toRemove = true;
-					}, 1000);
-				}
-			}
-			if (this.tank === "quad") {
-				var cr = new Bullet(this.id, angle + 180, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle + 270, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				var er = new Bullet(this.id, angle + 90, this.team);
-				er.x = this.x - 10;
-				er.y = this.y;
-			}
-			if (this.tank === "quadfighter") {
-				var cr = new Bullet(this.id, angle + 180, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle + 240, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				var er = new Bullet(this.id, angle + 120, this.team);
-				er.x = this.x - 10;
-				er.y = this.y;
-			}
-			if (this.tank === "twin") {
-				const b = new Bullet({
-					parent: this.id,
-					angle: angle,
-					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType,
-				});
-				b1.x = this.x - 10;
-				b1.y = this.y + 5;
-				const b2 = new Bullet({
-					parent: this.id,
-					angle: angle,
-					barrel: classes[classes[this.tank].barrels[1].bulletType].barrels,
-					tank: classes[this.tank].barrels[1].bulletType,
-				});
-				b2.x = this.x - 10;
-				b2.y = this.y - 5;
-			}
-			if (this.tank === "flank" || this.tank === "destroyerflank") {
-				setTimeout(() => {
-					const cr = new Bullet(this.id, angle + 180, this.team);
-					cr.x = this.x - 10;
-					cr.y = this.y;
-
-				}, 150);
-			}
-			if (this.tank === "octo") {
-				var cr = new Bullet(this.id, angle + 180, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle + 270, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				var er = new Bullet(this.id, angle + 90, this.team);
-				er.x = this.x - 10;
-				er.y = this.y;
-				setTimeout(() => {
-					const ar = new Bullet(this.id, angle + 45, this.team);
-					ar.x = this.x - 10;
-					ar.y = this.y;
-					const rr = new Bullet(this.id, angle + 135, this.team);
-					rr.x = this.x - 10;
-					rr.y = this.y;
-					const ur = new Bullet(this.id, angle + 225, this.team);
-					ur.x = this.x - 10;
-					ur.y = this.y;
-					const nr = new Bullet(this.id, angle + 315, this.team);
-					nr.x = this.x - 10;
-					nr.y = this.y;
-				}, 150);
-			}
-			if (this.tank === "trishot") {
-				var cr = new Bullet(this.id, angle + 45, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle - 45, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-			}
-			if (this.tank === "horizon") {
-				var cr = new Bullet(this.id, angle + 45, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle - 45, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				const nr = new Bullet(this.id, angle + 22, this.team);
-				nr.x = this.x - 10;
-				nr.y = this.y;
-				const dr = new Bullet(this.id, angle - 22, this.team);
-				dr.x = this.x - 10;
-				dr.y = this.y;
-			}
 		}
 	}
 
@@ -447,7 +311,6 @@ class Bullet extends Entity {
 	}
 
 	static update() {
-
 		const pack = [];
 
 		for (const i in Bullet.list) {
@@ -755,7 +618,6 @@ class Player extends Entity {
 			team: this.team,
 			teamcolor: this.teamcolor,
 			autospin: this.autospin,
-			mouseAngle: this.mouseAngle,
 		});
 
 		this.getUpdatePack = () => ({
@@ -795,120 +657,6 @@ class Player extends Entity {
 					parent_tank: this.tank,
 				}));
 			}
-		} else {
-			return;
-			if (!["smasher", "twin", "landmine", "spike", "autosmasher", "dasher", "unstoppable", "drifter"].includes(this.tank)) {
-				const b = new Bullet({
-					parent: this.id,
-					angle: angle,
-					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType,
-					parent_tank: this.tank,
-				});
-				b.x = this.x - 10;
-				b.y = this.y;
-				if (this.tank === "bomber" || this.tank === "grenadier" || this.tank === "rocketeer") {
-					setTimeout(function() {
-						b.explode(this.tank === "bomber" ? 5 : 8);
-						b.toRemove = true;
-					}, 2000);
-				}
-			}
-			if (this.tank === "quad") {
-				var cr = new Bullet(this.id, angle + 180, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle + 270, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				var er = new Bullet(this.id, angle + 90, this.team);
-				er.x = this.x - 10;
-				er.y = this.y;
-			}
-			if (this.tank === "quadfighter") {
-				var cr = new Bullet(this.id, angle + 180, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle + 240, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				var er = new Bullet(this.id, angle + 120, this.team);
-				er.x = this.x - 10;
-				er.y = this.y;
-			}
-			if (this.tank === "twin") {
-				const b = new Bullet({
-					parent: this.id,
-					angle: angle,
-					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[this.tank].barrels[0].bulletType,
-				});
-				b1.x = this.x - 10;
-				b1.y = this.y + 5;
-				const b2 = new Bullet({
-					parent: this.id,
-					angle: angle,
-					barrel: classes[classes[this.tank].barrels[0].bulletType].barrels,
-					tank: classes[classes[this.tank].barrels[0].bulletType],
-				});
-				b2.x = this.x - 10;
-				b2.y = this.y - 5;
-			}
-			if (this.tank === "flank" || this.tank === "destroyerflank") {
-				setTimeout(() => {
-					const cr = new Bullet(this.id, angle + 180, this.team);
-					cr.x = this.x - 10;
-					cr.y = this.y;
-
-				}, 150);
-			}
-			if (this.tank === "octo") {
-				var cr = new Bullet(this.id, angle + 180, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle + 270, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				var er = new Bullet(this.id, angle + 90, this.team);
-				er.x = this.x - 10;
-				er.y = this.y;
-				setTimeout(() => {
-					const ar = new Bullet(this.id, angle + 45, this.team);
-					ar.x = this.x - 10;
-					ar.y = this.y;
-					const rr = new Bullet(this.id, angle + 135, this.team);
-					rr.x = this.x - 10;
-					rr.y = this.y;
-					const ur = new Bullet(this.id, angle + 225, this.team);
-					ur.x = this.x - 10;
-					ur.y = this.y;
-					const nr = new Bullet(this.id, angle + 315, this.team);
-					nr.x = this.x - 10;
-					nr.y = this.y;
-				}, 150);
-			}
-			if (this.tank === "trishot") {
-				var cr = new Bullet(this.id, angle + 45, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle - 45, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-			}
-			if (this.tank === "horizon") {
-				var cr = new Bullet(this.id, angle + 45, this.team);
-				cr.x = this.x - 10;
-				cr.y = this.y;
-				var vr = new Bullet(this.id, angle - 45, this.team);
-				vr.x = this.x - 10;
-				vr.y = this.y;
-				const nr = new Bullet(this.id, angle + 22, this.team);
-				nr.x = this.x - 10;
-				nr.y = this.y;
-				const dr = new Bullet(this.id, angle - 22, this.team);
-				dr.x = this.x - 10;
-				dr.y = this.y;
-			}
 		}
 	}
 
@@ -917,37 +665,37 @@ class Player extends Entity {
 
 		socket.on("keyPress", data => {
 			switch (data.inputId) {
-			case "left":
-				player.directions.left = data.state;
-				break;
-			case "right":
-				player.directions.right = data.state;
-				break;
-			case "up":
-				player.directions.up = data.state;
-				break;
-			case "down":
-				player.directions.down = data.state;
-				break;
-			case "attack":
-			default:
-				player.pressingAttack = data.state;
-				break;
-			case "mouseAngle":
-				player.mouseAngle = data.state;
-				break;
-			case "inc":
-				player.pressingInc = data.state;
-				break;
-			case "dec":
-				player.pressingDec = data.state;
-				break;
-			case "auto":
-				player.autofire = player.autofire ? false : true;
-				break;
-			case "spin":
-				player.autospin = player.autospin ? false : true;
-				break;
+				case "left":
+					player.directions.left = data.state;
+					break;
+				case "right":
+					player.directions.right = data.state;
+					break;
+				case "up":
+					player.directions.up = data.state;
+					break;
+				case "down":
+					player.directions.down = data.state;
+					break;
+				case "attack":
+				default:
+					player.pressingAttack = data.state;
+					break;
+				case "mouseAngle":
+					player.mouseAngle = data.state;
+					break;
+				case "inc":
+					player.pressingInc = data.state;
+					break;
+				case "dec":
+					player.pressingDec = data.state;
+					break;
+				case "auto":
+					player.autofire = player.autofire ? false : true;
+					break;
+				case "spin":
+					player.autospin = player.autospin ? false : true;
+					break;
 			}
 		});
 
@@ -1119,7 +867,6 @@ setInterval(() => {
 	other_timer += 1;
 
 	if (other_timer > 25 && Object.keys(Shape.list).length < 35) {
-		const shaped = new Shape(Math.random());
 		other_timer = 0;
 	}
 
