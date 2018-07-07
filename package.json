@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "cdiep-score-sort": "github:CommunityDiep/score-sort",
+    "random-int": "^1.0.0",
+    "random-item": "^1.0.0",
     "shortid": "^2.2.8",
     "uws": "^10.148.1",
     "winston": "^3.0.0-rc3"
