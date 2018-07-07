@@ -11,19 +11,18 @@
   },
   "dependencies": {
     "cdiep-score-sort": "github:CommunityDiep/score-sort",
-    "express": "^4.16.2",
-    "polygon-collision": "0.0.1",
     "shortid": "^2.2.8",
-    "socket.io": "^2.0.4",
+    "uws": "^10.148.1",
     "winston": "^3.0.0-rc3"
   },
-  "optionalDependencies": {
-    "strip-json-comments": "^2.0.1"
-  },
+  "optionalDependencies": {},
   "devDependencies": {
     "eslint": "^5.0.1",
-    "eslint-config-haykam": "^1.1.0",
+    "eslint-config-haykam": "^1.2.0",
     "eslint-plugin-extra-rules": "0.0.0-development",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-unicorn": "^4.0.3",
     "nodemon": "^1.17.1"
   }
 }
