@@ -26,12 +26,16 @@ function update() {
 }
 
 setInterval(() => {
-	entities.forEach(entity => entity.update());
+	entities.forEach(entity => {
+		if (entity.update) {
+			entity.update();
+		}
+	});
 });
 
 wss.on("connection", ws => {
 	const connectIndex = connections.push(ws) - 1;
-	const index = entities.push(new classes.Player()) - 1;
+	const index = entities.push(new classes.PlayableTank()) - 1;
 
 	ws.on("message", data => {
 		const msg = JSON.parse(data);

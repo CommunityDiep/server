@@ -17,9 +17,17 @@ class Entity {
 			x,
 			y,
 		};
+		this.rotation = 0;
+		this.spawned = true;
 	}
 
-	update() {}
+	getLevel() {
+		return 0;
+	}
+
+	getKillValue() {
+		return 0;
+	}
 }
 
 class Bullet extends Entity {
@@ -29,10 +37,37 @@ class Bullet extends Entity {
 	}
 }
 
-class Player extends Entity {
+class Tank extends Entity {
 	constructor(x, y) {
 		super(x, y);
 		this.name = "";
+		this.score = 0;
+	}
+
+	getKillValue() {
+		return Math.min(23536, this.score);
+	}
+
+	getLevel() {
+		return 0;
+	}
+}
+
+class Boss extends Tank {
+	getKillValue() {
+		return 30000;
+	}
+
+	getLevel() {
+		return 75;
+	}
+}
+
+class PlayableTank extends Tank {
+	constructor(x, y, name) {
+		super(x, y);
+		this.name = name;
+		this.spawned = false;
 	}
 
 	spawn(data) {
@@ -52,5 +87,6 @@ class Player extends Entity {
 module.exports = {
 	Entity,
 	Bullet,
-	Player,
+	Tank,
+	PlayableTank,
 };
