@@ -1,4 +1,8 @@
 const WebSocket = require("uws");
+
+/**
+ * The websocket server.
+ */
 const wss = new WebSocket.Server({
 	port: 8080,
 });
@@ -56,13 +60,23 @@ class PlayableTank extends classes.Tank {
 	}
 }
 
+/**
+ * The list of every entity in this arena.
+ */
 const entities = [];
 
+/**
+ * Broadcasts a message to each connected client.
+ */
 function broadcast() {
 	wss.clients.forEach(ws => {
 		send(ws, ...arguments);
 	});
 }
+
+/**
+ * Sends a message with data to a client.
+ */
 function send(ws, msg, data) {
 	if (ws !== null) {
 		return ws.send(JSON.stringify([
@@ -71,6 +85,10 @@ function send(ws, msg, data) {
 		]));
 	}
 }
+
+/**
+ * Gives every client updated entity data.
+ */
 function update() {
 	return broadcast("UPDATE", entities);
 }
