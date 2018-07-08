@@ -42,7 +42,7 @@ class PlayableTank extends classes.Tank {
 
 	update() {
 		if (this.isFiring) {
-			entities.push(new classes.Bullet(this));
+			this.fire(entities);
 		}
 	}
 
@@ -102,8 +102,13 @@ setInterval(() => {
 			entities.splice(index, 1);
 		}
 	});
+
+	if (entities.length < 50) {
+		entities.push(new classes.Drifting(0, 0));
+	}
+
 	update();
-}, 50);
+}, 48);
 
 wss.on("connection", ws => {
 	entities.push(new PlayableTank(ws));

@@ -39,6 +39,17 @@ class Entity {
 	}
 }
 
+class Drifting extends Entity {
+	constructor(x, y) {
+		super(x, y);
+	}
+
+	update() {
+		this.position.x += Math.random();
+		this.position.y += Math.random();
+	}
+}
+
 class Bullet extends Entity {
 	constructor(parentEntity, x = parentEntity.position.x, y = parentEntity.position.y, speed = 12) {
 		super(x, y);
@@ -74,6 +85,10 @@ class Tank extends Entity {
 	getLevel() {
 		return 0;
 	}
+
+	fire(entities) {
+		return entities.push(new Bullet(this));
+	}
 }
 
 class Boss extends Tank {
@@ -88,6 +103,7 @@ class Boss extends Tank {
 
 module.exports = {
 	Entity,
+	Drifting,
 	Bullet,
 	Tank,
 	Boss,
