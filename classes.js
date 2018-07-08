@@ -1,24 +1,33 @@
-const config = require("./config.json");
-
-const randInt = require("random-int");
-/**
- * Generates a random position in the arena.
- */
-function randPos(margin = 0) {
-	return [
-		randInt(margin, config.arenaSize.width - margin),
-		randInt(margin, config.arenaSize.height - margin),
-	];
-}
+const ids = require("short-id");
+const utils = require("./utils.js");
 
 class Entity {
-	constructor(x = 0, y = 0) {
+	constructor(x = utils.randPos()[0], y = utils.randPos()[1]) {
 		this.position = {
 			x,
 			y,
 		};
 		this.rotation = 0;
 		this.spawned = true;
+
+		this.health = 100;
+
+		this.id = ids.generate();
+	}
+
+	kill(killer) {
+		this.shouldRemove = true;
+
+		if (killer && killer.score !== undefined) {
+			killer.score += this.getKillValue();
+		}
+	}
+
+	collide() {
+		this.health -= 5;
+		if (this.health <= 0) {
+			this.kill();
+		}
 	}
 
 	getLevel() {
@@ -31,9 +40,23 @@ class Entity {
 }
 
 class Bullet extends Entity {
-	constructor(x, y, parentEntity) {
+	constructor(parentEntity, x = parentEntity.position.x, y = parentEntity.position.y, speed = 12) {
 		super(x, y);
+
 		this.parentEntity = parentEntity;
+		this.rotation = this.parentEntity.rotation;
+
+		this.velocity = speed;
+	}
+
+	update() {
+		this.position.x += this.velocity * Math.cos(this.rotation * Math.PI / 180);
+		this.position.y += this.velocity * Math.sin(this.rotation * Math.PI / 180);
+
+		this.velocity *= 0.98;
+		if (this.velocity < 6) {
+			this.kill();
+		}
 	}
 }
 
@@ -63,30 +86,9 @@ class Boss extends Tank {
 	}
 }
 
-class PlayableTank extends Tank {
-	constructor(x, y, name) {
-		super(x, y);
-		this.name = name;
-		this.spawned = false;
-	}
-
-	spawn(data) {
-		if (!this.spawned) {
-			this.spawned = true;
-
-			this.name = data.name.slice(0, 16);
-			this.tank = "basic";
-
-			const pos = randPos();
-			this.position.x = pos[0];
-			this.position.y = pos[1];
-		}
-	}
-}
-
 module.exports = {
 	Entity,
 	Bullet,
 	Tank,
-	PlayableTank,
+	Boss,
 };

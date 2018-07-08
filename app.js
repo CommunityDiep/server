@@ -4,12 +4,62 @@ const wss = new WebSocket.Server({
 });
 
 const classes = require("./classes.js");
+const utils = require("./utils.js");
+
+class PlayableTank extends classes.Tank {
+	constructor(ws, x, y, name) {
+		super(x, y);
+
+		this.name = name;
+		this.spawned = false;
+
+		this.websocket = ws;
+		this.websocket.on("message", data => {
+			const msg = JSON.parse(data);
+			switch (msg[0]) {
+				case "SPAWN": {
+					this.spawn(msg[1]);
+
+					send(ws, "SPAWN_RESPONSE", this.id);
+					update();
+
+					break;
+				}
+				case "IS_FIRING": {
+					if (this.spawned) {
+						this.isFiring = msg[1];
+					}
+					break;
+				}
+			}
+		});
+		this.websocket.on("disconnect", () => this.kill());
+	}
+
+	update() {
+		if (this.isFiring) {
+			entities.push(new classes.Bullet(this));
+		}
+	}
+
+	spawn(data) {
+		if (!this.spawned) {
+			this.spawned = true;
+
+			this.name = data.name.slice(0, 16);
+			this.tank = "basic";
+
+			const pos = utils.randPos();
+			this.position.x = pos[0];
+			this.position.y = pos[1];
+		}
+	}
+}
 
 const entities = [];
-const connections = [];
 
 function broadcast() {
-	connections.forEach(ws => {
+	wss.clients.forEach(ws => {
 		send(ws, ...arguments);
 	});
 }
@@ -26,33 +76,17 @@ function update() {
 }
 
 setInterval(() => {
-	entities.forEach(entity => {
-		if (entity && entity.update) {
+	entities.forEach((entity, index) => {
+		if (entity.update) {
 			entity.update();
 		}
-	});
-});
-
-wss.on("connection", ws => {
-	const connectIndex = connections.push(ws) - 1;
-	const index = entities.push(new classes.PlayableTank()) - 1;
-
-	ws.on("message", data => {
-		const msg = JSON.parse(data);
-		switch (msg[0]) {
-			case "SPAWN": {
-				entities[index].spawn(msg[1]);
-
-				send(ws, "SPAWN_RESPONSE", index);
-				update();
-
-				break;
-			}
+		if (entity.shouldRemove) {
+			entities.splice(index, 1);
 		}
 	});
+	update();
+}, 50);
 
-	ws.on("close", () => {
-		connections[connectIndex] = null;
-		entities[index] = null;
-	});
+wss.on("connection", ws => {
+	entities.push(new PlayableTank(ws));
 });
