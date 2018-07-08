@@ -27,7 +27,7 @@ function update() {
 
 setInterval(() => {
 	entities.forEach(entity => {
-		if (entity.update) {
+		if (entity && entity.update) {
 			entity.update();
 		}
 	});
