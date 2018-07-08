@@ -18,6 +18,15 @@ class Entity {
 			y,
 		};
 	}
+
+	update() {}
+}
+
+class Bullet extends Entity {
+	constructor(x, y, parentEntity) {
+		super(x, y);
+		this.parentEntity = parentEntity;
+	}
 }
 
 class Player extends Entity {
@@ -34,13 +43,14 @@ class Player extends Entity {
 			this.tank = "basic";
 
 			const pos = randPos();
-			this.x = pos[0];
-			this.y = pos[1];
+			this.position.x = pos[0];
+			this.position.y = pos[1];
 		}
 	}
 }
 
 module.exports = {
 	Entity,
+	Bullet,
 	Player,
 };

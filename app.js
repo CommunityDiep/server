@@ -4,9 +4,33 @@ const wss = new WebSocket.Server({
 });
 
 const classes = require("./classes.js");
+
 const entities = [];
+const connections = [];
+
+function broadcast() {
+	connections.forEach(ws => {
+		send(ws, ...arguments);
+	});
+}
+function send(ws, msg, data) {
+	if (ws !== null) {
+		return ws.send(JSON.stringify([
+			msg,
+			data,
+		]));
+	}
+}
+function update() {
+	return broadcast("UPDATE", entities);
+}
+
+setInterval(() => {
+	entities.forEach(entity => entity.update());
+});
 
 wss.on("connection", ws => {
+	const connectIndex = connections.push(ws) - 1;
 	const index = entities.push(new classes.Player()) - 1;
 
 	ws.on("message", data => {
@@ -14,8 +38,17 @@ wss.on("connection", ws => {
 		switch (msg[0]) {
 			case "SPAWN": {
 				entities[index].spawn(msg[1]);
+
+				send(ws, "SPAWN_RESPONSE", index);
+				update();
+
 				break;
 			}
 		}
+	});
+
+	ws.on("close", () => {
+		connections[connectIndex] = null;
+		entities[index] = null;
 	});
 });
