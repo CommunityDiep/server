@@ -35,6 +35,10 @@ class PlayableTank extends classes.Tank {
 					}
 					break;
 				}
+				case "ROTATION": {
+					this.angle = msg[1];
+					break;
+				}
 			}
 		});
 		this.websocket.on("disconnect", () => this.kill());

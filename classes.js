@@ -7,7 +7,7 @@ class Entity {
 			x,
 			y,
 		};
-		this.rotation = 0;
+		this.angle = 0;
 		this.spawned = true;
 
 		this.health = 100;
@@ -55,14 +55,14 @@ class Bullet extends Entity {
 		super(x, y);
 
 		this.parentEntity = parentEntity;
-		this.rotation = this.parentEntity.rotation;
+		this.angle = this.parentEntity.angle;
 
 		this.velocity = speed;
 	}
 
 	update() {
-		this.position.x += this.velocity * Math.cos(this.rotation * Math.PI / 180);
-		this.position.y += this.velocity * Math.sin(this.rotation * Math.PI / 180);
+		this.position.x += this.velocity * Math.cos(this.angle * Math.PI / 180);
+		this.position.y += this.velocity * Math.sin(this.angle * Math.PI / 180);
 
 		this.velocity *= 0.98;
 		if (this.velocity < 6) {
